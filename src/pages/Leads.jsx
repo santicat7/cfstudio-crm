@@ -36,7 +36,7 @@ const STAGE_ACCENT = {
 }
 
 const STAGE_BADGE = {
-  consulta: 'bg-[#F0F0F0] text-[#555]',
+  consulta: 'bg-[#EDE7DC] text-[#555]',
   cotizado: 'bg-yellow-50 text-yellow-700 border border-yellow-200',
   confirmado: 'bg-green-50 text-green-700 border border-green-200',
   cobrado: 'bg-green-50 text-green-800 border border-green-300',
@@ -97,59 +97,59 @@ function EditLeadModal({ lead, onClose, onSaved }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-black/30" onClick={onClose} />
-      <div className="relative bg-white border border-[#E8E8E8] rounded-sm w-full max-w-md p-6">
+      <div className="relative bg-[#FDFBF7] border border-[#E0D9CE] rounded-sm w-full max-w-md p-6">
         <div className="flex items-center justify-between mb-5">
-          <h2 className="text-sm font-semibold text-[#111]">Editar lead</h2>
-          <button onClick={onClose} className="text-[#888] hover:text-[#111] transition-colors"><X size={16} /></button>
+          <h2 className="text-sm font-semibold text-[#1A1814]">Editar lead</h2>
+          <button onClick={onClose} className="text-[#888] hover:text-[#1A1814] transition-colors"><X size={16} /></button>
         </div>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-xs font-medium text-[#111] mb-1.5 uppercase tracking-wide">Nombre *</label>
+            <label className="block text-xs font-medium text-[#1A1814] mb-1.5 uppercase tracking-wide">Nombre *</label>
             <input type="text" value={form.name} onChange={e => set('name', e.target.value)} required
-              className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#111] rounded-sm outline-none focus:border-[#111] transition-colors" />
+              className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] rounded-sm outline-none focus:border-[#1A1814] transition-colors" />
           </div>
           <div>
-            <label className="block text-xs font-medium text-[#111] mb-1.5 uppercase tracking-wide">Teléfono</label>
+            <label className="block text-xs font-medium text-[#1A1814] mb-1.5 uppercase tracking-wide">Teléfono</label>
             <input type="tel" value={form.phone} onChange={e => set('phone', e.target.value)}
-              className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#111] rounded-sm outline-none focus:border-[#111] transition-colors" />
+              className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] rounded-sm outline-none focus:border-[#1A1814] transition-colors" />
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-medium text-[#111] mb-1.5 uppercase tracking-wide">Tipo de evento</label>
+              <label className="block text-xs font-medium text-[#1A1814] mb-1.5 uppercase tracking-wide">Tipo de evento</label>
               <select value={form.event_type} onChange={e => set('event_type', e.target.value)}
-                className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#111] rounded-sm outline-none focus:border-[#111] bg-white transition-colors">
+                className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] rounded-sm outline-none focus:border-[#1A1814] bg-[#FDFBF7] transition-colors">
                 {EVENT_TYPES.map(t => <option key={t} value={t}>{t}</option>)}
               </select>
             </div>
             <div>
-              <label className="block text-xs font-medium text-[#111] mb-1.5 uppercase tracking-wide">Fecha</label>
+              <label className="block text-xs font-medium text-[#1A1814] mb-1.5 uppercase tracking-wide">Fecha</label>
               <input type="date" value={form.event_date} onChange={e => set('event_date', e.target.value)}
-                className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#111] rounded-sm outline-none focus:border-[#111] transition-colors" />
+                className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] rounded-sm outline-none focus:border-[#1A1814] transition-colors" />
             </div>
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-medium text-[#111] mb-1.5 uppercase tracking-wide">Canal</label>
+              <label className="block text-xs font-medium text-[#1A1814] mb-1.5 uppercase tracking-wide">Canal</label>
               <select value={form.source} onChange={e => set('source', e.target.value)}
-                className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#111] rounded-sm outline-none focus:border-[#111] bg-white transition-colors">
+                className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] rounded-sm outline-none focus:border-[#1A1814] bg-[#FDFBF7] transition-colors">
                 {SOURCES.map(s => <option key={s.value} value={s.value}>{s.label}</option>)}
               </select>
             </div>
             <div>
-              <label className="block text-xs font-medium text-[#111] mb-1.5 uppercase tracking-wide">Monto cotizado ($)</label>
+              <label className="block text-xs font-medium text-[#1A1814] mb-1.5 uppercase tracking-wide">Monto cotizado ($)</label>
               <input type="number" value={form.amount_quoted} onChange={e => set('amount_quoted', e.target.value)}
                 placeholder="0" min="0"
-                className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#111] rounded-sm outline-none focus:border-[#111] transition-colors" />
+                className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] rounded-sm outline-none focus:border-[#1A1814] transition-colors" />
             </div>
           </div>
           {error && <p className="text-xs text-red-600">{error}</p>}
           <div className="flex gap-2 pt-1">
             <button type="button" onClick={onClose}
-              className="flex-1 px-4 py-2 border border-[#D9D9D9] text-sm text-[#666] rounded-sm hover:border-[#111] transition-colors">
+              className="flex-1 px-4 py-2 border border-[#D9D9D9] text-sm text-[#666] rounded-sm hover:border-[#1A1814] transition-colors">
               Cancelar
             </button>
             <button type="submit" disabled={loading}
-              className="flex-1 px-4 py-2 bg-[#111] text-white text-sm rounded-sm hover:bg-[#000] transition-colors disabled:opacity-50">
+              className="flex-1 px-4 py-2 bg-[#1A1814] text-white text-sm rounded-sm hover:bg-[#1A1814] transition-colors disabled:opacity-50">
               {loading ? 'Guardando...' : 'Guardar cambios'}
             </button>
           </div>
@@ -179,22 +179,22 @@ function LeadCard({ lead, index, onDeleted, onEdited }) {
             {...provided.draggableProps}
             {...provided.dragHandleProps}
             className={`
-              bg-white border border-[#E8E8E8] border-l-4 ${STAGE_ACCENT[lead.stage]}
+              bg-[#FDFBF7] border border-[#E0D9CE] border-l-4 ${STAGE_ACCENT[lead.stage]}
               rounded-sm p-3 mb-2 cursor-grab active:cursor-grabbing select-none
               ${snapshot.isDragging ? 'opacity-90 ring-1 ring-[#111]' : ''}
             `}
           >
             <div className="flex items-start justify-between gap-1 mb-1">
-              <div className="text-sm font-medium text-[#111] leading-tight">{lead.clients?.name}</div>
+              <div className="text-sm font-medium text-[#1A1814] leading-tight">{lead.clients?.name}</div>
               <div className="flex items-center gap-1 flex-shrink-0">
                 {!confirmDelete ? (
                   <>
                     <button onClick={e => { e.stopPropagation(); setShowEdit(true) }}
-                      className="text-[#CCC] hover:text-[#111] transition-colors mt-0.5" title="Editar">
+                      className="text-[#CCC] hover:text-[#1A1814] transition-colors mt-0.5" title="Editar">
                       <Pencil size={11} />
                     </button>
                     <button onClick={e => { e.stopPropagation(); navigate(`/clientes/${lead.client_id}`) }}
-                      className="text-[#CCC] hover:text-[#111] transition-colors mt-0.5" title="Ver ficha">
+                      className="text-[#CCC] hover:text-[#1A1814] transition-colors mt-0.5" title="Ver ficha">
                       <ExternalLink size={11} />
                     </button>
                     <button onClick={e => { e.stopPropagation(); setConfirmDelete(true) }}
@@ -217,7 +217,7 @@ function LeadCard({ lead, index, onDeleted, onEdited }) {
               </div>
             )}
             {lead.amount_quoted && (
-              <div className="text-xs font-medium text-[#111]">{formatUSD(lead.amount_quoted)}</div>
+              <div className="text-xs font-medium text-[#1A1814]">{formatUSD(lead.amount_quoted)}</div>
             )}
           </div>
         )}
@@ -237,7 +237,7 @@ function Column({ stage, leads, onDeleted, onEdited }) {
   return (
     <div className="flex flex-col w-56 flex-shrink-0">
       <div className="flex items-center justify-between mb-3">
-        <span className="text-xs font-semibold text-[#111] uppercase tracking-wider">
+        <span className="text-xs font-semibold text-[#1A1814] uppercase tracking-wider">
           {stage.label}
         </span>
         <span className={`text-xs px-1.5 py-0.5 rounded-sm font-medium ${STAGE_BADGE[stage.id]}`}>
@@ -251,7 +251,7 @@ function Column({ stage, leads, onDeleted, onEdited }) {
             ref={provided.innerRef}
             {...provided.droppableProps}
             className={`flex-1 min-h-[200px] rounded-sm p-1 transition-colors ${
-              snapshot.isDraggingOver ? 'bg-[#F0F0F0]' : 'bg-[#F7F7F7]'
+              snapshot.isDraggingOver ? 'bg-[#EDE7DC]' : 'bg-[#F7F7F7]'
             }`}
           >
             {leads.map((lead, idx) => (
@@ -320,17 +320,17 @@ function NewLeadModal({ onClose, onCreated }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-black/30" onClick={onClose} />
-      <div className="relative bg-white border border-[#E8E8E8] rounded-sm w-full max-w-md p-6">
+      <div className="relative bg-[#FDFBF7] border border-[#E0D9CE] rounded-sm w-full max-w-md p-6">
         <div className="flex items-center justify-between mb-5">
-          <h2 className="text-sm font-semibold text-[#111]">Nuevo lead</h2>
-          <button onClick={onClose} className="text-[#888] hover:text-[#111] transition-colors">
+          <h2 className="text-sm font-semibold text-[#1A1814]">Nuevo lead</h2>
+          <button onClick={onClose} className="text-[#888] hover:text-[#1A1814] transition-colors">
             <X size={16} />
           </button>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-xs font-medium text-[#111] mb-1.5 uppercase tracking-wide">
+            <label className="block text-xs font-medium text-[#1A1814] mb-1.5 uppercase tracking-wide">
               Nombre *
             </label>
             <input
@@ -339,12 +339,12 @@ function NewLeadModal({ onClose, onCreated }) {
               onChange={e => set('name', e.target.value)}
               required
               placeholder="Nombre del cliente"
-              className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#111] rounded-sm outline-none focus:border-[#111] transition-colors"
+              className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] rounded-sm outline-none focus:border-[#1A1814] transition-colors"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-[#111] mb-1.5 uppercase tracking-wide">
+            <label className="block text-xs font-medium text-[#1A1814] mb-1.5 uppercase tracking-wide">
               Teléfono
             </label>
             <input
@@ -352,53 +352,53 @@ function NewLeadModal({ onClose, onCreated }) {
               value={form.phone}
               onChange={e => set('phone', e.target.value)}
               placeholder="+598 99 000 000"
-              className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#111] rounded-sm outline-none focus:border-[#111] transition-colors"
+              className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] rounded-sm outline-none focus:border-[#1A1814] transition-colors"
             />
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-medium text-[#111] mb-1.5 uppercase tracking-wide">
+              <label className="block text-xs font-medium text-[#1A1814] mb-1.5 uppercase tracking-wide">
                 Tipo de evento
               </label>
               <select
                 value={form.event_type}
                 onChange={e => set('event_type', e.target.value)}
-                className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#111] rounded-sm outline-none focus:border-[#111] bg-white transition-colors"
+                className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] rounded-sm outline-none focus:border-[#1A1814] bg-[#FDFBF7] transition-colors"
               >
                 {EVENT_TYPES.map(t => <option key={t} value={t}>{t}</option>)}
               </select>
             </div>
 
             <div>
-              <label className="block text-xs font-medium text-[#111] mb-1.5 uppercase tracking-wide">
+              <label className="block text-xs font-medium text-[#1A1814] mb-1.5 uppercase tracking-wide">
                 Fecha
               </label>
               <input
                 type="date"
                 value={form.event_date}
                 onChange={e => set('event_date', e.target.value)}
-                className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#111] rounded-sm outline-none focus:border-[#111] transition-colors"
+                className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] rounded-sm outline-none focus:border-[#1A1814] transition-colors"
               />
             </div>
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-medium text-[#111] mb-1.5 uppercase tracking-wide">
+              <label className="block text-xs font-medium text-[#1A1814] mb-1.5 uppercase tracking-wide">
                 Canal
               </label>
               <select
                 value={form.source}
                 onChange={e => set('source', e.target.value)}
-                className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#111] rounded-sm outline-none focus:border-[#111] bg-white transition-colors"
+                className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] rounded-sm outline-none focus:border-[#1A1814] bg-[#FDFBF7] transition-colors"
               >
                 {SOURCES.map(s => <option key={s.value} value={s.value}>{s.label}</option>)}
               </select>
             </div>
 
             <div>
-              <label className="block text-xs font-medium text-[#111] mb-1.5 uppercase tracking-wide">
+              <label className="block text-xs font-medium text-[#1A1814] mb-1.5 uppercase tracking-wide">
                 Monto cotizado ($)
               </label>
               <input
@@ -407,7 +407,7 @@ function NewLeadModal({ onClose, onCreated }) {
                 onChange={e => set('amount_quoted', e.target.value)}
                 placeholder="0"
                 min="0"
-                className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#111] rounded-sm outline-none focus:border-[#111] transition-colors"
+                className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] rounded-sm outline-none focus:border-[#1A1814] transition-colors"
               />
             </div>
           </div>
@@ -418,14 +418,14 @@ function NewLeadModal({ onClose, onCreated }) {
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 px-4 py-2 border border-[#D9D9D9] text-sm text-[#666] rounded-sm hover:border-[#111] transition-colors"
+              className="flex-1 px-4 py-2 border border-[#D9D9D9] text-sm text-[#666] rounded-sm hover:border-[#1A1814] transition-colors"
             >
               Cancelar
             </button>
             <button
               type="submit"
               disabled={loading}
-              className="flex-1 px-4 py-2 bg-[#111] text-white text-sm rounded-sm hover:bg-[#000] transition-colors disabled:opacity-50"
+              className="flex-1 px-4 py-2 bg-[#1A1814] text-white text-sm rounded-sm hover:bg-[#1A1814] transition-colors disabled:opacity-50"
             >
               {loading ? 'Guardando...' : 'Crear lead'}
             </button>
@@ -496,10 +496,10 @@ export default function Leads() {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-xl font-semibold text-[#111]">Pipeline de leads</h1>
+        <h1 className="text-xl font-semibold text-[#1A1814]">Pipeline de leads</h1>
         <button
           onClick={() => setShowModal(true)}
-          className="flex items-center gap-1.5 bg-[#111] text-white text-sm px-4 py-2 rounded-sm hover:bg-[#000] transition-colors"
+          className="flex items-center gap-1.5 bg-[#1A1814] text-white text-sm px-4 py-2 rounded-sm hover:bg-[#1A1814] transition-colors"
         >
           <Plus size={14} />
           Nuevo lead

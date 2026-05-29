@@ -6,7 +6,7 @@ import { ExternalLink, X, ChevronDown, Plus, Copy, Check, MessageCircle, Trash2 
 
 // ─── Constantes ───────────────────────────────────────────────────────────────
 const STATUSES = [
-  { value: 'sin_editar', label: 'Sin editar',  badge: 'bg-[#F0F0F0] text-[#555]' },
+  { value: 'sin_editar', label: 'Sin editar',  badge: 'bg-[#EDE7DC] text-[#555]' },
   { value: 'editando',   label: 'Editando',    badge: 'bg-yellow-50 text-yellow-700 border border-yellow-200' },
   { value: 'revision',   label: 'En revisión', badge: 'bg-blue-50 text-blue-700 border border-blue-200' },
   { value: 'entregado',  label: 'Entregado',   badge: 'bg-green-50 text-green-700 border border-green-200' },
@@ -68,20 +68,20 @@ function EditPopover({ delivery, anchor, onClose, onSaved }) {
   }
 
   return (
-    <div ref={ref} className="fixed z-50 bg-white border border-[#E8E8E8] rounded-sm w-72 p-4"
+    <div ref={ref} className="fixed z-50 bg-[#FDFBF7] border border-[#E0D9CE] rounded-sm w-72 p-4"
       style={{ top: pos.top, left: pos.left, boxShadow: '0 4px 24px rgba(0,0,0,0.10)' }}>
       <div className="flex items-center justify-between mb-3">
-        <span className="text-xs font-semibold text-[#888] uppercase tracking-wider">Editar entrega</span>
+        <span className="text-xs font-semibold uppercase tracking-wider text-[#C9A96E]">Editar entrega</span>
         <button onClick={onClose} className="text-[#CCC] hover:text-[#888] transition-colors"><X size={13} /></button>
       </div>
       <div className="space-y-3">
         <div>
-          <label className="block text-xs font-medium text-[#111] mb-1.5 uppercase tracking-wide">Estado</label>
+          <label className="block text-xs font-medium text-[#1A1814] mb-1.5 uppercase tracking-wide">Estado</label>
           <div className="grid grid-cols-2 gap-1.5">
             {STATUSES.map(s => (
               <button key={s.value} onClick={() => setStatus(s.value)}
                 className={`text-xs px-2 py-1.5 rounded-sm border transition-colors text-left ${
-                  status === s.value ? 'border-[#111] bg-[#111] text-white' : 'border-[#D9D9D9] text-[#666] hover:border-[#888]'
+                  status === s.value ? 'border-[#1A1814] bg-[#1A1814] text-white' : 'border-[#D9D9D9] text-[#666] hover:border-[#888]'
                 }`}>
                 {s.label}
               </button>
@@ -89,18 +89,18 @@ function EditPopover({ delivery, anchor, onClose, onSaved }) {
           </div>
         </div>
         <div>
-          <label className="block text-xs font-medium text-[#111] mb-1.5 uppercase tracking-wide">Link galería</label>
+          <label className="block text-xs font-medium text-[#1A1814] mb-1.5 uppercase tracking-wide">Link galería</label>
           <input type="url" value={galleryUrl} onChange={e => setGalleryUrl(e.target.value)}
             placeholder="Drive, WeTransfer..."
-            className="w-full px-2.5 py-1.5 border border-[#D9D9D9] text-xs text-[#111] rounded-sm outline-none focus:border-[#111] transition-colors" />
+            className="w-full px-2.5 py-1.5 border border-[#D9D9D9] text-xs text-[#1A1814] rounded-sm outline-none focus:border-[#1A1814] transition-colors" />
         </div>
         <div>
-          <label className="block text-xs font-medium text-[#111] mb-1.5 uppercase tracking-wide">Fecha prometida</label>
+          <label className="block text-xs font-medium text-[#1A1814] mb-1.5 uppercase tracking-wide">Fecha prometida</label>
           <input type="date" value={promisedAt} onChange={e => setPromisedAt(e.target.value)}
-            className="w-full px-2.5 py-1.5 border border-[#D9D9D9] text-xs text-[#111] rounded-sm outline-none focus:border-[#111] transition-colors" />
+            className="w-full px-2.5 py-1.5 border border-[#D9D9D9] text-xs text-[#1A1814] rounded-sm outline-none focus:border-[#1A1814] transition-colors" />
         </div>
         <button onClick={save} disabled={saving}
-          className="w-full bg-[#111] text-white text-xs py-2 rounded-sm hover:bg-[#000] transition-colors disabled:opacity-50">
+          className="w-full bg-[#1A1814] text-white text-xs py-2 rounded-sm hover:bg-[#1A1814] transition-colors disabled:opacity-50">
           {saving ? 'Guardando...' : 'Guardar cambios'}
         </button>
       </div>
@@ -116,10 +116,10 @@ function DeliveryRow({ delivery, onUpdated }) {
   const statusInfo = STATUS_MAP[delivery.status] || STATUS_MAP.sin_editar
 
   return (
-    <div className={`flex items-center gap-4 px-5 py-3.5 border-b border-[#F0F0F0] last:border-0 ${overdue ? 'bg-red-50' : ''}`}>
+    <div className={`flex items-center gap-4 px-5 py-3.5 border-b border-[#E0D9CE] last:border-0 ${overdue ? 'bg-red-50' : ''}`}>
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2">
-          <span className="text-sm font-medium text-[#111]">{delivery.clients?.name}</span>
+          <span className="text-sm font-medium text-[#1A1814]">{delivery.clients?.name}</span>
           {overdue && <span className="text-[10px] font-medium text-red-600 bg-red-100 px-1.5 py-0.5 rounded-sm">Atrasado</span>}
         </div>
         <div className="text-xs text-[#888] mt-0.5">{delivery.clients?.event_type}</div>
@@ -142,7 +142,7 @@ function DeliveryRow({ delivery, onUpdated }) {
       <div className="w-8 flex-shrink-0 flex justify-end">
         {delivery.gallery_url
           ? <a href={delivery.gallery_url} target="_blank" rel="noopener noreferrer"
-              className="text-[#888] hover:text-[#111] transition-colors" onClick={e => e.stopPropagation()}>
+              className="text-[#888] hover:text-[#1A1814] transition-colors" onClick={e => e.stopPropagation()}>
               <ExternalLink size={14} />
             </a>
           : <span className="text-[#E0E0E0]"><ExternalLink size={14} /></span>
@@ -177,7 +177,7 @@ function CopyMsgBtn({ text, label }) {
   return (
     <button onClick={handle}
       className={`flex items-center gap-1.5 text-xs px-2.5 py-1.5 rounded-sm border font-medium transition-all ${
-        copied ? 'bg-green-600 border-green-600 text-white' : 'border-[#D9D9D9] text-[#555] hover:border-[#111]'
+        copied ? 'bg-green-600 border-green-600 text-white' : 'border-[#D9D9D9] text-[#555] hover:border-[#1A1814]'
       }`}>
       {copied ? <Check size={11} /> : <Copy size={11} />}
       {copied ? 'Copiado' : label}
@@ -208,11 +208,11 @@ function SeguimientoRow({ delivery, onUpdated }) {
   }
 
   return (
-    <div className="px-5 py-4 border-b border-[#F0F0F0] last:border-0">
+    <div className="px-5 py-4 border-b border-[#E0D9CE] last:border-0">
       <div className="flex items-start justify-between gap-4 mb-3">
         {/* Info */}
         <div>
-          <div className="text-sm font-medium text-[#111]">{name}</div>
+          <div className="text-sm font-medium text-[#1A1814]">{name}</div>
           <div className="text-xs text-[#888] mt-0.5">
             {tipo}
             {delivery.clients?.event_date && (
@@ -262,7 +262,7 @@ function SeguimientoRow({ delivery, onUpdated }) {
         value={notes}
         onChange={e => handleNotes(e.target.value)}
         placeholder="Nota de seguimiento..."
-        className="w-full px-3 py-1.5 border border-[#E8E8E8] text-xs text-[#111] rounded-sm outline-none focus:border-[#888] transition-colors placeholder:text-[#CCC]"
+        className="w-full px-3 py-1.5 border border-[#E0D9CE] text-xs text-[#1A1814] rounded-sm outline-none focus:border-[#888] transition-colors placeholder:text-[#CCC]"
       />
     </div>
   )
@@ -301,35 +301,35 @@ function NuevaEntregaModal({ onClose, onSaved }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-black/30" onClick={onClose} />
-      <div className="relative bg-white border border-[#E8E8E8] rounded-sm w-full max-w-sm p-6">
+      <div className="relative bg-[#FDFBF7] border border-[#E0D9CE] rounded-sm w-full max-w-sm p-6">
         <div className="flex items-center justify-between mb-5">
-          <h2 className="text-sm font-semibold text-[#111]">Nueva entrega</h2>
-          <button onClick={onClose} className="text-[#888] hover:text-[#111] transition-colors"><X size={16} /></button>
+          <h2 className="text-sm font-semibold text-[#1A1814]">Nueva entrega</h2>
+          <button onClick={onClose} className="text-[#888] hover:text-[#1A1814] transition-colors"><X size={16} /></button>
         </div>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-xs font-medium text-[#111] mb-1.5 uppercase tracking-wide">Cliente *</label>
+            <label className="block text-xs font-medium text-[#1A1814] mb-1.5 uppercase tracking-wide">Cliente *</label>
             <select value={clientId} onChange={e => handleClientChange(e.target.value)} required
-              className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#111] rounded-sm outline-none focus:border-[#111] bg-white transition-colors">
+              className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] rounded-sm outline-none focus:border-[#1A1814] bg-[#FDFBF7] transition-colors">
               <option value="">— Seleccionar cliente —</option>
               {clientes.map(c => <option key={c.id} value={c.id}>{c.name}{c.event_type ? ` · ${c.event_type}` : ''}</option>)}
             </select>
           </div>
           <div>
-            <label className="block text-xs font-medium text-[#111] mb-1.5 uppercase tracking-wide">
+            <label className="block text-xs font-medium text-[#1A1814] mb-1.5 uppercase tracking-wide">
               Fecha límite <span className="normal-case font-normal text-[#AAA]">(auto: evento +30 días)</span>
             </label>
             <input type="date" value={promisedAt} onChange={e => setPromisedAt(e.target.value)}
-              className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#111] rounded-sm outline-none focus:border-[#111] transition-colors" />
+              className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] rounded-sm outline-none focus:border-[#1A1814] transition-colors" />
           </div>
           {error && <p className="text-xs text-red-600">{error}</p>}
           <div className="flex gap-2 pt-1">
             <button type="button" onClick={onClose}
-              className="flex-1 px-4 py-2 border border-[#D9D9D9] text-sm text-[#666] rounded-sm hover:border-[#111] transition-colors">
+              className="flex-1 px-4 py-2 border border-[#D9D9D9] text-sm text-[#666] rounded-sm hover:border-[#1A1814] transition-colors">
               Cancelar
             </button>
             <button type="submit" disabled={loading}
-              className="flex-1 px-4 py-2 bg-[#111] text-white text-sm rounded-sm hover:bg-[#000] transition-colors disabled:opacity-50">
+              className="flex-1 px-4 py-2 bg-[#1A1814] text-white text-sm rounded-sm hover:bg-[#1A1814] transition-colors disabled:opacity-50">
               {loading ? 'Guardando...' : 'Crear entrega'}
             </button>
           </div>
@@ -365,13 +365,13 @@ export default function Entregas() {
     <div>
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-xl font-semibold text-[#111]">Entregas</h1>
+          <h1 className="text-xl font-semibold text-[#1A1814]">Entregas</h1>
           {overdue > 0 && tab === 'en_curso' && (
             <p className="text-xs text-red-600 mt-0.5">{overdue} atrasada{overdue > 1 ? 's' : ''}</p>
           )}
         </div>
         <button onClick={() => setShowModal(true)}
-          className="flex items-center gap-1.5 bg-[#111] text-white text-sm px-4 py-2 rounded-sm hover:bg-[#000] transition-colors">
+          className="flex items-center gap-1.5 bg-[#1A1814] text-white text-sm px-4 py-2 rounded-sm hover:bg-[#1A1814] transition-colors">
           <Plus size={14} />
           Nueva entrega
         </button>
@@ -381,23 +381,23 @@ export default function Entregas() {
       <div className="flex gap-1 mb-5">
         <button onClick={() => setTab('en_curso')}
           className={`flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-sm font-medium transition-colors ${
-            tab === 'en_curso' ? 'bg-[#111] text-white' : 'bg-white border border-[#D9D9D9] text-[#666] hover:border-[#111]'
+            tab === 'en_curso' ? 'bg-[#1A1814] text-white' : 'bg-[#FDFBF7] border border-[#D9D9D9] text-[#666] hover:border-[#1A1814]'
           }`}>
           En curso
           {enCurso.length > 0 && (
-            <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${tab === 'en_curso' ? 'bg-white/20' : 'bg-[#F0F0F0]'}`}>
+            <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${tab === 'en_curso' ? 'bg-[#FDFBF7]/20' : 'bg-[#EDE7DC]'}`}>
               {enCurso.length}
             </span>
           )}
         </button>
         <button onClick={() => setTab('seguimiento')}
           className={`flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-sm font-medium transition-colors ${
-            tab === 'seguimiento' ? 'bg-[#111] text-white' : 'bg-white border border-[#D9D9D9] text-[#666] hover:border-[#111]'
+            tab === 'seguimiento' ? 'bg-[#1A1814] text-white' : 'bg-[#FDFBF7] border border-[#D9D9D9] text-[#666] hover:border-[#1A1814]'
           }`}>
           <MessageCircle size={11} />
           Seguimiento post-entrega
           {entregadas.length > 0 && (
-            <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${tab === 'seguimiento' ? 'bg-white/20' : 'bg-[#F0F0F0]'}`}>
+            <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${tab === 'seguimiento' ? 'bg-[#FDFBF7]/20' : 'bg-[#EDE7DC]'}`}>
               {entregadas.length}
             </span>
           )}
@@ -407,11 +407,11 @@ export default function Entregas() {
       {/* En curso */}
       {tab === 'en_curso' && (
         <>
-          <div className="bg-white border border-[#E8E8E8] rounded-sm overflow-hidden">
-            <div className="flex items-center gap-4 px-5 py-2.5 border-b border-[#E8E8E8] bg-[#FAFAFA]">
-              <div className="flex-1 text-xs font-semibold text-[#888] uppercase tracking-wider">Cliente</div>
-              <div className="flex-shrink-0 w-28 text-xs font-semibold text-[#888] uppercase tracking-wider">Estado</div>
-              <div className="flex-shrink-0 w-24 text-right text-xs font-semibold text-[#888] uppercase tracking-wider">Entrega</div>
+          <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-sm overflow-hidden">
+            <div className="flex items-center gap-4 px-5 py-2.5 border-b border-[#E0D9CE] bg-[#F5F0E8]">
+              <div className="flex-1 text-xs font-semibold uppercase tracking-wider text-[#C9A96E]">Cliente</div>
+              <div className="flex-shrink-0 w-28 text-xs font-semibold uppercase tracking-wider text-[#C9A96E]">Estado</div>
+              <div className="flex-shrink-0 w-24 text-right text-xs font-semibold uppercase tracking-wider text-[#C9A96E]">Entrega</div>
               <div className="w-8 flex-shrink-0" />
             </div>
             {loading ? (
@@ -432,7 +432,7 @@ export default function Entregas() {
 
       {/* Seguimiento post-entrega */}
       {tab === 'seguimiento' && (
-        <div className="bg-white border border-[#E8E8E8] rounded-sm overflow-hidden">
+        <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-sm overflow-hidden">
           {loading ? (
             <div className="px-5 py-10 text-center text-sm text-[#AAA]">Cargando...</div>
           ) : entregadas.length === 0 ? (

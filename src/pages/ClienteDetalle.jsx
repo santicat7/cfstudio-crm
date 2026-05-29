@@ -14,7 +14,7 @@ const DELIVERY_LABEL = {
   entregado: 'Entregado',
 }
 const DELIVERY_BADGE = {
-  sin_editar: 'bg-[#F0F0F0] text-[#555]',
+  sin_editar: 'bg-[#EDE7DC] text-[#555]',
   editando: 'bg-yellow-50 text-yellow-700 border border-yellow-200',
   revision: 'bg-yellow-50 text-yellow-800 border border-yellow-300',
   entregado: 'bg-green-50 text-green-700 border border-green-200',
@@ -25,7 +25,7 @@ const STAGE_LABEL = {
   cobrado: 'Cobrado', cancelado: 'Cancelado',
 }
 const STAGE_BADGE = {
-  consulta:   'bg-[#F0F0F0] text-[#555]',
+  consulta:   'bg-[#EDE7DC] text-[#555]',
   cotizado:   'bg-yellow-50 text-yellow-700 border border-yellow-200',
   confirmado: 'bg-green-50 text-green-700 border border-green-200',
   cobrado:    'bg-green-50 text-green-800 border border-green-300',
@@ -50,8 +50,8 @@ function safeFormatDatetime(dateStr) {
 
 function Section({ title, children }) {
   return (
-    <div className="bg-white border border-[#E8E8E8] rounded-sm p-5 mb-4">
-      <h2 className="text-xs font-semibold text-[#888] uppercase tracking-wider mb-4">{title}</h2>
+    <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-sm p-5 mb-4">
+      <h2 className="text-xs font-semibold uppercase tracking-wider text-[#C9A96E] mb-4">{title}</h2>
       {children}
     </div>
   )
@@ -61,7 +61,7 @@ function Field({ label, children }) {
   return (
     <div className="mb-3 last:mb-0">
       <div className="text-xs text-[#AAA] mb-0.5">{label}</div>
-      <div className="text-sm text-[#111]">{children}</div>
+      <div className="text-sm text-[#1A1814]">{children}</div>
     </div>
   )
 }
@@ -178,7 +178,7 @@ export default function ClienteDetalle() {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] gap-3">
         <p className="text-sm text-[#888]">Cliente no encontrado.</p>
-        <button onClick={() => navigate('/clientes')} className="text-sm underline text-[#111]">
+        <button onClick={() => navigate('/clientes')} className="text-sm underline text-[#1A1814]">
           Volver
         </button>
       </div>
@@ -194,13 +194,13 @@ export default function ClienteDetalle() {
   const navBlock = allIds.length > 1 ? (
     <div className="flex items-center justify-between mt-2 mb-6">
       <button onClick={() => navigate(`/clientes/${prevId}`)} disabled={!prevId}
-        className="flex items-center gap-2 text-sm text-[#666] border border-[#D9D9D9] px-4 py-2 rounded-sm hover:border-[#111] hover:text-[#111] transition-colors disabled:opacity-30 disabled:cursor-not-allowed">
+        className="flex items-center gap-2 text-sm text-[#666] border border-[#D9D9D9] px-4 py-2 rounded-sm hover:border-[#1A1814] hover:text-[#1A1814] transition-colors disabled:opacity-30 disabled:cursor-not-allowed">
         <ArrowLeft size={14} />
         Cliente anterior
       </button>
       <span className="text-xs text-[#AAA]">{navIdx >= 0 ? navIdx + 1 : '?'} / {allIds.length}</span>
       <button onClick={() => navigate(`/clientes/${nextId}`)} disabled={!nextId}
-        className="flex items-center gap-2 text-sm text-[#666] border border-[#D9D9D9] px-4 py-2 rounded-sm hover:border-[#111] hover:text-[#111] transition-colors disabled:opacity-30 disabled:cursor-not-allowed">
+        className="flex items-center gap-2 text-sm text-[#666] border border-[#D9D9D9] px-4 py-2 rounded-sm hover:border-[#1A1814] hover:text-[#1A1814] transition-colors disabled:opacity-30 disabled:cursor-not-allowed">
         Cliente siguiente
         <ArrowRight size={14} />
       </button>
@@ -213,14 +213,14 @@ export default function ClienteDetalle() {
       <div className="flex items-center gap-3 mb-6">
         <button
           onClick={() => navigate('/clientes')}
-          className="p-1.5 text-[#888] hover:text-[#111] transition-colors"
+          className="p-1.5 text-[#888] hover:text-[#1A1814] transition-colors"
         >
           <ArrowLeft size={16} />
         </button>
-        <h1 className="text-xl font-semibold text-[#111] flex-1">{client.name}</h1>
+        <h1 className="text-xl font-semibold text-[#1A1814] flex-1">{client.name}</h1>
         <button
           onClick={() => setShowEdit(true)}
-          className="flex items-center gap-1.5 border border-[#D9D9D9] text-sm text-[#111] px-3 py-1.5 rounded-sm hover:border-[#111] transition-colors"
+          className="flex items-center gap-1.5 border border-[#D9D9D9] text-sm text-[#1A1814] px-3 py-1.5 rounded-sm hover:border-[#1A1814] transition-colors"
         >
           <Pencil size={13} />
           Editar
@@ -242,7 +242,7 @@ export default function ClienteDetalle() {
           <div className="mb-3">
             <div className="text-xs text-[#AAA] mb-0.5">Teléfono</div>
             <div className="flex items-center gap-3">
-              <span className="text-sm text-[#111]">{client.phone}</span>
+              <span className="text-sm text-[#1A1814]">{client.phone}</span>
               {whatsappPhone && (
                 <a
                   href={`https://wa.me/${whatsappPhone}`}
@@ -267,7 +267,7 @@ export default function ClienteDetalle() {
               href={`https://instagram.com/${client.instagram.replace('@', '')}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1 text-sm text-[#111] underline underline-offset-2 hover:text-[#555] transition-colors w-fit"
+              className="flex items-center gap-1 text-sm text-[#1A1814] underline underline-offset-2 hover:text-[#555] transition-colors w-fit"
             >
               {client.instagram.startsWith('@') ? client.instagram : `@${client.instagram}`}
               <ExternalLink size={11} />
@@ -284,8 +284,45 @@ export default function ClienteDetalle() {
           <Field label="Paquete">{client.package || '—'}</Field>
           <Field label="Precio total">{formatUSD(client.total_price)}</Field>
         </div>
+        {/* Cliente recurrente */}
+        <div className="mt-4 pt-4 border-t border-[#E0D9CE] flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <span className="text-xs text-[#888]">Visitas</span>
+            {(client.visit_count || 1) > 1 && (() => {
+              const v = client.visit_count || 1
+              const cls = v >= 8 ? 'bg-purple-900 text-white border-purple-900'
+                : v >= 6 ? 'bg-purple-700 text-white border-purple-700'
+                : v >= 4 ? 'bg-purple-500 text-white border-purple-500'
+                : 'bg-purple-100 text-purple-700 border-purple-300'
+              return (
+                <span className={`text-xs px-1.5 py-0.5 rounded-sm border font-medium ${cls}`}>
+                  Cliente recurrente
+                </span>
+              )
+            })()}
+          </div>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={async () => {
+                const newCount = Math.max(1, (client.visit_count || 1) - 1)
+                await supabase.from('clients').update({ visit_count: newCount }).eq('id', client.id)
+                setClient(prev => ({ ...prev, visit_count: newCount }))
+              }}
+              className="w-7 h-7 flex items-center justify-center border border-[#E0D9CE] rounded-md text-[#888] hover:text-[#1A1814] hover:border-[#1A1814] transition-colors text-lg leading-none"
+            >−</button>
+            <span className="text-sm font-semibold text-[#1A1814] w-4 text-center">{client.visit_count || 1}</span>
+            <button
+              onClick={async () => {
+                const newCount = (client.visit_count || 1) + 1
+                await supabase.from('clients').update({ visit_count: newCount }).eq('id', client.id)
+                setClient(prev => ({ ...prev, visit_count: newCount }))
+              }}
+              className="w-7 h-7 flex items-center justify-center border border-[#E0D9CE] rounded-md text-[#888] hover:text-[#1A1814] hover:border-[#1A1814] transition-colors text-lg leading-none"
+            >+</button>
+          </div>
+        </div>
         {leadStage && (
-          <div className="mt-3 pt-3 border-t border-[#F0F0F0] flex items-center gap-2">
+          <div className="mt-3 pt-3 border-t border-[#E0D9CE] flex items-center gap-2">
             <span className="text-xs text-[#AAA]">Estado en pipeline:</span>
             <span className={`text-xs px-2 py-0.5 rounded-sm font-medium ${STAGE_BADGE[leadStage]}`}>
               {STAGE_LABEL[leadStage]}
@@ -301,7 +338,7 @@ export default function ClienteDetalle() {
             <div className="text-xs text-[#AAA] mb-1">Último pago</div>
             {lastPayment ? (
               <>
-                <div className="text-sm font-medium text-[#111]">{formatUSD(lastPayment.amount)}</div>
+                <div className="text-sm font-medium text-[#1A1814]">{formatUSD(lastPayment.amount)}</div>
                 <div className="text-xs text-[#888] mt-0.5 capitalize">{lastPayment.type}</div>
               </>
             ) : (
@@ -319,7 +356,7 @@ export default function ClienteDetalle() {
               <button
                 onClick={handleCreateDelivery}
                 disabled={creatingDelivery}
-                className="text-xs border border-[#D9D9D9] px-2 py-1 rounded-sm text-[#666] hover:border-[#111] transition-colors disabled:opacity-50"
+                className="text-xs border border-[#D9D9D9] px-2 py-1 rounded-sm text-[#666] hover:border-[#1A1814] transition-colors disabled:opacity-50"
               >
                 {creatingDelivery ? 'Creando...' : '+ Crear entrega'}
               </button>
@@ -328,7 +365,7 @@ export default function ClienteDetalle() {
 
           <div>
             <div className="text-xs text-[#AAA] mb-1">Tareas pendientes</div>
-            <div className={`text-sm font-medium ${pendingTasks > 0 ? 'text-[#111]' : 'text-[#CCC]'}`}>
+            <div className={`text-sm font-medium ${pendingTasks > 0 ? 'text-[#1A1814]' : 'text-[#CCC]'}`}>
               {pendingTasks > 0 ? `${pendingTasks} tarea${pendingTasks > 1 ? 's' : ''}` : 'Sin tareas'}
             </div>
           </div>
@@ -344,7 +381,7 @@ export default function ClienteDetalle() {
                 <div className={`mt-0.5 flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center ${
                   ev.icon === 'pago' ? 'bg-green-50' :
                   ev.icon === 'entregado' ? 'bg-green-50' :
-                  'bg-[#F0F0F0]'
+                  'bg-[#EDE7DC]'
                 }`}>
                   {ev.icon === 'pago'      && <CreditCard size={12} className="text-green-600" />}
                   {ev.icon === 'entrega'   && <Package size={12} className="text-[#888]" />}
@@ -352,7 +389,7 @@ export default function ClienteDetalle() {
                   {ev.icon === 'lead'      && <Tag size={12} className="text-[#888]" />}
                 </div>
                 <div>
-                  <div className="text-sm text-[#111]">{ev.text}</div>
+                  <div className="text-sm text-[#1A1814]">{ev.text}</div>
                   <div className="text-xs text-[#AAA] mt-0.5">
                     {safeFormatDatetime(ev.date)}
                   </div>
@@ -370,7 +407,7 @@ export default function ClienteDetalle() {
           onChange={handleNotesChange}
           rows={4}
           placeholder="Notas del equipo sobre este cliente..."
-          className="w-full text-sm text-[#111] border border-[#E8E8E8] rounded-sm px-3 py-2.5 outline-none focus:border-[#111] transition-colors resize-none placeholder:text-[#CCC]"
+          className="w-full text-sm text-[#1A1814] border border-[#E0D9CE] rounded-sm px-3 py-2.5 outline-none focus:border-[#1A1814] transition-colors resize-none placeholder:text-[#CCC]"
         />
         <p className="text-xs text-[#CCC] mt-1">Se guarda automáticamente</p>
       </Section>
@@ -391,15 +428,15 @@ export default function ClienteDetalle() {
       {showConfirmDelete && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-black/30" onClick={() => setShowConfirmDelete(false)} />
-          <div className="relative bg-white border border-[#E8E8E8] rounded-sm w-full max-w-sm p-6">
-            <h2 className="text-sm font-semibold text-[#111] mb-2">Eliminar cliente</h2>
+          <div className="relative bg-[#FDFBF7] border border-[#E0D9CE] rounded-sm w-full max-w-sm p-6">
+            <h2 className="text-sm font-semibold text-[#1A1814] mb-2">Eliminar cliente</h2>
             <p className="text-sm text-[#666] mb-5">
               ¿Seguro que querés eliminar a <strong>{client.name}</strong>? Se borrarán también sus leads, pagos, tareas y entregas. Esta acción no se puede deshacer.
             </p>
             <div className="flex gap-2">
               <button
                 onClick={() => setShowConfirmDelete(false)}
-                className="flex-1 px-4 py-2 border border-[#D9D9D9] text-sm text-[#666] rounded-sm hover:border-[#111] transition-colors"
+                className="flex-1 px-4 py-2 border border-[#D9D9D9] text-sm text-[#666] rounded-sm hover:border-[#1A1814] transition-colors"
               >
                 Cancelar
               </button>

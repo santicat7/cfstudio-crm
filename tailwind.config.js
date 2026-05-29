@@ -7,8 +7,11 @@ export default {
         sans: ['Inter', 'sans-serif'],
       },
       colors: {
-        surface: '#FAFAFA',
-        ink: '#111111',
+        surface: '#F5F0E8',
+        ink: '#1A1814',
+        cream: '#F5F0E8',
+        gold: '#C9A96E',
+        'gold-dk': '#8B6A35',
       },
     },
   },

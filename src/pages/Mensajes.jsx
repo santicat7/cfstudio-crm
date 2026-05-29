@@ -89,26 +89,26 @@ function TemplateModal({ template, onClose, onSaved }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-black/30" onClick={onClose} />
-      <div className="relative bg-white border border-[#E8E8E8] rounded-sm w-full max-w-lg p-6">
+      <div className="relative bg-[#FDFBF7] border border-[#E0D9CE] rounded-sm w-full max-w-lg p-6">
         <div className="flex items-center justify-between mb-5">
-          <h2 className="text-sm font-semibold text-[#111]">{isEdit ? 'Editar template' : 'Nuevo template'}</h2>
-          <button onClick={onClose} className="text-[#888] hover:text-[#111] transition-colors"><X size={16} /></button>
+          <h2 className="text-sm font-semibold text-[#1A1814]">{isEdit ? 'Editar template' : 'Nuevo template'}</h2>
+          <button onClick={onClose} className="text-[#888] hover:text-[#1A1814] transition-colors"><X size={16} /></button>
         </div>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-xs font-medium text-[#111] mb-1.5 uppercase tracking-wide">Título</label>
+            <label className="block text-xs font-medium text-[#1A1814] mb-1.5 uppercase tracking-wide">Título</label>
             <input type="text" value={title} onChange={e => setTitle(e.target.value)} required
-              className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#111] rounded-sm outline-none focus:border-[#111] transition-colors" />
+              className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] rounded-sm outline-none focus:border-[#1A1814] transition-colors" />
           </div>
           <div>
-            <label className="block text-xs font-medium text-[#111] mb-1.5 uppercase tracking-wide">Mensaje</label>
+            <label className="block text-xs font-medium text-[#1A1814] mb-1.5 uppercase tracking-wide">Mensaje</label>
             <textarea value={body} onChange={e => setBody(e.target.value)} required rows={6}
-              className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#111] rounded-sm outline-none focus:border-[#111] transition-colors resize-none" />
+              className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] rounded-sm outline-none focus:border-[#1A1814] transition-colors resize-none" />
             <div className="flex flex-wrap gap-1.5 mt-2">
               {VARS.map(v => (
                 <button key={v} type="button"
                   onClick={() => setBody(b => b + v)}
-                  className="text-[10px] px-1.5 py-0.5 border border-[#D9D9D9] rounded-sm text-[#666] hover:border-[#111] transition-colors font-mono">
+                  className="text-[10px] px-1.5 py-0.5 border border-[#D9D9D9] rounded-sm text-[#666] hover:border-[#1A1814] transition-colors font-mono">
                   {v}
                 </button>
               ))}
@@ -117,11 +117,11 @@ function TemplateModal({ template, onClose, onSaved }) {
           {error && <p className="text-xs text-red-600">{error}</p>}
           <div className="flex gap-2 pt-1">
             <button type="button" onClick={onClose}
-              className="flex-1 px-4 py-2 border border-[#D9D9D9] text-sm text-[#666] rounded-sm hover:border-[#111] transition-colors">
+              className="flex-1 px-4 py-2 border border-[#D9D9D9] text-sm text-[#666] rounded-sm hover:border-[#1A1814] transition-colors">
               Cancelar
             </button>
             <button type="submit" disabled={loading}
-              className="flex-1 px-4 py-2 bg-[#111] text-white text-sm rounded-sm hover:bg-[#000] transition-colors disabled:opacity-50">
+              className="flex-1 px-4 py-2 bg-[#1A1814] text-white text-sm rounded-sm hover:bg-[#1A1814] transition-colors disabled:opacity-50">
               {loading ? 'Guardando...' : isEdit ? 'Guardar cambios' : 'Crear template'}
             </button>
           </div>
@@ -172,15 +172,15 @@ function TemplateCard({ template, clients, onEdit, onDelete }) {
   }
 
   return (
-    <div className="bg-white border border-[#E8E8E8] rounded-sm p-5">
+    <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-sm p-5">
       {/* Card header */}
       <div className="flex items-start justify-between mb-4">
         <div>
-          <h3 className="text-sm font-semibold text-[#111]">{template.title}</h3>
+          <h3 className="text-sm font-semibold text-[#1A1814]">{template.title}</h3>
         </div>
         <div className="flex items-center gap-1">
           <button onClick={() => onEdit(template)}
-            className="p-1.5 text-[#AAA] hover:text-[#111] transition-colors">
+            className="p-1.5 text-[#AAA] hover:text-[#1A1814] transition-colors">
             <Pencil size={13} />
           </button>
           <button onClick={() => onDelete(template)}
@@ -194,7 +194,7 @@ function TemplateCard({ template, clients, onEdit, onDelete }) {
       <div className="mb-3">
         <label className="block text-xs font-medium text-[#888] mb-1.5 uppercase tracking-wide">Cliente</label>
         <select value={selectedClientId} onChange={e => setSelectedClientId(e.target.value)}
-          className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#111] rounded-sm outline-none focus:border-[#111] bg-white transition-colors">
+          className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] rounded-sm outline-none focus:border-[#1A1814] bg-[#FDFBF7] transition-colors">
           <option value="">— Seleccionar cliente —</option>
           {clients.map(c => (
             <option key={c.id} value={c.id}>
@@ -207,7 +207,7 @@ function TemplateCard({ template, clients, onEdit, onDelete }) {
       {/* Preview */}
       <div className="mb-3">
         <label className="block text-xs font-medium text-[#888] mb-1.5 uppercase tracking-wide">Vista previa</label>
-        <div className="bg-[#F7F7F7] border border-[#EEEEEE] rounded-sm px-3 py-3 text-sm text-[#111] leading-relaxed whitespace-pre-wrap min-h-[72px]">
+        <div className="bg-[#F7F7F7] border border-[#EEEEEE] rounded-sm px-3 py-3 text-sm text-[#1A1814] leading-relaxed whitespace-pre-wrap min-h-[72px]">
           {preview.split(/(\{link_google\})/).map((part, i) =>
             part === '{link_google}'
               ? <span key={i} className="bg-yellow-100 text-yellow-800 text-xs px-1 py-0.5 rounded font-mono">[pegá link de Google acá]</span>
@@ -222,7 +222,7 @@ function TemplateCard({ template, clients, onEdit, onDelete }) {
         className={`w-full flex items-center justify-center gap-2 py-2 rounded-sm text-sm font-medium transition-all ${
           copied
             ? 'bg-green-600 text-white'
-            : 'bg-[#111] text-white hover:bg-[#000]'
+            : 'bg-[#1A1814] text-white hover:bg-[#1A1814]'
         }`}
       >
         {copied ? <Check size={14} /> : <Copy size={14} />}
@@ -279,22 +279,22 @@ export default function Mensajes() {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-xl font-semibold text-[#111]">Templates de mensajes</h1>
+        <h1 className="text-xl font-semibold text-[#1A1814]">Templates de mensajes</h1>
         <div className="flex items-center gap-2">
           {templates.length === 0 && !loading && (
             <button onClick={handleSeedDefaults} disabled={seeding}
-              className="text-sm border border-[#D9D9D9] px-3 py-2 rounded-sm text-[#666] hover:border-[#111] transition-colors disabled:opacity-50">
+              className="text-sm border border-[#D9D9D9] px-3 py-2 rounded-sm text-[#666] hover:border-[#1A1814] transition-colors disabled:opacity-50">
               {seeding ? 'Cargando...' : 'Cargar templates predefinidos'}
             </button>
           )}
           {templates.length > 0 && !loading && (
             <button onClick={handleSeedFollowup} disabled={seedingFollowup}
-              className="text-sm border border-[#D9D9D9] px-3 py-2 rounded-sm text-[#666] hover:border-[#111] transition-colors disabled:opacity-50">
+              className="text-sm border border-[#D9D9D9] px-3 py-2 rounded-sm text-[#666] hover:border-[#1A1814] transition-colors disabled:opacity-50">
               {seedingFollowup ? 'Agregando...' : '+ Templates de seguimiento'}
             </button>
           )}
           <button onClick={() => setShowNewModal(true)}
-            className="flex items-center gap-1.5 bg-[#111] text-white text-sm px-4 py-2 rounded-sm hover:bg-[#000] transition-colors">
+            className="flex items-center gap-1.5 bg-[#1A1814] text-white text-sm px-4 py-2 rounded-sm hover:bg-[#1A1814] transition-colors">
             <Plus size={14} />
             Nuevo template
           </button>
@@ -311,7 +311,7 @@ export default function Mensajes() {
         <div className="flex flex-col items-center justify-center py-16 text-center">
           <div className="text-sm text-[#888] mb-3">No hay templates creados todavía.</div>
           <button onClick={handleSeedDefaults} disabled={seeding}
-            className="text-sm bg-[#111] text-white px-4 py-2 rounded-sm hover:bg-[#000] transition-colors disabled:opacity-50">
+            className="text-sm bg-[#1A1814] text-white px-4 py-2 rounded-sm hover:bg-[#1A1814] transition-colors disabled:opacity-50">
             {seeding ? 'Cargando...' : 'Cargar los 5 templates predefinidos'}
           </button>
         </div>
@@ -350,14 +350,14 @@ export default function Mensajes() {
       {deleteTarget && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-black/30" onClick={() => setDeleteTarget(null)} />
-          <div className="relative bg-white border border-[#E8E8E8] rounded-sm w-full max-w-sm p-6">
-            <h2 className="text-sm font-semibold text-[#111] mb-2">Eliminar template</h2>
+          <div className="relative bg-[#FDFBF7] border border-[#E0D9CE] rounded-sm w-full max-w-sm p-6">
+            <h2 className="text-sm font-semibold text-[#1A1814] mb-2">Eliminar template</h2>
             <p className="text-sm text-[#666] mb-5">
               ¿Eliminar <strong>"{deleteTarget.title}"</strong>? Esta acción no se puede deshacer.
             </p>
             <div className="flex gap-2">
               <button onClick={() => setDeleteTarget(null)}
-                className="flex-1 px-4 py-2 border border-[#D9D9D9] text-sm text-[#666] rounded-sm hover:border-[#111] transition-colors">
+                className="flex-1 px-4 py-2 border border-[#D9D9D9] text-sm text-[#666] rounded-sm hover:border-[#1A1814] transition-colors">
                 Cancelar
               </button>
               <button onClick={() => handleDelete(deleteTarget)}

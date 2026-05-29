@@ -5,7 +5,7 @@ import { format, parseISO, startOfMonth, subMonths } from 'date-fns'
 import { es } from 'date-fns/locale'
 import {
   BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell,
-  PieChart, Pie, Legend,
+  PieChart, Pie, Legend, LineChart, Line, CartesianGrid,
 } from 'recharts'
 
 const STAGE_LABEL = {
@@ -27,23 +27,23 @@ const SOURCE_COLOR = ['#111111', '#555555', '#888888', '#AAAAAA']
 
 function Card({ title, value, sub }) {
   return (
-    <div className="bg-white border border-[#E8E8E8] rounded-sm p-5">
+    <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-sm p-5">
       <div className="text-xs text-[#888] mb-1">{title}</div>
-      <div className="text-2xl font-semibold text-[#111]">{value}</div>
+      <div className="text-2xl font-semibold text-[#1A1814]">{value}</div>
       {sub && <div className="text-xs text-[#AAA] mt-0.5">{sub}</div>}
     </div>
   )
 }
 
 function SectionTitle({ children }) {
-  return <h2 className="text-xs font-semibold text-[#888] uppercase tracking-wider mb-4">{children}</h2>
+  return <h2 className="text-xs font-semibold uppercase tracking-wider text-[#C9A96E] mb-4">{children}</h2>
 }
 
 const CustomTooltip = ({ active, payload, label }) => {
   if (!active || !payload?.length) return null
   return (
-    <div className="bg-white border border-[#E8E8E8] rounded-sm px-3 py-2 text-xs shadow-sm">
-      <div className="font-medium text-[#111] mb-1">{label}</div>
+    <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-sm px-3 py-2 text-xs shadow-sm">
+      <div className="font-medium text-[#1A1814] mb-1">{label}</div>
       {payload.map((p, i) => (
         <div key={i} className="text-[#555]">{p.name}: <span className="font-semibold">{typeof p.value === 'number' && p.name?.includes('$') ? formatUSD(p.value) : p.value}</span></div>
       ))}
@@ -54,6 +54,7 @@ const CustomTooltip = ({ active, payload, label }) => {
 export default function Estadisticas() {
   const [loading, setLoading] = useState(true)
   const [ingresosMes, setIngresosMes] = useState([])
+  const [flujoCaja, setFlujoCaja] = useState([])
   const [stageData, setStageData] = useState([])
   const [sourceData, setSourceData] = useState([])
   const [sourceConversion, setSourceConversion] = useState([])
@@ -61,10 +62,11 @@ export default function Estadisticas() {
 
   useEffect(() => {
     async function fetchAll() {
-      const [{ data: payments }, { data: leads }, { data: clients }] = await Promise.all([
+      const [{ data: payments }, { data: leads }, { data: clients }, { data: expenses }] = await Promise.all([
         supabase.from('payments').select('amount, paid_at, client_id'),
         supabase.from('leads').select('stage, source, amount_quoted, client_id'),
         supabase.from('clients').select('total_price'),
+        supabase.from('expenses').select('amount, date'),
       ])
 
       // Ingresos por mes — últimos 6 meses
@@ -80,6 +82,26 @@ export default function Estadisticas() {
         if (mes) mes.total += p.amount || 0
       }
       setIngresosMes(meses)
+
+      // Flujo de caja — últimos 6 meses (ingresos vs gastos)
+      const mesesFlujo = Array.from({ length: 6 }, (_, i) => {
+        const d = subMonths(startOfMonth(now), 5 - i)
+        return { key: format(d, 'yyyy-MM'), label: format(d, 'MMM yy', { locale: es }), ingresos: 0, gastos: 0, ganancia: 0 }
+      })
+      for (const p of payments || []) {
+        if (!p.paid_at) continue
+        const key = p.paid_at.slice(0, 7)
+        const mes = mesesFlujo.find(m => m.key === key)
+        if (mes) mes.ingresos += p.amount || 0
+      }
+      for (const e of expenses || []) {
+        if (!e.date) continue
+        const key = e.date.slice(0, 7)
+        const mes = mesesFlujo.find(m => m.key === key)
+        if (mes) mes.gastos += Number(e.amount) || 0
+      }
+      for (const m of mesesFlujo) m.ganancia = m.ingresos - m.gastos
+      setFlujoCaja(mesesFlujo)
 
       // Stage breakdown
       const stageCounts = {}
@@ -158,7 +180,7 @@ export default function Estadisticas() {
 
   return (
     <div>
-      <h1 className="text-xl font-semibold text-[#111] mb-6">Estadísticas</h1>
+      <h1 className="text-xl font-semibold text-[#1A1814] mb-6">Estadísticas</h1>
 
       {/* KPIs */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
@@ -170,7 +192,7 @@ export default function Estadisticas() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
         {/* Ingresos por mes */}
-        <div className="bg-white border border-[#E8E8E8] rounded-sm p-5">
+        <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-sm p-5">
           <SectionTitle>Ingresos por mes (últimos 6 meses)</SectionTitle>
           <ResponsiveContainer width="100%" height={220}>
             <BarChart data={ingresosMes} margin={{ top: 4, right: 8, left: 0, bottom: 0 }}>
@@ -184,7 +206,7 @@ export default function Estadisticas() {
         </div>
 
         {/* Pipeline de leads */}
-        <div className="bg-white border border-[#E8E8E8] rounded-sm p-5">
+        <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-sm p-5">
           <SectionTitle>Pipeline de leads por etapa</SectionTitle>
           <ResponsiveContainer width="100%" height={220}>
             <BarChart data={stageData} margin={{ top: 4, right: 8, left: 0, bottom: 0 }}>
@@ -199,9 +221,50 @@ export default function Estadisticas() {
         </div>
       </div>
 
+      {/* Flujo de caja mensual */}
+      <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-sm p-5 mb-8">
+        <SectionTitle>Flujo de caja — últimos 6 meses</SectionTitle>
+        <ResponsiveContainer width="100%" height={240}>
+          <BarChart data={flujoCaja} margin={{ top: 4, right: 8, left: 0, bottom: 0 }}>
+            <CartesianGrid strokeDasharray="3 3" stroke="#F0F0F0" vertical={false} />
+            <XAxis dataKey="label" tick={{ fontSize: 11, fill: '#888' }} axisLine={false} tickLine={false} />
+            <YAxis tick={{ fontSize: 11, fill: '#888' }} axisLine={false} tickLine={false}
+              tickFormatter={v => v === 0 ? '0' : `$${(v/1000).toFixed(0)}k`} />
+            <Tooltip
+              content={({ active, payload, label }) => {
+                if (!active || !payload?.length) return null
+                return (
+                  <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-sm px-3 py-2 text-xs shadow-sm">
+                    <div className="font-medium text-[#1A1814] mb-1">{label}</div>
+                    {payload.map((p, i) => (
+                      <div key={i} style={{ color: p.fill }} className="flex justify-between gap-4">
+                        <span>{p.name}</span>
+                        <span className="font-semibold">${Number(p.value).toLocaleString('es-UY')}</span>
+                      </div>
+                    ))}
+                  </div>
+                )
+              }}
+              cursor={{ fill: '#F9F9F9' }}
+            />
+            <Bar dataKey="ingresos" name="Ingresos" fill="#22C55E" radius={[2, 2, 0, 0]} />
+            <Bar dataKey="gastos" name="Gastos" fill="#F87171" radius={[2, 2, 0, 0]} />
+            <Bar dataKey="ganancia" name="Ganancia" fill="#111111" radius={[2, 2, 0, 0]} />
+          </BarChart>
+        </ResponsiveContainer>
+        <div className="flex gap-4 mt-2 justify-center">
+          {[['#22C55E', 'Ingresos'], ['#F87171', 'Gastos'], ['#111111', 'Ganancia']].map(([color, label]) => (
+            <div key={label} className="flex items-center gap-1.5">
+              <div className="w-2.5 h-2.5 rounded-sm" style={{ background: color }} />
+              <span className="text-xs text-[#888]">{label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
         {/* Canal de origen — pie */}
-        <div className="bg-white border border-[#E8E8E8] rounded-sm p-5">
+        <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-sm p-5">
           <SectionTitle>Origen de leads</SectionTitle>
           {sourceData.length === 0 ? (
             <div className="text-sm text-[#AAA] py-8 text-center">Sin datos</div>
@@ -220,33 +283,33 @@ export default function Estadisticas() {
         </div>
 
         {/* Conversión por canal */}
-        <div className="bg-white border border-[#E8E8E8] rounded-sm p-5">
+        <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-sm p-5">
           <SectionTitle>Conversión por canal</SectionTitle>
           {sourceConversion.length === 0 ? (
             <div className="text-sm text-[#AAA] py-8 text-center">Sin datos</div>
           ) : (
             <div>
               {/* Header */}
-              <div className="grid grid-cols-[1fr_auto_auto_auto_auto] gap-3 pb-2 border-b border-[#F0F0F0] mb-1">
+              <div className="grid grid-cols-[1fr_auto_auto_auto_auto] gap-3 pb-2 border-b border-[#E0D9CE] mb-1">
                 {['Canal', 'Leads', 'Conv.', 'Tasa', 'Ingresos'].map(h => (
                   <div key={h} className="text-[10px] font-semibold text-[#AAA] uppercase tracking-wider text-right first:text-left">{h}</div>
                 ))}
               </div>
               {sourceConversion.map(row => (
                 <div key={row.source} className="grid grid-cols-[1fr_auto_auto_auto_auto] gap-3 py-2.5 border-b border-[#F8F8F8] last:border-0 items-center">
-                  <div className="text-sm font-medium text-[#111]">{row.source}</div>
+                  <div className="text-sm font-medium text-[#1A1814]">{row.source}</div>
                   <div className="text-sm text-[#666] text-right">{row.total}</div>
                   <div className="text-sm text-[#666] text-right">{row.converted}</div>
                   <div className="text-right">
                     <span className={`text-xs font-semibold px-1.5 py-0.5 rounded-sm ${
                       row.rate >= 50 ? 'bg-green-50 text-green-700' :
                       row.rate >= 25 ? 'bg-yellow-50 text-yellow-700' :
-                      'bg-[#F0F0F0] text-[#666]'
+                      'bg-[#EDE7DC] text-[#666]'
                     }`}>
                       {row.rate}%
                     </span>
                   </div>
-                  <div className="text-sm text-right font-medium text-[#111]">
+                  <div className="text-sm text-right font-medium text-[#1A1814]">
                     {row.revenue > 0 ? formatUSD(row.revenue) : <span className="text-[#CCC]">—</span>}
                   </div>
                 </div>

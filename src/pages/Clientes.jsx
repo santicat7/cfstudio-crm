@@ -16,7 +16,7 @@ const DELIVERY_LABEL = {
 }
 
 const DELIVERY_BADGE = {
-  sin_editar: 'bg-[#F0F0F0] text-[#555]',
+  sin_editar: 'bg-[#EDE7DC] text-[#555]',
   editando: 'bg-yellow-50 text-yellow-700 border border-yellow-200',
   revision: 'bg-yellow-50 text-yellow-800 border border-yellow-300',
   entregado: 'bg-green-50 text-green-700 border border-green-200',
@@ -58,7 +58,7 @@ export default function Clientes() {
   const fetchClientes = useCallback(async () => {
     const { data } = await supabase
       .from('clients')
-      .select('id, name, event_type, event_date, package, deliveries(status), leads(stage)')
+      .select('id, name, event_type, event_date, package, visit_count, deliveries(status), leads(stage)')
       .order('event_date', { ascending: true })
     setClientes(data || [])
     setLoading(false)
@@ -76,18 +76,18 @@ export default function Clientes() {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-xl font-semibold text-[#111]">Clientes</h1>
+        <h1 className="text-xl font-semibold text-[#1A1814]">Clientes</h1>
         <div className="flex gap-2">
           <button
             onClick={exportCSV}
-            className="flex items-center gap-1.5 border border-[#D9D9D9] text-sm text-[#666] px-4 py-2 rounded-sm hover:border-[#111] hover:text-[#111] transition-colors"
+            className="flex items-center gap-1.5 border border-[#D9D9D9] text-sm text-[#666] px-4 py-2 rounded-sm hover:border-[#1A1814] hover:text-[#1A1814] transition-colors"
           >
             <Download size={14} />
             Exportar CSV
           </button>
           <button
             onClick={() => setShowModal(true)}
-            className="flex items-center gap-1.5 bg-[#111] text-white text-sm px-4 py-2 rounded-sm hover:bg-[#000] transition-colors"
+            className="flex items-center gap-1.5 bg-[#1A1814] text-white text-sm px-4 py-2 rounded-sm hover:bg-[#1A1814] transition-colors"
           >
             <Plus size={14} />
             Nuevo cliente
@@ -104,13 +104,13 @@ export default function Clientes() {
             value={search}
             onChange={e => setSearch(e.target.value)}
             placeholder="Buscar por nombre..."
-            className="w-full pl-8 pr-3 py-2 border border-[#D9D9D9] text-sm text-[#111] rounded-sm outline-none focus:border-[#111] transition-colors"
+            className="w-full pl-8 pr-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] rounded-sm outline-none focus:border-[#1A1814] transition-colors"
           />
         </div>
         <select
           value={filterType}
           onChange={e => setFilterType(e.target.value)}
-          className="px-3 py-2 border border-[#D9D9D9] text-sm text-[#111] rounded-sm outline-none focus:border-[#111] bg-white transition-colors"
+          className="px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] rounded-sm outline-none focus:border-[#1A1814] bg-[#FDFBF7] transition-colors"
         >
           <option value="">Todos los tipos</option>
           {EVENT_TYPES.map(t => <option key={t} value={t}>{t}</option>)}
@@ -118,7 +118,7 @@ export default function Clientes() {
         <select
           value={filterStage}
           onChange={e => setFilterStage(e.target.value)}
-          className="px-3 py-2 border border-[#D9D9D9] text-sm text-[#111] rounded-sm outline-none focus:border-[#111] bg-white transition-colors"
+          className="px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] rounded-sm outline-none focus:border-[#1A1814] bg-[#FDFBF7] transition-colors"
         >
           <option value="">Todos los estados</option>
           <option value="consulta">Consulta</option>
@@ -130,11 +130,11 @@ export default function Clientes() {
       </div>
 
       {/* Tabla */}
-      <div className="bg-white border border-[#E8E8E8] rounded-sm overflow-hidden">
+      <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-sm overflow-hidden">
         {/* Header */}
-        <div className="grid grid-cols-[2fr_1fr_1fr_1fr_1fr_auto] gap-4 px-5 py-2.5 border-b border-[#E8E8E8] bg-[#FAFAFA]">
+        <div className="grid grid-cols-[2fr_1fr_1fr_1fr_1fr_auto] gap-4 px-5 py-2.5 border-b border-[#E0D9CE] bg-[#F5F0E8]">
           {['Nombre', 'Tipo', 'Fecha', 'Paquete', 'Entrega', ''].map(h => (
-            <div key={h} className="text-xs font-semibold text-[#888] uppercase tracking-wider">{h}</div>
+            <div key={h} className="text-xs font-semibold uppercase tracking-wider text-[#C9A96E]">{h}</div>
           ))}
         </div>
 
@@ -151,9 +151,23 @@ export default function Clientes() {
               <div
                 key={c.id}
                 onClick={() => navigate(`/clientes/${c.id}`)}
-                className="grid grid-cols-[2fr_1fr_1fr_1fr_1fr_auto] gap-4 px-5 py-3.5 border-b border-[#F0F0F0] last:border-0 hover:bg-[#FAFAFA] cursor-pointer transition-colors items-center"
+                className="grid grid-cols-[2fr_1fr_1fr_1fr_1fr_auto] gap-4 px-5 py-3.5 border-b border-[#E0D9CE] last:border-0 hover:bg-[#F5F0E8] cursor-pointer transition-colors items-center"
               >
-                <div className="text-sm font-medium text-[#111]">{c.name}</div>
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-medium text-[#1A1814]">{c.name}</span>
+                  {c.visit_count > 1 && (() => {
+                    const v = c.visit_count
+                    const cls = v >= 8 ? 'bg-purple-900 text-white border-purple-900'
+                      : v >= 6 ? 'bg-purple-700 text-white border-purple-700'
+                      : v >= 4 ? 'bg-purple-500 text-white border-purple-500'
+                      : 'bg-purple-100 text-purple-700 border-purple-300'
+                    return (
+                      <span className={`text-xs px-1.5 py-0.5 rounded-sm border font-medium flex-shrink-0 ${cls}`}>
+                        #{v}
+                      </span>
+                    )
+                  })()}
+                </div>
                 <div className="text-sm text-[#666]">{c.event_type || '—'}</div>
                 <div className="text-sm text-[#666]">{formatDate(c.event_date)}</div>
                 <div className="text-sm text-[#666]">{c.package || '—'}</div>

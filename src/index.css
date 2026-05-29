@@ -3,13 +3,21 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --ink: #1A1814;
+    --cream: #F5F0E8;
+    --gold: #C9A96E;
+    --gold-dk: #8B6A35;
+    --border: #E0D9CE;
+  }
+
   * {
     box-sizing: border-box;
   }
 
   body {
-    background-color: #FAFAFA;
-    color: #111111;
+    background-color: var(--cream);
+    color: var(--ink);
     font-family: 'Inter', sans-serif;
     -webkit-font-smoothing: antialiased;
   }
@@ -22,7 +30,7 @@
     background: transparent;
   }
   ::-webkit-scrollbar-thumb {
-    background: #D1D1D1;
+    background: #C9A96E44;
     border-radius: 2px;
   }
 }

@@ -19,7 +19,7 @@ import ComingSoon from './pages/ComingSoon'
 function ProtectedRoute({ children }) {
   const { session, loading } = useAuth()
   if (loading) return (
-    <div className="min-h-screen bg-[#FAFAFA] flex items-center justify-center">
+    <div className="min-h-screen bg-[#F5F0E8] flex items-center justify-center">
       <div className="text-sm text-[#888]">Cargando...</div>
     </div>
   )

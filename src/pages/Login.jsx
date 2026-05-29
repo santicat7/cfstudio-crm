@@ -26,10 +26,10 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-screen bg-[#FAFAFA] flex items-center justify-center px-4">
+    <div className="min-h-screen bg-[#F5F0E8] flex items-center justify-center px-4">
       <div className="w-full max-w-sm">
         <div className="mb-10">
-          <div className="text-2xl font-semibold tracking-tight text-[#111] mb-1">
+          <div className="text-2xl font-semibold tracking-tight text-[#1A1814] mb-1">
             C&amp;F Studio
           </div>
           <div className="text-sm text-[#666]">CRM interno — Paysandú, Uruguay</div>
@@ -37,7 +37,7 @@ export default function Login() {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-xs font-medium text-[#111] mb-1.5 uppercase tracking-wide">
+            <label className="block text-xs font-medium text-[#1A1814] mb-1.5 uppercase tracking-wide">
               Email
             </label>
             <input
@@ -46,12 +46,12 @@ export default function Login() {
               onChange={e => setEmail(e.target.value)}
               placeholder="tu@cfstudio.uy"
               required
-              className="w-full px-3 py-2.5 border border-[#D9D9D9] bg-white text-[#111] text-sm rounded-sm outline-none focus:border-[#111] transition-colors"
+              className="w-full px-3 py-2.5 border border-[#D9D9D9] bg-[#FDFBF7] text-[#1A1814] text-sm rounded-sm outline-none focus:border-[#1A1814] transition-colors"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-[#111] mb-1.5 uppercase tracking-wide">
+            <label className="block text-xs font-medium text-[#1A1814] mb-1.5 uppercase tracking-wide">
               Contraseña
             </label>
             <input
@@ -60,7 +60,7 @@ export default function Login() {
               onChange={e => setPassword(e.target.value)}
               placeholder="••••••••"
               required
-              className="w-full px-3 py-2.5 border border-[#D9D9D9] bg-white text-[#111] text-sm rounded-sm outline-none focus:border-[#111] transition-colors"
+              className="w-full px-3 py-2.5 border border-[#D9D9D9] bg-[#FDFBF7] text-[#1A1814] text-sm rounded-sm outline-none focus:border-[#1A1814] transition-colors"
             />
           </div>
 
@@ -81,7 +81,7 @@ export default function Login() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-[#111] text-white text-sm font-medium py-2.5 rounded-sm hover:bg-[#000] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full bg-[#1A1814] text-white text-sm font-medium py-2.5 rounded-sm hover:bg-[#1A1814] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? 'Ingresando...' : 'Ingresar'}
           </button>

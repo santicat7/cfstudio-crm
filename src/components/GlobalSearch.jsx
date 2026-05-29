@@ -88,7 +88,7 @@ export default function GlobalSearch() {
           value={query}
           onChange={e => setQuery(e.target.value)}
           placeholder="Buscar… (Ctrl+K)"
-          className="w-full pl-8 pr-7 py-1.5 text-sm border border-[#D9D9D9] bg-white text-[#111] rounded-sm outline-none focus:border-[#111] transition-colors placeholder:text-[#BBB]"
+          className="w-full pl-8 pr-7 py-1.5 text-sm border border-[#D9D9D9] bg-[#FDFBF7] text-[#1A1814] rounded-sm outline-none focus:border-[#1A1814] transition-colors placeholder:text-[#BBB]"
         />
         {query && (
           <button onClick={() => { setQuery(''); setOpen(false) }}
@@ -99,7 +99,7 @@ export default function GlobalSearch() {
       </div>
 
       {open && (
-        <div className="absolute top-full mt-1.5 left-0 w-80 bg-white border border-[#E8E8E8] rounded-sm z-50 overflow-hidden"
+        <div className="absolute top-full mt-1.5 left-0 w-80 bg-[#FDFBF7] border border-[#E0D9CE] rounded-sm z-50 overflow-hidden"
           style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.08)' }}>
           {loading ? (
             <div className="px-4 py-3 text-xs text-[#AAA]">Buscando...</div>
@@ -107,7 +107,7 @@ export default function GlobalSearch() {
             const Icon = SECTION_ICON[group.type]
             return (
               <div key={group.type}>
-                <div className="flex items-center gap-1.5 px-4 py-2 bg-[#FAFAFA] border-b border-[#F0F0F0]">
+                <div className="flex items-center gap-1.5 px-4 py-2 bg-[#F5F0E8] border-b border-[#E0D9CE]">
                   <Icon size={11} className="text-[#AAA]" />
                   <span className="text-[10px] font-semibold text-[#AAA] uppercase tracking-wider">
                     {SECTION_LABEL[group.type]}
@@ -116,22 +116,22 @@ export default function GlobalSearch() {
                 {group.items.map(item => {
                   if (group.type === 'clientes') return (
                     <button key={item.id} onClick={() => go(`/clientes/${item.id}`)}
-                      className="w-full flex items-center justify-between px-4 py-2.5 hover:bg-[#F5F5F5] transition-colors text-left border-b border-[#F5F5F5] last:border-0">
-                      <span className="text-sm text-[#111]">{item.name}</span>
+                      className="w-full flex items-center justify-between px-4 py-2.5 hover:bg-[#F0EBE1] transition-colors text-left border-b border-[#F5F5F5] last:border-0">
+                      <span className="text-sm text-[#1A1814]">{item.name}</span>
                       {item.event_type && <span className="text-xs text-[#AAA]">{item.event_type}</span>}
                     </button>
                   )
                   if (group.type === 'leads') return (
                     <button key={item.id} onClick={() => go('/leads')}
-                      className="w-full flex items-center justify-between px-4 py-2.5 hover:bg-[#F5F5F5] transition-colors text-left border-b border-[#F5F5F5] last:border-0">
-                      <span className="text-sm text-[#111]">{item.clients?.name}</span>
+                      className="w-full flex items-center justify-between px-4 py-2.5 hover:bg-[#F0EBE1] transition-colors text-left border-b border-[#F5F5F5] last:border-0">
+                      <span className="text-sm text-[#1A1814]">{item.clients?.name}</span>
                       {item.stage && <span className="text-xs text-[#AAA]">{STAGE_LABEL[item.stage]}</span>}
                     </button>
                   )
                   if (group.type === 'tareas') return (
                     <button key={item.id} onClick={() => go('/tareas')}
-                      className="w-full flex items-center justify-between px-4 py-2.5 hover:bg-[#F5F5F5] transition-colors text-left border-b border-[#F5F5F5] last:border-0">
-                      <span className="text-sm text-[#111] truncate mr-2">{item.title}</span>
+                      className="w-full flex items-center justify-between px-4 py-2.5 hover:bg-[#F0EBE1] transition-colors text-left border-b border-[#F5F5F5] last:border-0">
+                      <span className="text-sm text-[#1A1814] truncate mr-2">{item.title}</span>
                       {item.clients?.name && <span className="text-xs text-[#AAA] flex-shrink-0">{item.clients.name}</span>}
                     </button>
                   )

@@ -27,7 +27,7 @@ const DELIVERY_LABEL = {
   entregado: 'Entregado',
 }
 const DELIVERY_BADGE = {
-  sin_editar: 'bg-[#F0F0F0] text-[#555]',
+  sin_editar: 'bg-[#EDE7DC] text-[#555]',
   editando: 'bg-yellow-50 text-yellow-700 border border-yellow-200',
   revision: 'bg-yellow-50 text-yellow-800 border border-yellow-300',
   entregado: 'bg-green-50 text-green-700 border border-green-200',
@@ -56,11 +56,11 @@ function EventPopover({ events, onClose, anchorRef }) {
   return (
     <div
       ref={ref}
-      className="absolute z-50 bg-white border border-[#E8E8E8] rounded-sm w-72 p-4 top-full mt-1 left-0"
+      className="absolute z-50 bg-[#FDFBF7] border border-[#E0D9CE] rounded-sm w-72 p-4 top-full mt-1 left-0"
       style={{ boxShadow: '0 4px 16px rgba(0,0,0,0.08)' }}
     >
       <div className="flex items-center justify-between mb-3">
-        <span className="text-xs font-semibold text-[#888] uppercase tracking-wider">
+        <span className="text-xs font-semibold uppercase tracking-wider text-[#C9A96E]">
           {events.length} evento{events.length > 1 ? 's' : ''}
         </span>
         <button onClick={onClose} className="text-[#CCC] hover:text-[#888] transition-colors">
@@ -80,10 +80,10 @@ function EventPopover({ events, onClose, anchorRef }) {
           const style = getStageStyle(ev.leads?.[0]?.stage)
           const delivery = ev.deliveries?.[0]
           return (
-            <div key={ev.id} className="pb-3 border-b border-[#F0F0F0] last:border-0 last:pb-0">
+            <div key={ev.id} className="pb-3 border-b border-[#E0D9CE] last:border-0 last:pb-0">
               <div className="flex items-start justify-between gap-2 mb-1.5">
                 <div>
-                  <div className="text-sm font-medium text-[#111]">{ev.name}</div>
+                  <div className="text-sm font-medium text-[#1A1814]">{ev.name}</div>
                   <div className="flex items-center gap-1.5 mt-0.5">
                     <span className="text-xs text-[#888]">{ev.event_type}</span>
                     {ev.leads?.[0]?.stage && (
@@ -108,7 +108,7 @@ function EventPopover({ events, onClose, anchorRef }) {
 
               <button
                 onClick={() => { navigate(`/clientes/${ev.id}`); onClose() }}
-                className="flex items-center gap-1 text-xs text-[#111] underline underline-offset-2 hover:text-[#555] transition-colors"
+                className="flex items-center gap-1 text-xs text-[#1A1814] underline underline-offset-2 hover:text-[#555] transition-colors"
               >
                 Ver ficha completa
                 <ExternalLink size={10} />
@@ -140,17 +140,17 @@ function DayCell({ date, events, currentMonth }) {
 
   return (
     <div
-      className={`relative min-h-[96px] p-1.5 border-b border-r border-[#E8E8E8] ${
-        !inMonth ? 'bg-[#F7F7F7]' : 'bg-white'
+      className={`relative min-h-[96px] p-1.5 border-b border-r border-[#E0D9CE] ${
+        !inMonth ? 'bg-[#F7F7F7]' : 'bg-[#FDFBF7]'
       } ${hasConflict && inMonth ? 'ring-1 ring-inset ring-red-300' : ''}`}
     >
       <div className="flex items-center justify-between mb-1">
         <span
           className={`text-xs font-medium w-5 h-5 flex items-center justify-center rounded-full ${
             isCurrentDay
-              ? 'bg-[#111] text-white'
+              ? 'bg-[#1A1814] text-white'
               : inMonth
-              ? 'text-[#111]'
+              ? 'text-[#1A1814]'
               : 'text-[#CCC]'
           }`}
         >
@@ -179,7 +179,7 @@ function DayCell({ date, events, currentMonth }) {
         {extra > 0 && (
           <button
             onClick={() => openPopover(events)}
-            className="text-[10px] text-[#888] hover:text-[#111] transition-colors px-1"
+            className="text-[10px] text-[#888] hover:text-[#1A1814] transition-colors px-1"
           >
             +{extra} más
           </button>
@@ -205,22 +205,22 @@ function WeekView({ weekStart, eventsByDate }) {
   })
 
   return (
-    <div className="bg-white border border-[#E8E8E8] rounded-sm overflow-hidden">
+    <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-sm overflow-hidden">
       {/* Day headers */}
-      <div className="grid grid-cols-7 border-b border-[#E8E8E8]">
+      <div className="grid grid-cols-7 border-b border-[#E0D9CE]">
         {days.map(day => (
           <div
             key={day.toISOString()}
-            className={`text-center py-3 border-r border-[#E8E8E8] last:border-0 ${
-              isToday(day) ? 'bg-[#F5F5F5]' : ''
+            className={`text-center py-3 border-r border-[#E0D9CE] last:border-0 ${
+              isToday(day) ? 'bg-[#F0EBE1]' : ''
             }`}
           >
-            <div className="text-xs font-semibold text-[#888] uppercase tracking-wider">
+            <div className="text-xs font-semibold uppercase tracking-wider text-[#C9A96E]">
               {format(day, 'EEE', { locale: es })}
             </div>
             <div
               className={`mx-auto mt-1 w-7 h-7 flex items-center justify-center rounded-full text-sm font-medium ${
-                isToday(day) ? 'bg-[#111] text-white' : 'text-[#111]'
+                isToday(day) ? 'bg-[#1A1814] text-white' : 'text-[#1A1814]'
               }`}
             >
               {format(day, 'd')}
@@ -340,38 +340,38 @@ export default function Calendario() {
     <div>
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-xl font-semibold text-[#111] capitalize">{headerLabel}</h1>
+        <h1 className="text-xl font-semibold text-[#1A1814] capitalize">{headerLabel}</h1>
         <div className="flex items-center gap-2">
           {/* View toggle */}
           <div className="flex border border-[#D9D9D9] rounded-sm overflow-hidden text-sm">
             <button
               onClick={() => setView('mes')}
-              className={`px-3 py-1.5 transition-colors ${view === 'mes' ? 'bg-[#111] text-white' : 'text-[#666] hover:text-[#111] hover:bg-[#F5F5F5]'}`}
+              className={`px-3 py-1.5 transition-colors ${view === 'mes' ? 'bg-[#1A1814] text-white' : 'text-[#666] hover:text-[#1A1814] hover:bg-[#F0EBE1]'}`}
             >
               Mes
             </button>
             <button
               onClick={() => setView('semana')}
-              className={`px-3 py-1.5 border-l border-[#D9D9D9] transition-colors ${view === 'semana' ? 'bg-[#111] text-white' : 'text-[#666] hover:text-[#111] hover:bg-[#F5F5F5]'}`}
+              className={`px-3 py-1.5 border-l border-[#D9D9D9] transition-colors ${view === 'semana' ? 'bg-[#1A1814] text-white' : 'text-[#666] hover:text-[#1A1814] hover:bg-[#F0EBE1]'}`}
             >
               Semana
             </button>
           </div>
           <button
             onClick={goToday}
-            className="text-sm border border-[#D9D9D9] px-3 py-1.5 rounded-sm text-[#111] hover:border-[#111] transition-colors"
+            className="text-sm border border-[#D9D9D9] px-3 py-1.5 rounded-sm text-[#1A1814] hover:border-[#1A1814] transition-colors"
           >
             Hoy
           </button>
           <button
             onClick={goBack}
-            className="p-1.5 border border-[#D9D9D9] rounded-sm text-[#666] hover:border-[#111] hover:text-[#111] transition-colors"
+            className="p-1.5 border border-[#D9D9D9] rounded-sm text-[#666] hover:border-[#1A1814] hover:text-[#1A1814] transition-colors"
           >
             <ChevronLeft size={15} />
           </button>
           <button
             onClick={goForward}
-            className="p-1.5 border border-[#D9D9D9] rounded-sm text-[#666] hover:border-[#111] hover:text-[#111] transition-colors"
+            className="p-1.5 border border-[#D9D9D9] rounded-sm text-[#666] hover:border-[#1A1814] hover:text-[#1A1814] transition-colors"
           >
             <ChevronRight size={15} />
           </button>
@@ -389,10 +389,10 @@ export default function Calendario() {
           )}
 
           {view === 'mes' ? (
-            <div className="bg-white border border-[#E8E8E8] rounded-sm overflow-hidden">
-              <div className="grid grid-cols-7 border-b border-[#E8E8E8]">
+            <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-sm overflow-hidden">
+              <div className="grid grid-cols-7 border-b border-[#E0D9CE]">
                 {DAYS.map(d => (
-                  <div key={d} className="text-center text-xs font-semibold text-[#888] uppercase tracking-wider py-2.5">
+                  <div key={d} className="text-center text-xs font-semibold uppercase tracking-wider text-[#C9A96E] py-2.5">
                     {d}
                   </div>
                 ))}

@@ -14,7 +14,7 @@ const STAGE_LABEL = {
 }
 
 const STAGE_BADGE = {
-  consulta: 'bg-[#F0F0F0] text-[#555]',
+  consulta: 'bg-[#EDE7DC] text-[#555]',
   cotizado: 'bg-yellow-50 text-yellow-700 border border-yellow-200',
   confirmado: 'bg-green-50 text-green-700 border border-green-200',
   cobrado: 'bg-green-50 text-green-800 border border-green-300',
@@ -29,7 +29,7 @@ const DELIVERY_LABEL = {
 }
 
 const DELIVERY_BADGE = {
-  sin_editar: 'bg-[#F0F0F0] text-[#555]',
+  sin_editar: 'bg-[#EDE7DC] text-[#555]',
   editando: 'bg-yellow-50 text-yellow-700 border border-yellow-200',
   revision: 'bg-yellow-50 text-yellow-800 border border-yellow-300',
   entregado: 'bg-green-50 text-green-700 border border-green-200',
@@ -45,8 +45,8 @@ const SOURCE_LABEL = {
 
 function MetricCard({ label, value, alert, loading }) {
   return (
-    <div className="bg-white border border-[#E8E8E8] rounded-sm p-5">
-      <div className={`text-3xl font-semibold leading-none mb-2 ${alert ? 'text-red-600' : 'text-[#111]'}`}>
+    <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-sm p-5">
+      <div className={`text-3xl font-semibold leading-none mb-2 ${alert ? 'text-red-600' : 'text-[#1A1814]'}`}>
         {loading ? '—' : value}
       </div>
       <div className="text-xs text-[#888]">{label}</div>
@@ -81,6 +81,8 @@ export default function Dashboard() {
   const [leadsRecientes, setLeadsRecientes] = useState([])
   const [alertas, setAlertas] = useState([])
   const [alertasDismissed, setAlertasDismissed] = useState(false)
+  const [alertasEntregas, setAlertasEntregas] = useState([])
+  const [alertasEntregasDismissed, setAlertasEntregasDismissed] = useState(false)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -104,6 +106,7 @@ export default function Dashboard() {
         { data: pastClients },
         { data: paymentsThisMonth },
         { data: expensesThisMonth },
+        { data: upcomingDeliveries },
       ] = await Promise.all([
         supabase
           .from('clients')
@@ -176,6 +179,15 @@ export default function Dashboard() {
           .select('amount, date')
           .gte('date', monthStart)
           .lte('date', monthEnd),
+
+        // Entregas próximas a vencer (próximos 7 días, no entregadas)
+        supabase
+          .from('deliveries')
+          .select('id, promised_at, status, clients(id, name, event_type)')
+          .gte('promised_at', todayStr)
+          .lte('promised_at', addDays(today, 7).toISOString().split('T')[0])
+          .neq('status', 'entregado')
+          .order('promised_at', { ascending: true }),
       ])
 
       // Cobros pendientes
@@ -199,6 +211,8 @@ export default function Dashboard() {
         cobrosPendientes,
         entregasAtrasadas: lateDeliveries?.length ?? 0,
       })
+
+      setAlertasEntregas(upcomingDeliveries || [])
 
       const ingresos = (paymentsThisMonth || []).reduce((s, p) => s + (p.amount || 0), 0)
       const gastos = (expensesThisMonth || []).reduce((s, e) => s + (Number(e.amount) || 0), 0)
@@ -280,7 +294,45 @@ export default function Dashboard() {
         </div>
       )}
 
-      <h1 className="text-xl font-semibold text-[#111] mb-6">Dashboard</h1>
+      {/* Alerta entregas próximas */}
+      {!alertasEntregasDismissed && alertasEntregas.length > 0 && (
+        <div className="mb-4 border border-yellow-200 bg-yellow-50 rounded-sm px-4 py-3">
+          <div className="flex items-start justify-between gap-3">
+            <div className="flex items-start gap-2.5">
+              <AlertTriangle size={16} className="text-yellow-600 flex-shrink-0 mt-0.5" />
+              <div>
+                <p className="text-sm font-semibold text-yellow-700 mb-1">
+                  {alertasEntregas.length === 1
+                    ? 'Entrega que vence en los próximos 7 días'
+                    : `${alertasEntregas.length} entregas que vencen en los próximos 7 días`}
+                </p>
+                <ul className="space-y-0.5">
+                  {alertasEntregas.map(d => {
+                    const diasRestantes = Math.ceil((new Date(d.promised_at + 'T12:00:00') - new Date()) / (1000 * 60 * 60 * 24))
+                    return (
+                      <li key={d.id} className="text-sm text-yellow-700">
+                        <span className="font-medium">{d.clients?.name}</span>
+                        {d.clients?.event_type && <> · {d.clients.event_type}</>}
+                        <span className="ml-1 font-semibold">
+                          {diasRestantes === 0 ? ' · vence hoy' : diasRestantes === 1 ? ' · vence mañana' : ` · ${diasRestantes} días`}
+                        </span>
+                      </li>
+                    )
+                  })}
+                </ul>
+              </div>
+            </div>
+            <button
+              onClick={() => setAlertasEntregasDismissed(true)}
+              className="text-yellow-400 hover:text-yellow-600 transition-colors flex-shrink-0"
+            >
+              <X size={15} />
+            </button>
+          </div>
+        </div>
+      )}
+
+      <h1 className="text-xl font-semibold text-[#1A1814] mb-6">Dashboard</h1>
 
       {/* Metric cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
@@ -310,10 +362,10 @@ export default function Dashboard() {
 
       {/* Próximos eventos */}
       <div className="mb-8">
-        <h2 className="text-xs font-semibold text-[#111] uppercase tracking-wider mb-3">
+        <h2 className="text-xs font-semibold text-[#1A1814] uppercase tracking-wider mb-3">
           Próximos eventos
         </h2>
-        <div className="bg-white border border-[#E8E8E8] border-l-4 border-l-[#111] rounded-sm divide-y divide-[#F0F0F0]">
+        <div className="bg-[#FDFBF7] border border-[#E0D9CE] border-l-4 border-l-[#111] rounded-sm divide-y divide-[#E0D9CE]">
           {loading ? (
             <div className="px-5 py-8 text-center text-sm text-[#AAA]">Cargando...</div>
           ) : proximosEventos.length === 0 ? (
@@ -324,7 +376,7 @@ export default function Dashboard() {
               return (
                 <div key={client.id} className="flex items-center justify-between px-5 py-3.5">
                   <div>
-                    <div className="text-sm font-medium text-[#111]">{client.name}</div>
+                    <div className="text-sm font-medium text-[#1A1814]">{client.name}</div>
                     <div className="text-xs text-[#888] mt-0.5">
                       {client.event_type}
                       {client.event_date && (
@@ -351,9 +403,9 @@ export default function Dashboard() {
         const total = ingresos + gastos
         const pctIngresos = total > 0 ? (ingresos / total) * 100 : 50
         return (
-          <div className="bg-white border border-[#E8E8E8] rounded-sm p-5 mb-8">
+          <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-sm p-5 mb-8">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xs font-semibold text-[#111] uppercase tracking-wider">
+              <h2 className="text-xs font-semibold text-[#1A1814] uppercase tracking-wider">
                 Resumen del mes — {format(new Date(), 'MMMM yyyy', { locale: es })}
               </h2>
               {!loading && (
@@ -381,7 +433,7 @@ export default function Dashboard() {
               </div>
               <div>
                 <p className="text-xs text-[#888] mb-1">Ganancia</p>
-                <p className={`text-lg font-semibold ${ganancia >= 0 ? 'text-[#111]' : 'text-red-500'}`}>{loading ? '—' : formatMoney(ganancia)}</p>
+                <p className={`text-lg font-semibold ${ganancia >= 0 ? 'text-[#1A1814]' : 'text-red-500'}`}>{loading ? '—' : formatMoney(ganancia)}</p>
               </div>
             </div>
 
@@ -410,12 +462,12 @@ export default function Dashboard() {
         const pct = target > 0 ? Math.min((ingresos / target) * 100, 100) : 0
         const falta = target > 0 ? Math.max(target - ingresos, 0) : 0
         return (
-          <div className="bg-white border border-[#E8E8E8] rounded-sm p-5 mb-8">
+          <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-sm p-5 mb-8">
             <div className="flex items-center justify-between mb-3">
-              <h2 className="text-xs font-semibold text-[#111] uppercase tracking-wider">Meta de ingresos — {format(new Date(), 'MMMM', { locale: es })}</h2>
+              <h2 className="text-xs font-semibold text-[#1A1814] uppercase tracking-wider">Meta de ingresos — {format(new Date(), 'MMMM', { locale: es })}</h2>
               <button
                 onClick={() => setEditandoMeta(true)}
-                className="text-xs text-[#888] hover:text-[#111] transition-colors"
+                className="text-xs text-[#888] hover:text-[#1A1814] transition-colors"
               >
                 {meta ? 'Editar' : 'Fijar meta'}
               </button>
@@ -428,19 +480,19 @@ export default function Dashboard() {
                   placeholder="ej: 5000"
                   value={metaInput}
                   onChange={e => setMetaInput(e.target.value)}
-                  className="border border-[#E8E8E8] rounded-lg px-3 py-2 text-sm text-[#111] focus:outline-none focus:border-[#111] flex-1"
+                  className="border border-[#E0D9CE] rounded-lg px-3 py-2 text-sm text-[#1A1814] focus:outline-none focus:border-[#1A1814] flex-1"
                   autoFocus
                 />
                 <button
                   onClick={saveMeta}
                   disabled={savingMeta}
-                  className="bg-[#111] text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-[#333] transition-colors disabled:opacity-50"
+                  className="bg-[#1A1814] text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-[#2C2620] transition-colors disabled:opacity-50"
                 >
                   {savingMeta ? '...' : 'Guardar'}
                 </button>
                 <button
                   onClick={() => setEditandoMeta(false)}
-                  className="text-sm text-[#888] hover:text-[#111] px-2"
+                  className="text-sm text-[#888] hover:text-[#1A1814] px-2"
                 >
                   Cancelar
                 </button>
@@ -451,16 +503,16 @@ export default function Dashboard() {
               <>
                 <div className="flex items-end justify-between mb-2">
                   <div>
-                    <span className="text-2xl font-semibold text-[#111]">{formatMoney(ingresos)}</span>
+                    <span className="text-2xl font-semibold text-[#1A1814]">{formatMoney(ingresos)}</span>
                     <span className="text-sm text-[#888] ml-2">de {formatMoney(target)}</span>
                   </div>
                   <span className={`text-sm font-semibold ${pct >= 100 ? 'text-green-600' : 'text-[#888]'}`}>
                     {Math.round(pct)}%
                   </span>
                 </div>
-                <div className="h-3 bg-[#F0F0F0] rounded-full overflow-hidden">
+                <div className="h-3 bg-[#EDE7DC] rounded-full overflow-hidden">
                   <div
-                    className={`h-full rounded-full transition-all duration-500 ${pct >= 100 ? 'bg-green-500' : pct >= 60 ? 'bg-yellow-400' : 'bg-[#111]'}`}
+                    className={`h-full rounded-full transition-all duration-500 ${pct >= 100 ? 'bg-green-500' : pct >= 60 ? 'bg-[#C9A96E]' : 'bg-[#8B6A35]'}`}
                     style={{ width: `${pct}%` }}
                   />
                 </div>
@@ -478,10 +530,10 @@ export default function Dashboard() {
       {/* Eventos pasados */}
       {(eventospasados.length > 0 || loading) && (
         <div className="mb-8">
-          <h2 className="text-xs font-semibold text-[#111] uppercase tracking-wider mb-3">
+          <h2 className="text-xs font-semibold text-[#1A1814] uppercase tracking-wider mb-3">
             Eventos pasados — seguimiento
           </h2>
-          <div className="bg-white border border-[#E8E8E8] rounded-sm divide-y divide-[#F0F0F0]">
+          <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-sm divide-y divide-[#E0D9CE]">
             {loading ? (
               <div className="px-5 py-8 text-center text-sm text-[#AAA]">Cargando...</div>
             ) : (
@@ -493,7 +545,7 @@ export default function Dashboard() {
                 return (
                   <div key={client.id} className="flex items-center justify-between px-5 py-3.5 gap-4">
                     <div className="min-w-0">
-                      <div className="text-sm font-medium text-[#111]">{client.name}</div>
+                      <div className="text-sm font-medium text-[#1A1814]">{client.name}</div>
                       <div className="text-xs text-[#888] mt-0.5">
                         {client.event_type}
                         {client.event_date && (
@@ -508,7 +560,7 @@ export default function Dashboard() {
                           {DELIVERY_LABEL[delivery.status]}
                         </span>
                       ) : (
-                        <span className="text-xs px-2 py-0.5 rounded-sm bg-[#F0F0F0] text-[#AAA]">Sin entrega</span>
+                        <span className="text-xs px-2 py-0.5 rounded-sm bg-[#EDE7DC] text-[#AAA]">Sin entrega</span>
                       )}
                       {/* Pago */}
                       {client.total_price > 0 && (
@@ -527,10 +579,10 @@ export default function Dashboard() {
 
       {/* Leads recientes */}
       <div>
-        <h2 className="text-xs font-semibold text-[#111] uppercase tracking-wider mb-3">
+        <h2 className="text-xs font-semibold text-[#1A1814] uppercase tracking-wider mb-3">
           Leads recientes
         </h2>
-        <div className="bg-white border border-[#E8E8E8] rounded-sm divide-y divide-[#F0F0F0]">
+        <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-sm divide-y divide-[#E0D9CE]">
           {loading ? (
             <div className="px-5 py-8 text-center text-sm text-[#AAA]">Cargando...</div>
           ) : leadsRecientes.length === 0 ? (
@@ -539,7 +591,7 @@ export default function Dashboard() {
             leadsRecientes.map(lead => (
               <div key={lead.id} className="flex items-center justify-between px-5 py-3.5">
                 <div>
-                  <div className="text-sm font-medium text-[#111]">{lead.clients?.name}</div>
+                  <div className="text-sm font-medium text-[#1A1814]">{lead.clients?.name}</div>
                   <div className="text-xs text-[#888] mt-0.5">
                     {lead.clients?.event_type}
                     {lead.source && <> · {SOURCE_LABEL[lead.source]}</>}

@@ -110,10 +110,10 @@ function Modal({ onClose, onSaved }) {
 
   return (
     <div className="fixed inset-0 bg-black/30 z-50 flex items-end md:items-center justify-center p-0 md:p-4">
-      <div className="bg-white w-full md:max-w-md rounded-t-2xl md:rounded-2xl shadow-xl max-h-[92vh] overflow-y-auto">
-        <div className="flex items-center justify-between px-5 py-4 border-b border-[#E8E8E8] sticky top-0 bg-white">
-          <h2 className="text-sm font-semibold text-[#111]">Nuevo gasto</h2>
-          <button onClick={onClose} className="text-[#888] hover:text-[#111]"><X size={18} /></button>
+      <div className="bg-[#FDFBF7] w-full md:max-w-md rounded-t-2xl md:rounded-2xl shadow-xl max-h-[92vh] overflow-y-auto">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-[#E0D9CE] sticky top-0 bg-[#FDFBF7]">
+          <h2 className="text-sm font-semibold text-[#1A1814]">Nuevo gasto</h2>
+          <button onClick={onClose} className="text-[#888] hover:text-[#1A1814]"><X size={18} /></button>
         </div>
 
         <form onSubmit={handleSubmit} className="p-5 flex flex-col gap-4">
@@ -125,7 +125,7 @@ function Modal({ onClose, onSaved }) {
                 type="date"
                 value={form.date}
                 onChange={e => set('date', e.target.value)}
-                className="border border-[#E8E8E8] rounded-lg px-3 py-2 text-sm text-[#111] focus:outline-none focus:border-[#111]"
+                className="border border-[#E0D9CE] rounded-lg px-3 py-2 text-sm text-[#1A1814] focus:outline-none focus:border-[#1A1814]"
               />
             </div>
             <div className="flex flex-col gap-1">
@@ -135,7 +135,7 @@ function Modal({ onClose, onSaved }) {
                 placeholder="0"
                 value={form.amount}
                 onChange={e => set('amount', e.target.value)}
-                className="border border-[#E8E8E8] rounded-lg px-3 py-2 text-sm text-[#111] focus:outline-none focus:border-[#111]"
+                className="border border-[#E0D9CE] rounded-lg px-3 py-2 text-sm text-[#1A1814] focus:outline-none focus:border-[#1A1814]"
               />
             </div>
           </div>
@@ -147,7 +147,7 @@ function Modal({ onClose, onSaved }) {
               <select
                 value={form.category}
                 onChange={e => set('category', e.target.value)}
-                className="w-full border border-[#E8E8E8] rounded-lg px-3 py-2 text-sm text-[#111] focus:outline-none focus:border-[#111] appearance-none bg-white"
+                className="w-full border border-[#E0D9CE] rounded-lg px-3 py-2 text-sm text-[#1A1814] focus:outline-none focus:border-[#1A1814] appearance-none bg-[#FDFBF7]"
               >
                 <option value="">Seleccionar rubro...</option>
                 {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
@@ -164,7 +164,7 @@ function Modal({ onClose, onSaved }) {
               placeholder="ej: Facebook Ads mayo"
               value={form.description}
               onChange={e => set('description', e.target.value)}
-              className="border border-[#E8E8E8] rounded-lg px-3 py-2 text-sm text-[#111] focus:outline-none focus:border-[#111]"
+              className="border border-[#E0D9CE] rounded-lg px-3 py-2 text-sm text-[#1A1814] focus:outline-none focus:border-[#1A1814]"
             />
           </div>
 
@@ -179,8 +179,8 @@ function Modal({ onClose, onSaved }) {
                   onClick={() => set('paid_by', p.value)}
                   className={`py-2 rounded-lg text-sm font-medium border transition-colors ${
                     form.paid_by === p.value
-                      ? 'bg-[#111] text-white border-[#111]'
-                      : 'bg-white text-[#666] border-[#E8E8E8] hover:border-[#111]'
+                      ? 'bg-[#1A1814] text-white border-[#1A1814]'
+                      : 'bg-[#FDFBF7] text-[#666] border-[#E0D9CE] hover:border-[#1A1814]'
                   }`}
                 >
                   {p.label}
@@ -194,11 +194,11 @@ function Modal({ onClose, onSaved }) {
             <label className="text-xs text-[#888]">Ticket / Factura (opcional)</label>
             {preview ? (
               <div className="relative">
-                <img src={preview} alt="preview" className="w-full max-h-48 object-contain rounded-lg border border-[#E8E8E8]" />
+                <img src={preview} alt="preview" className="w-full max-h-48 object-contain rounded-lg border border-[#E0D9CE]" />
                 <button
                   type="button"
                   onClick={() => { setFile(null); setPreview(null) }}
-                  className="absolute top-2 right-2 bg-white rounded-full p-1 shadow text-[#888] hover:text-[#111]"
+                  className="absolute top-2 right-2 bg-[#FDFBF7] rounded-full p-1 shadow text-[#888] hover:text-[#1A1814]"
                 >
                   <X size={14} />
                 </button>
@@ -207,7 +207,7 @@ function Modal({ onClose, onSaved }) {
               <button
                 type="button"
                 onClick={() => fileRef.current.click()}
-                className="flex items-center justify-center gap-2 border border-dashed border-[#CCC] rounded-lg py-4 text-sm text-[#888] hover:border-[#111] hover:text-[#111] transition-colors"
+                className="flex items-center justify-center gap-2 border border-dashed border-[#CCC] rounded-lg py-4 text-sm text-[#888] hover:border-[#1A1814] hover:text-[#1A1814] transition-colors"
               >
                 <Upload size={16} />
                 Subir foto
@@ -224,7 +224,7 @@ function Modal({ onClose, onSaved }) {
               placeholder="Notas adicionales..."
               value={form.notes}
               onChange={e => set('notes', e.target.value)}
-              className="border border-[#E8E8E8] rounded-lg px-3 py-2 text-sm text-[#111] focus:outline-none focus:border-[#111] resize-none"
+              className="border border-[#E0D9CE] rounded-lg px-3 py-2 text-sm text-[#1A1814] focus:outline-none focus:border-[#1A1814] resize-none"
             />
           </div>
 
@@ -233,7 +233,7 @@ function Modal({ onClose, onSaved }) {
           <button
             type="submit"
             disabled={saving}
-            className="w-full bg-[#111] text-white rounded-lg py-2.5 text-sm font-medium hover:bg-[#333] transition-colors disabled:opacity-50"
+            className="w-full bg-[#1A1814] text-white rounded-lg py-2.5 text-sm font-medium hover:bg-[#2C2620] transition-colors disabled:opacity-50"
           >
             {saving ? 'Guardando...' : 'Guardar gasto'}
           </button>
@@ -294,12 +294,12 @@ export default function Gastos() {
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-xl font-semibold text-[#111]">Gastos</h1>
+          <h1 className="text-xl font-semibold text-[#1A1814]">Gastos</h1>
           <p className="text-sm text-[#888] mt-0.5">Gastos de la empresa por rubro</p>
         </div>
         <button
           onClick={() => setShowModal(true)}
-          className="flex items-center gap-2 bg-[#111] text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-[#333] transition-colors"
+          className="flex items-center gap-2 bg-[#1A1814] text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-[#2C2620] transition-colors"
         >
           <Plus size={16} />
           Nuevo gasto
@@ -308,9 +308,9 @@ export default function Gastos() {
 
       {/* Balance cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
-        <div className="bg-white border border-[#E8E8E8] rounded-xl p-4">
+        <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-xl p-4">
           <p className="text-xs text-[#888] mb-1">Total general</p>
-          <p className="text-xl font-semibold text-[#111]">{formatMoney(totalGeneral)}</p>
+          <p className="text-xl font-semibold text-[#1A1814]">{formatMoney(totalGeneral)}</p>
           <p className="text-xs text-[#888] mt-1">Cada uno debería poner {formatMoney(mitad)}</p>
         </div>
 
@@ -318,9 +318,9 @@ export default function Gastos() {
           { name: 'Santiago', total: totalSantiago, diff: diffSantiago },
           { name: 'Matías', total: totalMatias, diff: diffMatias },
         ].map(({ name, total, diff }) => (
-          <div key={name} className="bg-white border border-[#E8E8E8] rounded-xl p-4">
+          <div key={name} className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-xl p-4">
             <p className="text-xs text-[#888] mb-1">{name}</p>
-            <p className="text-xl font-semibold text-[#111]">{formatMoney(total)}</p>
+            <p className="text-xl font-semibold text-[#1A1814]">{formatMoney(total)}</p>
             <p className={`text-xs mt-1 font-medium ${diff > 0 ? 'text-green-600' : diff < 0 ? 'text-red-500' : 'text-[#888]'}`}>
               {diff > 0
                 ? `Le deben ${formatMoney(diff)}`
@@ -334,7 +334,7 @@ export default function Gastos() {
 
       {/* By category */}
       {byCategory.length > 0 && (
-        <div className="bg-white border border-[#E8E8E8] rounded-xl p-4 mb-6">
+        <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-xl p-4 mb-6">
           <p className="text-xs font-medium text-[#888] mb-3">Por rubro</p>
           <div className="flex flex-col gap-2">
             {byCategory.map(({ cat, total }) => (
@@ -342,13 +342,13 @@ export default function Gastos() {
                 <span className={`text-xs px-2 py-0.5 rounded-full font-medium w-28 text-center flex-shrink-0 ${CATEGORY_COLORS[cat] || 'bg-gray-100 text-gray-700'}`}>
                   {cat}
                 </span>
-                <div className="flex-1 bg-[#F5F5F5] rounded-full h-1.5 overflow-hidden">
+                <div className="flex-1 bg-[#F0EBE1] rounded-full h-1.5 overflow-hidden">
                   <div
-                    className="h-full bg-[#111] rounded-full"
+                    className="h-full bg-[#C9A96E] rounded-full"
                     style={{ width: `${totalGeneral > 0 ? (total / totalGeneral) * 100 : 0}%` }}
                   />
                 </div>
-                <span className="text-sm text-[#111] font-medium w-20 text-right">{formatMoney(total)}</span>
+                <span className="text-sm text-[#1A1814] font-medium w-20 text-right">{formatMoney(total)}</span>
               </div>
             ))}
           </div>
@@ -361,7 +361,7 @@ export default function Gastos() {
           <select
             value={filterCategory}
             onChange={e => setFilterCategory(e.target.value)}
-            className="border border-[#E8E8E8] rounded-lg px-3 py-1.5 text-xs text-[#666] focus:outline-none focus:border-[#111] appearance-none bg-white pr-7"
+            className="border border-[#E0D9CE] rounded-lg px-3 py-1.5 text-xs text-[#666] focus:outline-none focus:border-[#1A1814] appearance-none bg-[#FDFBF7] pr-7"
           >
             <option value="">Todos los rubros</option>
             {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
@@ -372,7 +372,7 @@ export default function Gastos() {
           <select
             value={filterPerson}
             onChange={e => setFilterPerson(e.target.value)}
-            className="border border-[#E8E8E8] rounded-lg px-3 py-1.5 text-xs text-[#666] focus:outline-none focus:border-[#111] appearance-none bg-white pr-7"
+            className="border border-[#E0D9CE] rounded-lg px-3 py-1.5 text-xs text-[#666] focus:outline-none focus:border-[#1A1814] appearance-none bg-[#FDFBF7] pr-7"
           >
             <option value="">Todos</option>
             {PEOPLE.map(p => <option key={p.value} value={p.value}>{p.label}</option>)}
@@ -389,9 +389,9 @@ export default function Gastos() {
       ) : (
         <div className="flex flex-col gap-2">
           {filtered.map(exp => (
-            <div key={exp.id} className="bg-white border border-[#E8E8E8] rounded-xl overflow-hidden">
+            <div key={exp.id} className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-xl overflow-hidden">
               <div
-                className="flex items-center gap-3 px-4 py-3 cursor-pointer hover:bg-[#FAFAFA] transition-colors"
+                className="flex items-center gap-3 px-4 py-3 cursor-pointer hover:bg-[#F5F0E8] transition-colors"
                 onClick={() => setExpandedId(expandedId === exp.id ? null : exp.id)}
               >
                 <div className="flex-1 min-w-0">
@@ -400,7 +400,7 @@ export default function Gastos() {
                       {exp.category}
                     </span>
                     {exp.description && (
-                      <span className="text-sm text-[#111] truncate">{exp.description}</span>
+                      <span className="text-sm text-[#1A1814] truncate">{exp.description}</span>
                     )}
                   </div>
                   <div className="flex items-center gap-2 mt-1">
@@ -411,12 +411,12 @@ export default function Gastos() {
                     <span className="text-xs text-[#888] capitalize">{exp.paid_by}</span>
                   </div>
                 </div>
-                <span className="text-sm font-semibold text-[#111] flex-shrink-0">{formatMoney(exp.amount)}</span>
+                <span className="text-sm font-semibold text-[#1A1814] flex-shrink-0">{formatMoney(exp.amount)}</span>
                 {exp.receipt_url && <Image size={14} className="text-[#888] flex-shrink-0" />}
               </div>
 
               {expandedId === exp.id && (
-                <div className="px-4 pb-4 border-t border-[#F0F0F0] pt-3 flex flex-col gap-3">
+                <div className="px-4 pb-4 border-t border-[#E0D9CE] pt-3 flex flex-col gap-3">
                   {exp.notes && (
                     <p className="text-sm text-[#666]">{exp.notes}</p>
                   )}
@@ -425,13 +425,13 @@ export default function Gastos() {
                       <img
                         src={exp.receipt_url}
                         alt="ticket"
-                        className="max-h-60 object-contain rounded-lg border border-[#E8E8E8] w-full"
+                        className="max-h-60 object-contain rounded-lg border border-[#E0D9CE] w-full"
                       />
                       <a
                         href={exp.receipt_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-xs text-[#888] hover:text-[#111] mt-1"
+                        className="inline-flex items-center gap-1 text-xs text-[#888] hover:text-[#1A1814] mt-1"
                       >
                         <ExternalLink size={12} /> Ver imagen completa
                       </a>
