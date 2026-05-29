@@ -473,16 +473,9 @@ export default function ClienteDetalle() {
 
           <div>
             <div className="text-xs text-[#AAA] mb-1">Tareas pendientes</div>
-            {tareas.filter(t => !t.done).length === 0 ? (
-              <div className="text-sm text-[#CCC]">Sin tareas</div>
-            ) : (
-              tareas.filter(t => !t.done).slice(0, 2).map(t => (
-                <div key={t.id} className="text-sm text-[#1A1814] truncate">{t.title}</div>
-              ))
-            )}
-            {tareas.filter(t => !t.done).length > 2 && (
-              <div className="text-xs text-[#888] mt-0.5">+{tareas.filter(t => !t.done).length - 2} más</div>
-            )}
+            <div className={`text-sm font-medium ${pendingTasks > 0 ? 'text-[#1A1814]' : 'text-[#CCC]'}`}>
+              {pendingTasks > 0 ? `${pendingTasks} tarea${pendingTasks > 1 ? 's' : ''}` : 'Sin tareas'}
+            </div>
           </div>
         </div>
       </Section>
