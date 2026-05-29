@@ -3,7 +3,7 @@ import { supabase } from '../lib/supabase'
 import { formatUSD } from '../lib/utils'
 import { format, addDays, startOfMonth, endOfMonth } from 'date-fns'
 import { es } from 'date-fns/locale'
-import { AlertTriangle, X } from 'lucide-react'
+import { AlertTriangle, X, TrendingUp, TrendingDown, Minus } from 'lucide-react'
 
 const STAGE_LABEL = {
   consulta: 'Consulta',
@@ -60,6 +60,10 @@ function EmptyState({ text }) {
   )
 }
 
+function formatMoney(n) {
+  return '$' + Number(n).toLocaleString('es-UY', { minimumFractionDigits: 0, maximumFractionDigits: 0 })
+}
+
 export default function Dashboard() {
   const [metrics, setMetrics] = useState({
     eventosEsteMes: 0,
@@ -67,6 +71,11 @@ export default function Dashboard() {
     cobrosPendientes: 0,
     entregasAtrasadas: 0,
   })
+  const [finanzasMes, setFinanzasMes] = useState({ ingresos: 0, gastos: 0 })
+  const [meta, setMeta] = useState(null)
+  const [metaInput, setMetaInput] = useState('')
+  const [editandoMeta, setEditandoMeta] = useState(false)
+  const [savingMeta, setSavingMeta] = useState(false)
   const [proximosEventos, setProximosEventos] = useState([])
   const [eventospasados, setEventosPasados] = useState([])
   const [leadsRecientes, setLeadsRecientes] = useState([])
@@ -93,6 +102,8 @@ export default function Dashboard() {
         { data: tomorrowClients },
         { data: allPaymentsForAlert },
         { data: pastClients },
+        { data: paymentsThisMonth },
+        { data: expensesThisMonth },
       ] = await Promise.all([
         supabase
           .from('clients')
@@ -151,6 +162,20 @@ export default function Dashboard() {
           .gte('event_date', format(addDays(today, -90), 'yyyy-MM-dd'))
           .order('event_date', { ascending: false })
           .limit(10),
+
+        // Pagos del mes
+        supabase
+          .from('payments')
+          .select('amount, paid_at')
+          .gte('paid_at', monthStart)
+          .lte('paid_at', monthEnd),
+
+        // Gastos del mes
+        supabase
+          .from('expenses')
+          .select('amount, date')
+          .gte('date', monthStart)
+          .lte('date', monthEnd),
       ])
 
       // Cobros pendientes
@@ -175,6 +200,15 @@ export default function Dashboard() {
         entregasAtrasadas: lateDeliveries?.length ?? 0,
       })
 
+      const ingresos = (paymentsThisMonth || []).reduce((s, p) => s + (p.amount || 0), 0)
+      const gastos = (expensesThisMonth || []).reduce((s, e) => s + (Number(e.amount) || 0), 0)
+      setFinanzasMes({ ingresos, gastos })
+
+      const mesKey = format(today, 'yyyy-MM')
+      const { data: goalData } = await supabase.from('goals').select('*').eq('month', mesKey).maybeSingle()
+      setMeta(goalData || null)
+      setMetaInput(goalData?.target?.toString() || '')
+
       // Alertas: evento mañana con saldo pendiente
       const paidMap = {}
       for (const p of allPaymentsForAlert || []) {
@@ -195,6 +229,21 @@ export default function Dashboard() {
 
     fetchAll()
   }, [])
+
+  async function saveMeta() {
+    const value = parseFloat(metaInput)
+    if (!value || value <= 0) return
+    setSavingMeta(true)
+    const mesKey = format(new Date(), 'yyyy-MM')
+    const { data } = await supabase
+      .from('goals')
+      .upsert({ month: mesKey, target: value }, { onConflict: 'month' })
+      .select()
+      .single()
+    setMeta(data)
+    setEditandoMeta(false)
+    setSavingMeta(false)
+  }
 
   return (
     <div>
@@ -264,7 +313,7 @@ export default function Dashboard() {
         <h2 className="text-xs font-semibold text-[#111] uppercase tracking-wider mb-3">
           Próximos eventos
         </h2>
-        <div className="bg-white border border-[#E8E8E8] rounded-sm divide-y divide-[#F0F0F0]">
+        <div className="bg-white border border-[#E8E8E8] border-l-4 border-l-[#111] rounded-sm divide-y divide-[#F0F0F0]">
           {loading ? (
             <div className="px-5 py-8 text-center text-sm text-[#AAA]">Cargando...</div>
           ) : proximosEventos.length === 0 ? (
@@ -294,6 +343,137 @@ export default function Dashboard() {
           )}
         </div>
       </div>
+
+      {/* Resumen financiero del mes */}
+      {(() => {
+        const { ingresos, gastos } = finanzasMes
+        const ganancia = ingresos - gastos
+        const total = ingresos + gastos
+        const pctIngresos = total > 0 ? (ingresos / total) * 100 : 50
+        return (
+          <div className="bg-white border border-[#E8E8E8] rounded-sm p-5 mb-8">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xs font-semibold text-[#111] uppercase tracking-wider">
+                Resumen del mes — {format(new Date(), 'MMMM yyyy', { locale: es })}
+              </h2>
+              {!loading && (
+                <div className="text-right">
+                  <div className={`flex items-center gap-1 text-sm font-semibold justify-end ${ganancia > 0 ? 'text-green-600' : ganancia < 0 ? 'text-red-500' : 'text-[#888]'}`}>
+                    {ganancia > 0 ? <TrendingUp size={15} /> : ganancia < 0 ? <TrendingDown size={15} /> : <Minus size={15} />}
+                    {formatMoney(Math.abs(ganancia))}
+                    <span className="text-xs font-normal text-[#888] ml-1">{ganancia > 0 ? 'ganancia' : ganancia < 0 ? 'pérdida' : ''}</span>
+                  </div>
+                  {ganancia > 0 && (
+                    <p className="text-xs text-[#888] mt-0.5">{formatMoney(ganancia / 2)} c/u</p>
+                  )}
+                </div>
+              )}
+            </div>
+
+            <div className="grid grid-cols-3 gap-4 mb-4">
+              <div>
+                <p className="text-xs text-[#888] mb-1">Ingresos</p>
+                <p className="text-lg font-semibold text-green-600">{loading ? '—' : formatMoney(ingresos)}</p>
+              </div>
+              <div>
+                <p className="text-xs text-[#888] mb-1">Gastos</p>
+                <p className="text-lg font-semibold text-red-500">{loading ? '—' : formatMoney(gastos)}</p>
+              </div>
+              <div>
+                <p className="text-xs text-[#888] mb-1">Ganancia</p>
+                <p className={`text-lg font-semibold ${ganancia >= 0 ? 'text-[#111]' : 'text-red-500'}`}>{loading ? '—' : formatMoney(ganancia)}</p>
+              </div>
+            </div>
+
+            {!loading && total > 0 && (
+              <div className="h-2 bg-red-100 rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-green-500 rounded-full transition-all duration-500"
+                  style={{ width: `${pctIngresos}%` }}
+                />
+              </div>
+            )}
+            {!loading && total > 0 && (
+              <div className="flex justify-between mt-1">
+                <span className="text-xs text-green-600">Ingresos {Math.round(pctIngresos)}%</span>
+                <span className="text-xs text-red-500">Gastos {Math.round(100 - pctIngresos)}%</span>
+              </div>
+            )}
+          </div>
+        )
+      })()}
+
+      {/* Meta mensual */}
+      {(() => {
+        const { ingresos } = finanzasMes
+        const target = meta?.target || 0
+        const pct = target > 0 ? Math.min((ingresos / target) * 100, 100) : 0
+        const falta = target > 0 ? Math.max(target - ingresos, 0) : 0
+        return (
+          <div className="bg-white border border-[#E8E8E8] rounded-sm p-5 mb-8">
+            <div className="flex items-center justify-between mb-3">
+              <h2 className="text-xs font-semibold text-[#111] uppercase tracking-wider">Meta de ingresos — {format(new Date(), 'MMMM', { locale: es })}</h2>
+              <button
+                onClick={() => setEditandoMeta(true)}
+                className="text-xs text-[#888] hover:text-[#111] transition-colors"
+              >
+                {meta ? 'Editar' : 'Fijar meta'}
+              </button>
+            </div>
+
+            {editandoMeta ? (
+              <div className="flex gap-2 items-center">
+                <input
+                  type="number"
+                  placeholder="ej: 5000"
+                  value={metaInput}
+                  onChange={e => setMetaInput(e.target.value)}
+                  className="border border-[#E8E8E8] rounded-lg px-3 py-2 text-sm text-[#111] focus:outline-none focus:border-[#111] flex-1"
+                  autoFocus
+                />
+                <button
+                  onClick={saveMeta}
+                  disabled={savingMeta}
+                  className="bg-[#111] text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-[#333] transition-colors disabled:opacity-50"
+                >
+                  {savingMeta ? '...' : 'Guardar'}
+                </button>
+                <button
+                  onClick={() => setEditandoMeta(false)}
+                  className="text-sm text-[#888] hover:text-[#111] px-2"
+                >
+                  Cancelar
+                </button>
+              </div>
+            ) : !meta ? (
+              <p className="text-sm text-[#AAA]">No hay meta fijada para este mes.</p>
+            ) : (
+              <>
+                <div className="flex items-end justify-between mb-2">
+                  <div>
+                    <span className="text-2xl font-semibold text-[#111]">{formatMoney(ingresos)}</span>
+                    <span className="text-sm text-[#888] ml-2">de {formatMoney(target)}</span>
+                  </div>
+                  <span className={`text-sm font-semibold ${pct >= 100 ? 'text-green-600' : 'text-[#888]'}`}>
+                    {Math.round(pct)}%
+                  </span>
+                </div>
+                <div className="h-3 bg-[#F0F0F0] rounded-full overflow-hidden">
+                  <div
+                    className={`h-full rounded-full transition-all duration-500 ${pct >= 100 ? 'bg-green-500' : pct >= 60 ? 'bg-yellow-400' : 'bg-[#111]'}`}
+                    style={{ width: `${pct}%` }}
+                  />
+                </div>
+                <p className="text-xs text-[#888] mt-2">
+                  {pct >= 100
+                    ? '🎉 ¡Meta alcanzada!'
+                    : `Faltan ${formatMoney(falta)} para la meta`}
+                </p>
+              </>
+            )}
+          </div>
+        )
+      })()}
 
       {/* Eventos pasados */}
       {(eventospasados.length > 0 || loading) && (
