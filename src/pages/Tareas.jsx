@@ -60,7 +60,7 @@ function NuevaTareaModal({ clientes, onClose, onSaved }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-black/30" onClick={onClose} />
-      <div className="relative bg-[#FDFBF7] border border-[#E0D9CE] rounded-sm w-full max-w-md p-6">
+      <div className="relative bg-[#FDFBF7] border border-[#E0D9CE] rounded-xl w-full max-w-md p-6">
         <div className="flex items-center justify-between mb-5">
           <h2 className="text-sm font-semibold text-[#1A1814]">Nueva tarea</h2>
           <button onClick={onClose} className="text-[#888] hover:text-[#1A1814] transition-colors"><X size={16} /></button>
@@ -70,17 +70,17 @@ function NuevaTareaModal({ clientes, onClose, onSaved }) {
             <label className="block text-xs font-medium text-[#1A1814] mb-1.5 uppercase tracking-wide">Título *</label>
             <input type="text" value={form.title} onChange={e => set('title', e.target.value)} required
               placeholder="Ej: Enviar contrato, editar galería..."
-              className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] rounded-sm outline-none focus:border-[#1A1814] transition-colors" />
+              className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] rounded-xl outline-none focus:border-[#1A1814] transition-colors" />
           </div>
 
           <div>
             <label className="block text-xs font-medium text-[#1A1814] mb-1.5 uppercase tracking-wide">Cliente</label>
             <input type="text" value={search} onChange={e => setSearch(e.target.value)}
               placeholder="Buscar cliente..."
-              className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] rounded-sm outline-none focus:border-[#1A1814] transition-colors mb-1" />
+              className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] rounded-xl outline-none focus:border-[#1A1814] transition-colors mb-1" />
             <select value={form.client_id} onChange={e => set('client_id', e.target.value)}
               size={Math.min(filtered.length + 1, 5)}
-              className="w-full px-3 py-1 border border-[#D9D9D9] text-sm text-[#1A1814] rounded-sm outline-none focus:border-[#1A1814] bg-[#FDFBF7]">
+              className="w-full px-3 py-1 border border-[#D9D9D9] text-sm text-[#1A1814] rounded-xl outline-none focus:border-[#1A1814] bg-[#FDFBF7]">
               <option value="">— Sin cliente —</option>
               {filtered.map(c => <option key={c.id} value={c.id}>{c.name}{c.event_type ? ` · ${c.event_type}` : ''}</option>)}
             </select>
@@ -90,7 +90,7 @@ function NuevaTareaModal({ clientes, onClose, onSaved }) {
             <div>
               <label className="block text-xs font-medium text-[#1A1814] mb-1.5 uppercase tracking-wide">Asignado a</label>
               <select value={form.assigned_to} onChange={e => set('assigned_to', e.target.value)}
-                className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] rounded-sm outline-none focus:border-[#1A1814] bg-[#FDFBF7] transition-colors">
+                className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] rounded-xl outline-none focus:border-[#1A1814] bg-[#FDFBF7] transition-colors">
                 <option value="santi">Santi</option>
                 <option value="matias">Matías</option>
               </select>
@@ -98,24 +98,24 @@ function NuevaTareaModal({ clientes, onClose, onSaved }) {
             <div>
               <label className="block text-xs font-medium text-[#1A1814] mb-1.5 uppercase tracking-wide">Fecha límite</label>
               <input type="date" value={form.due_date} onChange={e => set('due_date', e.target.value)}
-                className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] rounded-sm outline-none focus:border-[#1A1814] transition-colors" />
+                className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] rounded-xl outline-none focus:border-[#1A1814] transition-colors" />
             </div>
           </div>
 
           <div>
             <label className="block text-xs font-medium text-[#1A1814] mb-1.5 uppercase tracking-wide">Notas (opcional)</label>
             <input type="text" value={form.notes} onChange={e => set('notes', e.target.value)}
-              className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] rounded-sm outline-none focus:border-[#1A1814] transition-colors" />
+              className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] rounded-xl outline-none focus:border-[#1A1814] transition-colors" />
           </div>
 
           {error && <p className="text-xs text-red-600">{error}</p>}
           <div className="flex gap-2 pt-1">
             <button type="button" onClick={onClose}
-              className="flex-1 px-4 py-2 border border-[#D9D9D9] text-sm text-[#666] rounded-sm hover:border-[#1A1814] transition-colors">
+              className="flex-1 px-4 py-2 border border-[#D9D9D9] text-sm text-[#666] rounded-xl hover:border-[#1A1814] transition-colors">
               Cancelar
             </button>
             <button type="submit" disabled={loading}
-              className="flex-1 px-4 py-2 bg-[#1A1814] text-white text-sm rounded-sm hover:bg-[#1A1814] transition-colors disabled:opacity-50">
+              className="flex-1 px-4 py-2 bg-[#1A1814] text-white text-sm rounded-xl hover:bg-[#1A1814] transition-colors disabled:opacity-50">
               {loading ? 'Guardando...' : 'Crear tarea'}
             </button>
           </div>
@@ -190,7 +190,7 @@ export default function Tareas() {
         </div>
         <button
           onClick={() => setShowModal(true)}
-          className="flex items-center gap-1.5 bg-[#1A1814] text-white text-sm px-4 py-2 rounded-sm hover:bg-[#1A1814] transition-colors"
+          className="flex items-center gap-1.5 bg-[#1A1814] text-white text-sm px-4 py-2 rounded-xl hover:bg-[#1A1814] transition-colors"
         >
           <Plus size={14} />
           Nueva tarea
@@ -201,7 +201,7 @@ export default function Tareas() {
       <div className="flex gap-1 mb-5">
         {FILTERS.map(f => (
           <button key={f.id} onClick={() => setFilter(f.id)}
-            className={`text-xs px-3 py-1.5 rounded-sm font-medium transition-colors ${
+            className={`text-xs px-3 py-1.5 rounded-xl font-medium transition-colors ${
               filter === f.id ? 'bg-[#1A1814] text-white' : 'bg-[#FDFBF7] border border-[#D9D9D9] text-[#666] hover:border-[#1A1814]'
             }`}>
             {f.id === 'mias' ? `Mis tareas (${myAssignee === 'santi' ? 'Santi' : 'Matías'})` : f.label}
@@ -224,7 +224,7 @@ export default function Tareas() {
               <h2 className="text-xs font-semibold uppercase tracking-wider text-[#C9A96E] mb-2">
                 {group.label}
               </h2>
-              <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-sm divide-y divide-[#E0D9CE]">
+              <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-xl divide-y divide-[#E0D9CE]">
                 {group.tasks.map(task => {
                   const overdue = isOverdue(task.due_date) && !task.done
                   const dueLabel = formatDue(task.due_date)
@@ -232,7 +232,7 @@ export default function Tareas() {
                     <div key={task.id} className={`flex items-start gap-3 px-4 py-3 ${task.done ? 'opacity-50' : ''}`}>
                       <button
                         onClick={() => toggleDone(task)}
-                        className={`mt-0.5 flex-shrink-0 w-4 h-4 rounded-sm border transition-colors ${
+                        className={`mt-0.5 flex-shrink-0 w-4 h-4 rounded-xl border transition-colors ${
                           task.done
                             ? 'bg-[#1A1814] border-[#1A1814]'
                             : 'border-[#D9D9D9] hover:border-[#1A1814]'
@@ -256,7 +256,7 @@ export default function Tareas() {
 
                       <div className="flex items-center gap-2 flex-shrink-0">
                         {task.assigned_to && (
-                          <span className={`text-xs px-1.5 py-0.5 rounded-sm ${ASSIGNEE_BADGE[task.assigned_to]}`}>
+                          <span className={`text-xs px-1.5 py-0.5 rounded-xl ${ASSIGNEE_BADGE[task.assigned_to]}`}>
                             {ASSIGNEE_LABEL[task.assigned_to]}
                           </span>
                         )}

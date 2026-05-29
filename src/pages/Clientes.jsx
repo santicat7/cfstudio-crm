@@ -80,14 +80,14 @@ export default function Clientes() {
         <div className="flex gap-2">
           <button
             onClick={exportCSV}
-            className="flex items-center gap-1.5 border border-[#D9D9D9] text-sm text-[#666] px-4 py-2 rounded-sm hover:border-[#1A1814] hover:text-[#1A1814] transition-colors"
+            className="flex items-center gap-1.5 border border-[#D9D9D9] text-sm text-[#666] px-4 py-2 rounded-xl hover:border-[#1A1814] hover:text-[#1A1814] transition-colors"
           >
             <Download size={14} />
             Exportar CSV
           </button>
           <button
             onClick={() => setShowModal(true)}
-            className="flex items-center gap-1.5 bg-[#1A1814] text-white text-sm px-4 py-2 rounded-sm hover:bg-[#1A1814] transition-colors"
+            className="flex items-center gap-1.5 bg-[#1A1814] text-white text-sm px-4 py-2 rounded-xl hover:bg-[#1A1814] transition-colors"
           >
             <Plus size={14} />
             Nuevo cliente
@@ -104,13 +104,13 @@ export default function Clientes() {
             value={search}
             onChange={e => setSearch(e.target.value)}
             placeholder="Buscar por nombre..."
-            className="w-full pl-8 pr-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] rounded-sm outline-none focus:border-[#1A1814] transition-colors"
+            className="w-full pl-8 pr-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] rounded-xl outline-none focus:border-[#1A1814] transition-colors"
           />
         </div>
         <select
           value={filterType}
           onChange={e => setFilterType(e.target.value)}
-          className="px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] rounded-sm outline-none focus:border-[#1A1814] bg-[#FDFBF7] transition-colors"
+          className="px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] rounded-xl outline-none focus:border-[#1A1814] bg-[#FDFBF7] transition-colors"
         >
           <option value="">Todos los tipos</option>
           {EVENT_TYPES.map(t => <option key={t} value={t}>{t}</option>)}
@@ -118,7 +118,7 @@ export default function Clientes() {
         <select
           value={filterStage}
           onChange={e => setFilterStage(e.target.value)}
-          className="px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] rounded-sm outline-none focus:border-[#1A1814] bg-[#FDFBF7] transition-colors"
+          className="px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] rounded-xl outline-none focus:border-[#1A1814] bg-[#FDFBF7] transition-colors"
         >
           <option value="">Todos los estados</option>
           <option value="consulta">Consulta</option>
@@ -130,7 +130,7 @@ export default function Clientes() {
       </div>
 
       {/* Tabla */}
-      <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-sm overflow-hidden">
+      <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-xl overflow-hidden">
         {/* Header */}
         <div className="grid grid-cols-[2fr_1fr_1fr_1fr_1fr_auto] gap-4 px-5 py-2.5 border-b border-[#E0D9CE] bg-[#F5F0E8]">
           {['Nombre', 'Tipo', 'Fecha', 'Paquete', 'Entrega', ''].map(h => (
@@ -162,7 +162,7 @@ export default function Clientes() {
                       : v >= 4 ? 'bg-purple-500 text-white border-purple-500'
                       : 'bg-purple-100 text-purple-700 border-purple-300'
                     return (
-                      <span className={`text-xs px-1.5 py-0.5 rounded-sm border font-medium flex-shrink-0 ${cls}`}>
+                      <span className={`text-xs px-1.5 py-0.5 rounded-xl border font-medium flex-shrink-0 ${cls}`}>
                         #{v}
                       </span>
                     )
@@ -173,7 +173,7 @@ export default function Clientes() {
                 <div className="text-sm text-[#666]">{c.package || '—'}</div>
                 <div>
                   {delivery ? (
-                    <span className={`text-xs px-2 py-0.5 rounded-sm font-medium ${DELIVERY_BADGE[delivery.status]}`}>
+                    <span className={`text-xs px-2 py-0.5 rounded-xl font-medium ${DELIVERY_BADGE[delivery.status]}`}>
                       {DELIVERY_LABEL[delivery.status]}
                     </span>
                   ) : (

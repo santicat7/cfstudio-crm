@@ -290,9 +290,9 @@ export default function HojaEvento() {
             <div>
               <p className="text-xs text-[#AAA] mb-0.5">Pago</p>
               {saldo === 0 ? (
-                <span className="text-xs px-2 py-0.5 rounded-sm bg-green-50 text-green-700 border border-green-200 font-medium">Cobrado completo</span>
+                <span className="text-xs px-2 py-0.5 rounded-xl bg-green-50 text-green-700 border border-green-200 font-medium">Cobrado completo</span>
               ) : (
-                <span className="text-xs px-2 py-0.5 rounded-sm bg-red-50 text-red-600 border border-red-200 font-medium">Saldo pendiente: {formatUSD(saldo)}</span>
+                <span className="text-xs px-2 py-0.5 rounded-xl bg-red-50 text-red-600 border border-red-200 font-medium">Saldo pendiente: {formatUSD(saldo)}</span>
               )}
             </div>
           </div>

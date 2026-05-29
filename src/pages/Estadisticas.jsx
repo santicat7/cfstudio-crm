@@ -27,7 +27,7 @@ const SOURCE_COLOR = ['#111111', '#555555', '#888888', '#AAAAAA']
 
 function Card({ title, value, sub }) {
   return (
-    <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-sm p-5">
+    <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-xl p-5">
       <div className="text-xs text-[#888] mb-1">{title}</div>
       <div className="text-2xl font-semibold text-[#1A1814]">{value}</div>
       {sub && <div className="text-xs text-[#AAA] mt-0.5">{sub}</div>}
@@ -42,7 +42,7 @@ function SectionTitle({ children }) {
 const CustomTooltip = ({ active, payload, label }) => {
   if (!active || !payload?.length) return null
   return (
-    <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-sm px-3 py-2 text-xs shadow-sm">
+    <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-xl px-3 py-2 text-xs shadow-sm">
       <div className="font-medium text-[#1A1814] mb-1">{label}</div>
       {payload.map((p, i) => (
         <div key={i} className="text-[#555]">{p.name}: <span className="font-semibold">{typeof p.value === 'number' && p.name?.includes('$') ? formatUSD(p.value) : p.value}</span></div>
@@ -192,7 +192,7 @@ export default function Estadisticas() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
         {/* Ingresos por mes */}
-        <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-sm p-5">
+        <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-xl p-5">
           <SectionTitle>Ingresos por mes (últimos 6 meses)</SectionTitle>
           <ResponsiveContainer width="100%" height={220}>
             <BarChart data={ingresosMes} margin={{ top: 4, right: 8, left: 0, bottom: 0 }}>
@@ -206,7 +206,7 @@ export default function Estadisticas() {
         </div>
 
         {/* Pipeline de leads */}
-        <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-sm p-5">
+        <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-xl p-5">
           <SectionTitle>Pipeline de leads por etapa</SectionTitle>
           <ResponsiveContainer width="100%" height={220}>
             <BarChart data={stageData} margin={{ top: 4, right: 8, left: 0, bottom: 0 }}>
@@ -222,7 +222,7 @@ export default function Estadisticas() {
       </div>
 
       {/* Flujo de caja mensual */}
-      <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-sm p-5 mb-8">
+      <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-xl p-5 mb-8">
         <SectionTitle>Flujo de caja — últimos 6 meses</SectionTitle>
         <ResponsiveContainer width="100%" height={240}>
           <BarChart data={flujoCaja} margin={{ top: 4, right: 8, left: 0, bottom: 0 }}>
@@ -234,7 +234,7 @@ export default function Estadisticas() {
               content={({ active, payload, label }) => {
                 if (!active || !payload?.length) return null
                 return (
-                  <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-sm px-3 py-2 text-xs shadow-sm">
+                  <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-xl px-3 py-2 text-xs shadow-sm">
                     <div className="font-medium text-[#1A1814] mb-1">{label}</div>
                     {payload.map((p, i) => (
                       <div key={i} style={{ color: p.fill }} className="flex justify-between gap-4">
@@ -255,7 +255,7 @@ export default function Estadisticas() {
         <div className="flex gap-4 mt-2 justify-center">
           {[['#22C55E', 'Ingresos'], ['#F87171', 'Gastos'], ['#111111', 'Ganancia']].map(([color, label]) => (
             <div key={label} className="flex items-center gap-1.5">
-              <div className="w-2.5 h-2.5 rounded-sm" style={{ background: color }} />
+              <div className="w-2.5 h-2.5 rounded-xl" style={{ background: color }} />
               <span className="text-xs text-[#888]">{label}</span>
             </div>
           ))}
@@ -264,7 +264,7 @@ export default function Estadisticas() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
         {/* Canal de origen — pie */}
-        <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-sm p-5">
+        <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-xl p-5">
           <SectionTitle>Origen de leads</SectionTitle>
           {sourceData.length === 0 ? (
             <div className="text-sm text-[#AAA] py-8 text-center">Sin datos</div>
@@ -283,7 +283,7 @@ export default function Estadisticas() {
         </div>
 
         {/* Conversión por canal */}
-        <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-sm p-5">
+        <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-xl p-5">
           <SectionTitle>Conversión por canal</SectionTitle>
           {sourceConversion.length === 0 ? (
             <div className="text-sm text-[#AAA] py-8 text-center">Sin datos</div>
@@ -301,7 +301,7 @@ export default function Estadisticas() {
                   <div className="text-sm text-[#666] text-right">{row.total}</div>
                   <div className="text-sm text-[#666] text-right">{row.converted}</div>
                   <div className="text-right">
-                    <span className={`text-xs font-semibold px-1.5 py-0.5 rounded-sm ${
+                    <span className={`text-xs font-semibold px-1.5 py-0.5 rounded-xl ${
                       row.rate >= 50 ? 'bg-green-50 text-green-700' :
                       row.rate >= 25 ? 'bg-yellow-50 text-yellow-700' :
                       'bg-[#EDE7DC] text-[#666]'

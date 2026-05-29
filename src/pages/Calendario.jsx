@@ -7,7 +7,7 @@ import {
   addMonths, subMonths, addWeeks, subWeeks, format,
 } from 'date-fns'
 import { es } from 'date-fns/locale'
-import { ChevronLeft, ChevronRight, AlertTriangle, X, ExternalLink } from 'lucide-react'
+import { ChevronLeft, ChevronRight, AlertTriangle, X, ExternalLink, Link } from 'lucide-react'
 
 const DAYS = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom']
 
@@ -56,7 +56,7 @@ function EventPopover({ events, onClose, anchorRef }) {
   return (
     <div
       ref={ref}
-      className="absolute z-50 bg-[#FDFBF7] border border-[#E0D9CE] rounded-sm w-72 p-4 top-full mt-1 left-0"
+      className="absolute z-50 bg-[#FDFBF7] border border-[#E0D9CE] rounded-xl w-72 p-4 top-full mt-1 left-0"
       style={{ boxShadow: '0 4px 16px rgba(0,0,0,0.08)' }}
     >
       <div className="flex items-center justify-between mb-3">
@@ -69,7 +69,7 @@ function EventPopover({ events, onClose, anchorRef }) {
       </div>
 
       {hasConflict && (
-        <div className="flex items-center gap-1.5 bg-red-50 border border-red-100 text-red-600 text-xs px-2.5 py-1.5 rounded-sm mb-3">
+        <div className="flex items-center gap-1.5 bg-red-50 border border-red-100 text-red-600 text-xs px-2.5 py-1.5 rounded-xl mb-3">
           <AlertTriangle size={12} />
           Conflicto: hay {events.length} eventos este día
         </div>
@@ -87,7 +87,7 @@ function EventPopover({ events, onClose, anchorRef }) {
                   <div className="flex items-center gap-1.5 mt-0.5">
                     <span className="text-xs text-[#888]">{ev.event_type}</span>
                     {ev.leads?.[0]?.stage && (
-                      <span className={`text-[10px] px-1.5 py-0.5 rounded-sm font-medium ${style.pill}`}>
+                      <span className={`text-[10px] px-1.5 py-0.5 rounded-xl font-medium ${style.pill}`}>
                         {STAGE_STYLE[ev.leads[0].stage]?.label}
                       </span>
                     )}
@@ -100,7 +100,7 @@ function EventPopover({ events, onClose, anchorRef }) {
 
               {delivery && (
                 <div className="mb-2">
-                  <span className={`text-xs px-1.5 py-0.5 rounded-sm font-medium ${DELIVERY_BADGE[delivery.status]}`}>
+                  <span className={`text-xs px-1.5 py-0.5 rounded-xl font-medium ${DELIVERY_BADGE[delivery.status]}`}>
                     {DELIVERY_LABEL[delivery.status]}
                   </span>
                 </div>
@@ -170,7 +170,7 @@ function DayCell({ date, events, currentMonth }) {
             <button
               key={ev.id}
               onClick={() => navigate(`/clientes/${ev.id}`)}
-              className={`w-full text-left text-[10px] font-medium px-1.5 py-0.5 rounded-sm truncate leading-tight ${style.pill} hover:opacity-80 transition-opacity`}
+              className={`w-full text-left text-[10px] font-medium px-1.5 py-0.5 rounded-xl truncate leading-tight ${style.pill} hover:opacity-80 transition-opacity`}
             >
               {ev.name}{showAmount ? ` · $${Number(lead.amount_quoted).toLocaleString('es-UY')}` : ''}
             </button>
@@ -205,7 +205,7 @@ function WeekView({ weekStart, eventsByDate }) {
   })
 
   return (
-    <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-sm overflow-hidden">
+    <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-xl overflow-hidden">
       {/* Day headers */}
       <div className="grid grid-cols-7 border-b border-[#E0D9CE]">
         {days.map(day => (
@@ -254,7 +254,7 @@ function WeekView({ weekStart, eventsByDate }) {
                   <button
                     key={ev.id}
                     onClick={() => navigate(`/clientes/${ev.id}`)}
-                    className={`w-full text-left rounded-sm px-2 py-2 hover:opacity-90 transition-opacity ${style.pill}`}
+                    className={`w-full text-left rounded-xl px-2 py-2 hover:opacity-90 transition-opacity ${style.pill}`}
                   >
                     <div className="text-xs font-semibold leading-tight truncate">{ev.name}</div>
                     {ev.event_type && (
@@ -266,7 +266,7 @@ function WeekView({ weekStart, eventsByDate }) {
                       </div>
                     )}
                     {delivery && (
-                      <div className={`inline-block text-[10px] px-1 py-0.5 rounded-sm font-medium mt-1 ${DELIVERY_BADGE[delivery.status]}`}>
+                      <div className={`inline-block text-[10px] px-1 py-0.5 rounded-xl font-medium mt-1 ${DELIVERY_BADGE[delivery.status]}`}>
                         {DELIVERY_LABEL[delivery.status]}
                       </div>
                     )}
@@ -343,7 +343,7 @@ export default function Calendario() {
         <h1 className="text-xl font-semibold text-[#1A1814] capitalize">{headerLabel}</h1>
         <div className="flex items-center gap-2">
           {/* View toggle */}
-          <div className="flex border border-[#D9D9D9] rounded-sm overflow-hidden text-sm">
+          <div className="flex border border-[#D9D9D9] rounded-xl overflow-hidden text-sm">
             <button
               onClick={() => setView('mes')}
               className={`px-3 py-1.5 transition-colors ${view === 'mes' ? 'bg-[#1A1814] text-white' : 'text-[#666] hover:text-[#1A1814] hover:bg-[#F0EBE1]'}`}
@@ -358,20 +358,31 @@ export default function Calendario() {
             </button>
           </div>
           <button
+            onClick={() => {
+              const url = `${window.location.origin}/api/calendar`
+              navigator.clipboard.writeText(url).then(() => alert('Link copiado. Pegalo en Google Calendar como "Desde URL".'))
+            }}
+            className="flex items-center gap-1.5 text-sm border border-[#D9D9D9] px-3 py-1.5 rounded-xl text-[#888] hover:text-[#1A1814] hover:border-[#1A1814] transition-colors"
+            title="Copiar link para Google Calendar"
+          >
+            <Link size={14} />
+            Sync Google
+          </button>
+          <button
             onClick={goToday}
-            className="text-sm border border-[#D9D9D9] px-3 py-1.5 rounded-sm text-[#1A1814] hover:border-[#1A1814] transition-colors"
+            className="text-sm border border-[#D9D9D9] px-3 py-1.5 rounded-xl text-[#1A1814] hover:border-[#1A1814] transition-colors"
           >
             Hoy
           </button>
           <button
             onClick={goBack}
-            className="p-1.5 border border-[#D9D9D9] rounded-sm text-[#666] hover:border-[#1A1814] hover:text-[#1A1814] transition-colors"
+            className="p-1.5 border border-[#D9D9D9] rounded-xl text-[#666] hover:border-[#1A1814] hover:text-[#1A1814] transition-colors"
           >
             <ChevronLeft size={15} />
           </button>
           <button
             onClick={goForward}
-            className="p-1.5 border border-[#D9D9D9] rounded-sm text-[#666] hover:border-[#1A1814] hover:text-[#1A1814] transition-colors"
+            className="p-1.5 border border-[#D9D9D9] rounded-xl text-[#666] hover:border-[#1A1814] hover:text-[#1A1814] transition-colors"
           >
             <ChevronRight size={15} />
           </button>
@@ -389,7 +400,7 @@ export default function Calendario() {
           )}
 
           {view === 'mes' ? (
-            <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-sm overflow-hidden">
+            <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-xl overflow-hidden">
               <div className="grid grid-cols-7 border-b border-[#E0D9CE]">
                 {DAYS.map(d => (
                   <div key={d} className="text-center text-xs font-semibold uppercase tracking-wider text-[#C9A96E] py-2.5">

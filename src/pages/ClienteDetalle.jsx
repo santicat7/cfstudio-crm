@@ -61,7 +61,7 @@ function safeFormatDatetime(dateStr) {
 
 function Section({ title, children }) {
   return (
-    <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-sm p-5 mb-4">
+    <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-xl p-5 mb-4">
       <h2 className="text-xs font-semibold uppercase tracking-wider text-[#C9A96E] mb-4">{title}</h2>
       {children}
     </div>
@@ -243,13 +243,13 @@ export default function ClienteDetalle() {
   const navBlock = allIds.length > 1 ? (
     <div className="flex items-center justify-between mt-2 mb-6">
       <button onClick={() => navigate(`/clientes/${prevId}`)} disabled={!prevId}
-        className="flex items-center gap-2 text-sm text-[#666] border border-[#D9D9D9] px-4 py-2 rounded-sm hover:border-[#1A1814] hover:text-[#1A1814] transition-colors disabled:opacity-30 disabled:cursor-not-allowed">
+        className="flex items-center gap-2 text-sm text-[#666] border border-[#D9D9D9] px-4 py-2 rounded-xl hover:border-[#1A1814] hover:text-[#1A1814] transition-colors disabled:opacity-30 disabled:cursor-not-allowed">
         <ArrowLeft size={14} />
         Cliente anterior
       </button>
       <span className="text-xs text-[#AAA]">{navIdx >= 0 ? navIdx + 1 : '?'} / {allIds.length}</span>
       <button onClick={() => navigate(`/clientes/${nextId}`)} disabled={!nextId}
-        className="flex items-center gap-2 text-sm text-[#666] border border-[#D9D9D9] px-4 py-2 rounded-sm hover:border-[#1A1814] hover:text-[#1A1814] transition-colors disabled:opacity-30 disabled:cursor-not-allowed">
+        className="flex items-center gap-2 text-sm text-[#666] border border-[#D9D9D9] px-4 py-2 rounded-xl hover:border-[#1A1814] hover:text-[#1A1814] transition-colors disabled:opacity-30 disabled:cursor-not-allowed">
         Cliente siguiente
         <ArrowRight size={14} />
       </button>
@@ -269,14 +269,14 @@ export default function ClienteDetalle() {
         <h1 className="text-xl font-semibold text-[#1A1814] flex-1">{client.name}</h1>
         <button
           onClick={() => setShowEdit(true)}
-          className="flex items-center gap-1.5 border border-[#D9D9D9] text-sm text-[#1A1814] px-3 py-1.5 rounded-sm hover:border-[#1A1814] transition-colors"
+          className="flex items-center gap-1.5 border border-[#D9D9D9] text-sm text-[#1A1814] px-3 py-1.5 rounded-xl hover:border-[#1A1814] transition-colors"
         >
           <Pencil size={13} />
           Editar
         </button>
         <button
           onClick={() => setShowConfirmDelete(true)}
-          className="flex items-center gap-1.5 border border-[#D9D9D9] text-sm text-red-600 px-3 py-1.5 rounded-sm hover:border-red-300 transition-colors"
+          className="flex items-center gap-1.5 border border-[#D9D9D9] text-sm text-red-600 px-3 py-1.5 rounded-xl hover:border-red-300 transition-colors"
         >
           <Trash2 size={13} />
           Eliminar
@@ -297,7 +297,7 @@ export default function ClienteDetalle() {
                   href={`https://wa.me/${whatsappPhone}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 text-xs text-green-700 border border-green-200 bg-green-50 px-2.5 py-1 rounded-sm hover:bg-green-100 transition-colors"
+                  className="flex items-center gap-1.5 text-xs text-green-700 border border-green-200 bg-green-50 px-2.5 py-1 rounded-xl hover:bg-green-100 transition-colors"
                 >
                   <MessageCircle size={12} />
                   Escribir por WhatsApp
@@ -345,7 +345,7 @@ export default function ClienteDetalle() {
                 : v >= 4 ? 'bg-purple-500 text-white border-purple-500'
                 : 'bg-purple-100 text-purple-700 border-purple-300'
               return (
-                <span className={`text-xs px-1.5 py-0.5 rounded-sm border font-medium ${cls}`}>
+                <span className={`text-xs px-1.5 py-0.5 rounded-xl border font-medium ${cls}`}>
                   Cliente recurrente
                 </span>
               )
@@ -374,7 +374,7 @@ export default function ClienteDetalle() {
         {leadStage && (
           <div className="mt-3 pt-3 border-t border-[#E0D9CE] flex items-center gap-2">
             <span className="text-xs text-[#AAA]">Estado en pipeline:</span>
-            <span className={`text-xs px-2 py-0.5 rounded-sm font-medium ${STAGE_BADGE[leadStage]}`}>
+            <span className={`text-xs px-2 py-0.5 rounded-xl font-medium ${STAGE_BADGE[leadStage]}`}>
               {STAGE_LABEL[leadStage]}
             </span>
           </div>
@@ -454,14 +454,14 @@ export default function ClienteDetalle() {
           <div>
             <div className="text-xs text-[#AAA] mb-1">Entrega</div>
             {delivery ? (
-              <span className={`text-xs px-2 py-0.5 rounded-sm font-medium ${DELIVERY_BADGE[delivery.status]}`}>
+              <span className={`text-xs px-2 py-0.5 rounded-xl font-medium ${DELIVERY_BADGE[delivery.status]}`}>
                 {DELIVERY_LABEL[delivery.status]}
               </span>
             ) : (
               <button
                 onClick={handleCreateDelivery}
                 disabled={creatingDelivery}
-                className="text-xs border border-[#D9D9D9] px-2 py-1 rounded-sm text-[#666] hover:border-[#1A1814] transition-colors disabled:opacity-50"
+                className="text-xs border border-[#D9D9D9] px-2 py-1 rounded-xl text-[#666] hover:border-[#1A1814] transition-colors disabled:opacity-50"
               >
                 {creatingDelivery ? 'Creando...' : '+ Crear entrega'}
               </button>
@@ -512,7 +512,7 @@ export default function ClienteDetalle() {
           onChange={handleNotesChange}
           rows={4}
           placeholder="Notas del equipo sobre este cliente..."
-          className="w-full text-sm text-[#1A1814] border border-[#E0D9CE] rounded-sm px-3 py-2.5 outline-none focus:border-[#1A1814] transition-colors resize-none placeholder:text-[#CCC]"
+          className="w-full text-sm text-[#1A1814] border border-[#E0D9CE] rounded-xl px-3 py-2.5 outline-none focus:border-[#1A1814] transition-colors resize-none placeholder:text-[#CCC]"
         />
         <p className="text-xs text-[#CCC] mt-1">Se guarda automáticamente</p>
       </Section>
@@ -533,7 +533,7 @@ export default function ClienteDetalle() {
       {showConfirmDelete && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-black/30" onClick={() => setShowConfirmDelete(false)} />
-          <div className="relative bg-[#FDFBF7] border border-[#E0D9CE] rounded-sm w-full max-w-sm p-6">
+          <div className="relative bg-[#FDFBF7] border border-[#E0D9CE] rounded-xl w-full max-w-sm p-6">
             <h2 className="text-sm font-semibold text-[#1A1814] mb-2">Eliminar cliente</h2>
             <p className="text-sm text-[#666] mb-5">
               ¿Seguro que querés eliminar a <strong>{client.name}</strong>? Se borrarán también sus leads, pagos, tareas y entregas. Esta acción no se puede deshacer.
@@ -541,14 +541,14 @@ export default function ClienteDetalle() {
             <div className="flex gap-2">
               <button
                 onClick={() => setShowConfirmDelete(false)}
-                className="flex-1 px-4 py-2 border border-[#D9D9D9] text-sm text-[#666] rounded-sm hover:border-[#1A1814] transition-colors"
+                className="flex-1 px-4 py-2 border border-[#D9D9D9] text-sm text-[#666] rounded-xl hover:border-[#1A1814] transition-colors"
               >
                 Cancelar
               </button>
               <button
                 onClick={handleDelete}
                 disabled={deleting}
-                className="flex-1 px-4 py-2 bg-red-600 text-white text-sm rounded-sm hover:bg-red-700 transition-colors disabled:opacity-50"
+                className="flex-1 px-4 py-2 bg-red-600 text-white text-sm rounded-xl hover:bg-red-700 transition-colors disabled:opacity-50"
               >
                 {deleting ? 'Eliminando...' : 'Eliminar'}
               </button>

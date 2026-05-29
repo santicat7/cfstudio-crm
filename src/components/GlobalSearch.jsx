@@ -88,7 +88,7 @@ export default function GlobalSearch() {
           value={query}
           onChange={e => setQuery(e.target.value)}
           placeholder="Buscar… (Ctrl+K)"
-          className="w-full pl-8 pr-7 py-1.5 text-sm border border-[#D9D9D9] bg-[#FDFBF7] text-[#1A1814] rounded-sm outline-none focus:border-[#1A1814] transition-colors placeholder:text-[#BBB]"
+          className="w-full pl-8 pr-7 py-1.5 text-sm border border-[#D9D9D9] bg-[#FDFBF7] text-[#1A1814] rounded-xl outline-none focus:border-[#1A1814] transition-colors placeholder:text-[#BBB]"
         />
         {query && (
           <button onClick={() => { setQuery(''); setOpen(false) }}
@@ -99,7 +99,7 @@ export default function GlobalSearch() {
       </div>
 
       {open && (
-        <div className="absolute top-full mt-1.5 left-0 w-80 bg-[#FDFBF7] border border-[#E0D9CE] rounded-sm z-50 overflow-hidden"
+        <div className="absolute top-full mt-1.5 left-0 w-80 bg-[#FDFBF7] border border-[#E0D9CE] rounded-xl z-50 overflow-hidden"
           style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.08)' }}>
           {loading ? (
             <div className="px-4 py-3 text-xs text-[#AAA]">Buscando...</div>

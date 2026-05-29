@@ -9,12 +9,12 @@ import { isWithinInterval, addDays, parseISO, startOfMonth, endOfMonth } from 'd
 function StatusBadge({ paid, total }) {
   if (!total) return <span className="text-xs text-[#CCC]">Sin precio</span>
   if (paid >= total) return (
-    <span className="text-xs px-2 py-0.5 rounded-sm font-medium bg-green-50 text-green-700 border border-green-200">Pagado completo</span>
+    <span className="text-xs px-2 py-0.5 rounded-xl font-medium bg-green-50 text-green-700 border border-green-200">Pagado completo</span>
   )
   if (paid > 0) return (
-    <span className="text-xs px-2 py-0.5 rounded-sm font-medium bg-yellow-50 text-yellow-700 border border-yellow-200">Parcialmente pagado</span>
+    <span className="text-xs px-2 py-0.5 rounded-xl font-medium bg-yellow-50 text-yellow-700 border border-yellow-200">Parcialmente pagado</span>
   )
-  return <span className="text-xs px-2 py-0.5 rounded-sm font-medium bg-[#EDE7DC] text-[#555]">Sin pagos</span>
+  return <span className="text-xs px-2 py-0.5 rounded-xl font-medium bg-[#EDE7DC] text-[#555]">Sin pagos</span>
 }
 
 export default function Pagos() {
@@ -86,13 +86,13 @@ export default function Pagos() {
 
       {/* Metric cards */}
       <div className="grid grid-cols-2 gap-3 mb-8">
-        <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-sm p-5">
+        <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-xl p-5">
           <div className="text-2xl font-semibold text-[#1A1814] mb-1">
             {loading ? '—' : formatUSD(cobradoMes)}
           </div>
           <div className="text-xs text-[#888]">Total cobrado este mes</div>
         </div>
-        <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-sm p-5">
+        <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-xl p-5">
           <div className={`text-2xl font-semibold mb-1 ${pendienteGlobal > 0 ? 'text-red-600' : 'text-[#1A1814]'}`}>
             {loading ? '—' : formatUSD(pendienteGlobal)}
           </div>
@@ -101,7 +101,7 @@ export default function Pagos() {
       </div>
 
       {/* Client list */}
-      <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-sm overflow-hidden">
+      <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-xl overflow-hidden">
         <div className="grid grid-cols-[2fr_1fr_1fr_1fr_1.5fr_auto] gap-4 px-5 py-2.5 border-b border-[#E0D9CE] bg-[#F5F0E8]">
           {['Cliente', 'Total', 'Pagado', 'Pendiente', 'Estado', ''].map(h => (
             <div key={h} className="text-xs font-semibold uppercase tracking-wider text-[#C9A96E]">{h}</div>

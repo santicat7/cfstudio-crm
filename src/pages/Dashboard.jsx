@@ -46,7 +46,7 @@ const SOURCE_LABEL = {
 
 function MetricCard({ label, value, alert, loading }) {
   return (
-    <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-sm p-5">
+    <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-xl p-5">
       <div className={`text-3xl font-semibold leading-none mb-2 ${alert ? 'text-red-600' : 'text-[#1A1814]'}`}>
         {loading ? '—' : value}
       </div>
@@ -265,7 +265,7 @@ export default function Dashboard() {
     <div>
       {/* Alertas evento mañana */}
       {!alertasDismissed && alertas.length > 0 && (
-        <div className="mb-6 border border-red-200 bg-red-50 rounded-sm px-4 py-3">
+        <div className="mb-6 border border-red-200 bg-red-50 rounded-xl px-4 py-3">
           <div className="flex items-start justify-between gap-3">
             <div className="flex items-start gap-2.5">
               <AlertTriangle size={16} className="text-red-600 flex-shrink-0 mt-0.5" />
@@ -298,7 +298,7 @@ export default function Dashboard() {
 
       {/* Alerta entregas próximas */}
       {!alertasEntregasDismissed && alertasEntregas.length > 0 && (
-        <div className="mb-4 border border-yellow-200 bg-yellow-50 rounded-sm px-4 py-3">
+        <div className="mb-4 border border-yellow-200 bg-yellow-50 rounded-xl px-4 py-3">
           <div className="flex items-start justify-between gap-3">
             <div className="flex items-start gap-2.5">
               <AlertTriangle size={16} className="text-yellow-600 flex-shrink-0 mt-0.5" />
@@ -367,7 +367,7 @@ export default function Dashboard() {
         <h2 className="text-xs font-semibold text-[#1A1814] uppercase tracking-wider mb-3">
           Próximos eventos
         </h2>
-        <div className="bg-[#FDFBF7] border border-[#E0D9CE] border-l-4 border-l-[#111] rounded-sm divide-y divide-[#E0D9CE]">
+        <div className="bg-[#FDFBF7] border border-[#E0D9CE] border-l-4 border-l-[#111] rounded-xl divide-y divide-[#E0D9CE]">
           {loading ? (
             <div className="px-5 py-8 text-center text-sm text-[#AAA]">Cargando...</div>
           ) : proximosEventos.length === 0 ? (
@@ -387,7 +387,7 @@ export default function Dashboard() {
                     </div>
                   </div>
                   {delivery && (
-                    <span className={`text-xs px-2 py-0.5 rounded-sm font-medium ${DELIVERY_BADGE[delivery.status]}`}>
+                    <span className={`text-xs px-2 py-0.5 rounded-xl font-medium ${DELIVERY_BADGE[delivery.status]}`}>
                       {DELIVERY_LABEL[delivery.status]}
                     </span>
                   )}
@@ -405,7 +405,7 @@ export default function Dashboard() {
         const total = ingresos + gastos
         const pctIngresos = total > 0 ? (ingresos / total) * 100 : 50
         return (
-          <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-sm p-5 mb-8">
+          <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-xl p-5 mb-8">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-xs font-semibold text-[#1A1814] uppercase tracking-wider">
                 Resumen del mes — {format(new Date(), 'MMMM yyyy', { locale: es })}
@@ -464,7 +464,7 @@ export default function Dashboard() {
         const pct = target > 0 ? Math.min((ingresos / target) * 100, 100) : 0
         const falta = target > 0 ? Math.max(target - ingresos, 0) : 0
         return (
-          <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-sm p-5 mb-8">
+          <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-xl p-5 mb-8">
             <div className="flex items-center justify-between mb-3">
               <h2 className="text-xs font-semibold text-[#1A1814] uppercase tracking-wider">Meta de ingresos — {format(new Date(), 'MMMM', { locale: es })}</h2>
               <button
@@ -535,7 +535,7 @@ export default function Dashboard() {
           <h2 className="text-xs font-semibold text-[#1A1814] uppercase tracking-wider mb-3">
             Eventos pasados — seguimiento
           </h2>
-          <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-sm divide-y divide-[#E0D9CE]">
+          <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-xl divide-y divide-[#E0D9CE]">
             {loading ? (
               <div className="px-5 py-8 text-center text-sm text-[#AAA]">Cargando...</div>
             ) : (
@@ -558,15 +558,15 @@ export default function Dashboard() {
                     <div className="flex items-center gap-2 flex-shrink-0">
                       {/* Entrega */}
                       {delivery ? (
-                        <span className={`text-xs px-2 py-0.5 rounded-sm font-medium ${DELIVERY_BADGE[delivery.status]}`}>
+                        <span className={`text-xs px-2 py-0.5 rounded-xl font-medium ${DELIVERY_BADGE[delivery.status]}`}>
                           {DELIVERY_LABEL[delivery.status]}
                         </span>
                       ) : (
-                        <span className="text-xs px-2 py-0.5 rounded-sm bg-[#EDE7DC] text-[#AAA]">Sin entrega</span>
+                        <span className="text-xs px-2 py-0.5 rounded-xl bg-[#EDE7DC] text-[#AAA]">Sin entrega</span>
                       )}
                       {/* Pago */}
                       {client.total_price > 0 && (
-                        <span className={`text-xs px-2 py-0.5 rounded-sm font-medium ${cobradoCompleto ? 'bg-green-50 text-green-700 border border-green-200' : 'bg-red-50 text-red-600 border border-red-200'}`}>
+                        <span className={`text-xs px-2 py-0.5 rounded-xl font-medium ${cobradoCompleto ? 'bg-green-50 text-green-700 border border-green-200' : 'bg-red-50 text-red-600 border border-red-200'}`}>
                           {cobradoCompleto ? 'Cobrado' : `Debe ${formatUSD(saldo)}`}
                         </span>
                       )}
@@ -584,7 +584,7 @@ export default function Dashboard() {
         <h2 className="text-xs font-semibold text-[#1A1814] uppercase tracking-wider mb-3">
           Leads recientes
         </h2>
-        <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-sm divide-y divide-[#E0D9CE]">
+        <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-xl divide-y divide-[#E0D9CE]">
           {loading ? (
             <div className="px-5 py-8 text-center text-sm text-[#AAA]">Cargando...</div>
           ) : leadsRecientes.length === 0 ? (
@@ -600,7 +600,7 @@ export default function Dashboard() {
                     {lead.amount_quoted && <> · {formatUSD(lead.amount_quoted)}</>}
                   </div>
                 </div>
-                <span className={`text-xs px-2 py-0.5 rounded-sm font-medium ${STAGE_BADGE[lead.stage]}`}>
+                <span className={`text-xs px-2 py-0.5 rounded-xl font-medium ${STAGE_BADGE[lead.stage]}`}>
                   {STAGE_LABEL[lead.stage]}
                 </span>
               </div>

@@ -46,7 +46,7 @@ export default function Login() {
               onChange={e => setEmail(e.target.value)}
               placeholder="tu@cfstudio.uy"
               required
-              className="w-full px-3 py-2.5 border border-[#D9D9D9] bg-[#FDFBF7] text-[#1A1814] text-sm rounded-sm outline-none focus:border-[#1A1814] transition-colors"
+              className="w-full px-3 py-2.5 border border-[#D9D9D9] bg-[#FDFBF7] text-[#1A1814] text-sm rounded-xl outline-none focus:border-[#1A1814] transition-colors"
             />
           </div>
 
@@ -60,7 +60,7 @@ export default function Login() {
               onChange={e => setPassword(e.target.value)}
               placeholder="••••••••"
               required
-              className="w-full px-3 py-2.5 border border-[#D9D9D9] bg-[#FDFBF7] text-[#1A1814] text-sm rounded-sm outline-none focus:border-[#1A1814] transition-colors"
+              className="w-full px-3 py-2.5 border border-[#D9D9D9] bg-[#FDFBF7] text-[#1A1814] text-sm rounded-xl outline-none focus:border-[#1A1814] transition-colors"
             />
           </div>
 
@@ -69,7 +69,7 @@ export default function Login() {
               type="checkbox"
               checked={remember}
               onChange={e => setRemember(e.target.checked)}
-              className="w-3.5 h-3.5 rounded-sm accent-[#111] cursor-pointer"
+              className="w-3.5 h-3.5 rounded-xl accent-[#111] cursor-pointer"
             />
             <span className="text-sm text-[#666]">Recordar sesión</span>
           </label>
@@ -81,7 +81,7 @@ export default function Login() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-[#1A1814] text-white text-sm font-medium py-2.5 rounded-sm hover:bg-[#1A1814] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full bg-[#1A1814] text-white text-sm font-medium py-2.5 rounded-xl hover:bg-[#1A1814] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? 'Ingresando...' : 'Ingresar'}
           </button>
