@@ -10,6 +10,7 @@ import {
   MessageSquare,
   BarChart2,
   Receipt,
+  Clapperboard,
   LogOut,
   X,
 } from 'lucide-react'
@@ -27,6 +28,7 @@ const NAV = [
   { to: '/mensajes', label: 'Mensajes', icon: MessageSquare },
   { to: '/estadisticas', label: 'Estadísticas', icon: BarChart2 },
   { to: '/gastos', label: 'Gastos', icon: Receipt },
+  { to: '/evento', label: 'Hoja de evento', icon: Clapperboard },
 ]
 
 export default function Sidebar({ open, onClose }) {

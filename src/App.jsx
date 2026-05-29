@@ -14,6 +14,7 @@ import Entregas from './pages/Entregas'
 import Mensajes from './pages/Mensajes'
 import Estadisticas from './pages/Estadisticas'
 import Gastos from './pages/Gastos'
+import HojaEvento from './pages/HojaEvento'
 import ComingSoon from './pages/ComingSoon'
 
 function ProtectedRoute({ children }) {
@@ -59,6 +60,7 @@ export default function App() {
             <Route path="/mensajes" element={<Mensajes />} />
             <Route path="/estadisticas" element={<Estadisticas />} />
             <Route path="/gastos" element={<Gastos />} />
+            <Route path="/evento" element={<HojaEvento />} />
           </Route>
 
           <Route path="*" element={<Navigate to="/dashboard" replace />} />

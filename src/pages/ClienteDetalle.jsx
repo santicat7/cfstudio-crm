@@ -77,6 +77,44 @@ function Field({ label, children }) {
   )
 }
 
+function EventTimeField({ clientId, value, onChange }) {
+  const [editing, setEditing] = useState(false)
+  const [val, setVal] = useState(value || '')
+
+  useEffect(() => { setVal(value || '') }, [value])
+
+  async function save() {
+    await supabase.from('clients').update({ event_time: val || null }).eq('id', clientId)
+    onChange(val || null)
+    setEditing(false)
+  }
+
+  if (editing) {
+    return (
+      <div className="flex items-center gap-2">
+        <input
+          type="text"
+          value={val}
+          onChange={e => setVal(e.target.value)}
+          placeholder="ej: 18:00"
+          autoFocus
+          className="border border-[#1A1814] rounded px-2 py-1 text-sm text-[#1A1814] focus:outline-none w-24"
+          onKeyDown={e => { if (e.key === 'Enter') save(); if (e.key === 'Escape') setEditing(false) }}
+        />
+        <button onClick={save} className="text-xs text-[#1A1814] font-medium hover:underline">Guardar</button>
+        <button onClick={() => setEditing(false)} className="text-xs text-[#AAA] hover:text-[#888]">Cancelar</button>
+      </div>
+    )
+  }
+
+  return (
+    <div className="flex items-center gap-2">
+      <span>{value || <span className="text-[#CCC] italic text-xs">Sin horario</span>}</span>
+      <button onClick={() => setEditing(true)} className="text-xs text-[#CCC] hover:text-[#888] transition-colors">editar</button>
+    </div>
+  )
+}
+
 export default function ClienteDetalle() {
   const { id } = useParams()
   const navigate = useNavigate()
@@ -292,6 +330,7 @@ export default function ClienteDetalle() {
         <div className="grid grid-cols-2 gap-x-6">
           <Field label="Tipo de evento">{client.event_type || '—'}</Field>
           <Field label="Fecha">{formatDate(client.event_date)}</Field>
+          <Field label="Horario"><EventTimeField clientId={client.id} value={client.event_time} onChange={v => setClient(prev => ({ ...prev, event_time: v }))} /></Field>
           <Field label="Paquete">{client.package || '—'}</Field>
           <Field label="Precio total">{formatUSD(client.total_price)}</Field>
         </div>

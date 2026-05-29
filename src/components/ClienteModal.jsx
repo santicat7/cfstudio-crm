@@ -7,7 +7,7 @@ const PACKAGES = ['Foto', 'Video', 'Foto + Video', 'Foto + Video + Album', 'Otro
 
 const EMPTY = {
   name: '', phone: '', email: '', instagram: '',
-  event_type: 'Boda', event_date: '', package: '', total_price: '',
+  event_type: 'Boda', event_date: '', event_time: '', package: '', total_price: '',
 }
 
 export default function ClienteModal({ cliente, onClose, onSaved }) {
@@ -21,6 +21,7 @@ export default function ClienteModal({ cliente, onClose, onSaved }) {
           instagram: cliente.instagram || '',
           event_type: cliente.event_type || 'Boda',
           event_date: cliente.event_date || '',
+          event_time: cliente.event_time || '',
           package: cliente.package || '',
           total_price: cliente.total_price ?? '',
         }
@@ -45,6 +46,7 @@ export default function ClienteModal({ cliente, onClose, onSaved }) {
       instagram: form.instagram.trim() || null,
       event_type: form.event_type || null,
       event_date: form.event_date || null,
+      event_time: form.event_time.trim() || null,
       package: form.package || null,
       total_price: form.total_price !== '' ? Number(form.total_price) : null,
     }
@@ -125,6 +127,12 @@ export default function ClienteModal({ cliente, onClose, onSaved }) {
                   <input type="date" value={form.event_date} onChange={e => set('event_date', e.target.value)}
                     className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] rounded-sm outline-none focus:border-[#1A1814] transition-colors" />
                 </div>
+              </div>
+              <div>
+                <label className="block text-xs font-medium text-[#1A1814] mb-1.5 uppercase tracking-wide">Horario</label>
+                <input type="text" value={form.event_time} onChange={e => set('event_time', e.target.value)}
+                  placeholder="ej: 18:00"
+                  className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] rounded-sm outline-none focus:border-[#1A1814] transition-colors" />
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <div>
