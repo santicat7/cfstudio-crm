@@ -9,6 +9,7 @@ import {
   Package,
   MessageSquare,
   BarChart2,
+  Receipt,
   LogOut,
   X,
 } from 'lucide-react'
@@ -25,6 +26,7 @@ const NAV = [
   { to: '/entregas', label: 'Entregas', icon: Package },
   { to: '/mensajes', label: 'Mensajes', icon: MessageSquare },
   { to: '/estadisticas', label: 'Estadísticas', icon: BarChart2 },
+  { to: '/gastos', label: 'Gastos', icon: Receipt },
 ]
 
 export default function Sidebar({ open, onClose }) {

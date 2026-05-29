@@ -13,6 +13,7 @@ import Tareas from './pages/Tareas'
 import Entregas from './pages/Entregas'
 import Mensajes from './pages/Mensajes'
 import Estadisticas from './pages/Estadisticas'
+import Gastos from './pages/Gastos'
 import ComingSoon from './pages/ComingSoon'
 
 function ProtectedRoute({ children }) {
@@ -57,6 +58,7 @@ export default function App() {
             <Route path="/entregas" element={<Entregas />} />
             <Route path="/mensajes" element={<Mensajes />} />
             <Route path="/estadisticas" element={<Estadisticas />} />
+            <Route path="/gastos" element={<Gastos />} />
           </Route>
 
           <Route path="*" element={<Navigate to="/dashboard" replace />} />
