@@ -33,6 +33,17 @@ const STAGE_BADGE = {
 }
 const TYPE_LABEL = { sena: 'Seña', cuota: 'Cuota', saldo: 'Saldo final' }
 
+const PROCESO = [
+  { key: 'pdf_enviado',      label: 'PDF de propuesta enviado' },
+  { key: 'reunion',          label: 'Reunión realizada' },
+  { key: 'contrato',         label: 'Contrato firmado' },
+  { key: 'sena',             label: 'Seña cobrada (50%)' },
+  { key: 'cuestionario',     label: 'Cuestionario previo enviado' },
+  { key: 'evento',           label: 'Evento cubierto' },
+  { key: 'edicion',          label: 'Edición entregada' },
+  { key: 'resena',           label: 'Reseña de Google solicitada' },
+]
+
 function formatDate(dateStr) {
   if (!dateStr) return '—'
   try {
@@ -329,6 +340,61 @@ export default function ClienteDetalle() {
             </span>
           </div>
         )}
+      </Section>
+
+      {/* Proceso */}
+      <Section title="Proceso">
+        {(() => {
+          const checklist = client.checklist || {}
+          const done = PROCESO.filter(p => checklist[p.key]).length
+          const pct = Math.round((done / PROCESO.length) * 100)
+          return (
+            <>
+              <div className="flex items-center justify-between mb-3">
+                <span className="text-xs text-[#888]">{done} de {PROCESO.length} pasos completados</span>
+                <span className="text-xs font-semibold" style={{ color: pct === 100 ? '#22C55E' : '#C9A96E' }}>{pct}%</span>
+              </div>
+              <div className="h-1.5 bg-[#EDE7DC] rounded-full overflow-hidden mb-4">
+                <div
+                  className="h-full rounded-full transition-all duration-300"
+                  style={{ width: `${pct}%`, background: pct === 100 ? '#22C55E' : '#C9A96E' }}
+                />
+              </div>
+              <div className="space-y-2">
+                {PROCESO.map((paso, i) => {
+                  const checked = !!checklist[paso.key]
+                  return (
+                    <button
+                      key={paso.key}
+                      onClick={async () => {
+                        const newChecklist = { ...checklist, [paso.key]: !checked }
+                        await supabase.from('clients').update({ checklist: newChecklist }).eq('id', client.id)
+                        setClient(prev => ({ ...prev, checklist: newChecklist }))
+                      }}
+                      className="flex items-center gap-3 w-full text-left group"
+                    >
+                      <div className={`w-5 h-5 rounded border flex items-center justify-center flex-shrink-0 transition-colors ${
+                        checked
+                          ? 'border-[#C9A96E] bg-[#C9A96E]'
+                          : 'border-[#E0D9CE] bg-[#FDFBF7] group-hover:border-[#C9A96E]'
+                      }`}>
+                        {checked && (
+                          <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
+                            <path d="M1 4L3.5 6.5L9 1" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
+                        )}
+                      </div>
+                      <span className={`text-sm transition-colors ${checked ? 'text-[#AAA] line-through' : 'text-[#1A1814]'}`}>
+                        <span className="text-xs text-[#C9A96E] mr-1.5 font-medium">0{i + 1}</span>
+                        {paso.label}
+                      </span>
+                    </button>
+                  )
+                })}
+              </div>
+            </>
+          )
+        })()}
       </Section>
 
       {/* Historial */}
