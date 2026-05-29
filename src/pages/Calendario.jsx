@@ -7,7 +7,7 @@ import {
   addMonths, subMonths, addWeeks, subWeeks, format,
 } from 'date-fns'
 import { es } from 'date-fns/locale'
-import { ChevronLeft, ChevronRight, AlertTriangle, X, ExternalLink, Link } from 'lucide-react'
+import { ChevronLeft, ChevronRight, AlertTriangle, X, ExternalLink } from 'lucide-react'
 
 const DAYS = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom']
 
@@ -357,17 +357,7 @@ export default function Calendario() {
               Semana
             </button>
           </div>
-          <button
-            onClick={() => {
-              const url = `${window.location.origin}/api/calendar`
-              navigator.clipboard.writeText(url).then(() => alert('Link copiado. Pegalo en Google Calendar como "Desde URL".'))
-            }}
-            className="flex items-center gap-1.5 text-sm border border-[#D9D9D9] px-3 py-1.5 rounded-xl text-[#888] hover:text-[#1A1814] hover:border-[#1A1814] transition-colors"
-            title="Copiar link para Google Calendar"
-          >
-            <Link size={14} />
-            Sync Google
-          </button>
+
           <button
             onClick={goToday}
             className="text-sm border border-[#D9D9D9] px-3 py-1.5 rounded-xl text-[#1A1814] hover:border-[#1A1814] transition-colors"
