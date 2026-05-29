@@ -4,6 +4,7 @@ import { formatUSD } from '../lib/utils'
 import { format, addDays, startOfMonth, endOfMonth } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { AlertTriangle, X, TrendingUp, TrendingDown, Minus } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 
 const STAGE_LABEL = {
   consulta: 'Consulta',
@@ -65,6 +66,7 @@ function formatMoney(n) {
 }
 
 export default function Dashboard() {
+  const navigate = useNavigate()
   const [metrics, setMetrics] = useState({
     eventosEsteMes: 0,
     leadsActivos: 0,
@@ -374,7 +376,7 @@ export default function Dashboard() {
             proximosEventos.map(client => {
               const delivery = client.deliveries?.[0]
               return (
-                <div key={client.id} className="flex items-center justify-between px-5 py-3.5">
+                <div key={client.id} onClick={() => navigate(`/clientes/${client.id}`)} className="flex items-center justify-between px-5 py-3.5 cursor-pointer hover:bg-[#F0EBE1] transition-colors">
                   <div>
                     <div className="text-sm font-medium text-[#1A1814]">{client.name}</div>
                     <div className="text-xs text-[#888] mt-0.5">
@@ -543,7 +545,7 @@ export default function Dashboard() {
                 const saldo = Math.max((client.total_price || 0) - totalPaid, 0)
                 const cobradoCompleto = client.total_price > 0 && saldo === 0
                 return (
-                  <div key={client.id} className="flex items-center justify-between px-5 py-3.5 gap-4">
+                  <div key={client.id} onClick={() => navigate(`/clientes/${client.id}`)} className="flex items-center justify-between px-5 py-3.5 gap-4 cursor-pointer hover:bg-[#F0EBE1] transition-colors">
                     <div className="min-w-0">
                       <div className="text-sm font-medium text-[#1A1814]">{client.name}</div>
                       <div className="text-xs text-[#888] mt-0.5">
@@ -589,7 +591,7 @@ export default function Dashboard() {
             <EmptyState text="Todavía no hay leads cargados" />
           ) : (
             leadsRecientes.map(lead => (
-              <div key={lead.id} className="flex items-center justify-between px-5 py-3.5">
+              <div key={lead.id} onClick={() => lead.client_id && navigate(`/clientes/${lead.client_id}`)} className={`flex items-center justify-between px-5 py-3.5 transition-colors ${lead.client_id ? 'cursor-pointer hover:bg-[#F0EBE1]' : ''}`}>
                 <div>
                   <div className="text-sm font-medium text-[#1A1814]">{lead.clients?.name}</div>
                   <div className="text-xs text-[#888] mt-0.5">
