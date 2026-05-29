@@ -124,6 +124,7 @@ export default function ClienteDetalle() {
   const [leadStage, setLeadStage] = useState(null)
   const [actividad, setActividad] = useState([])
   const [pendingTasks, setPendingTasks] = useState(0)
+  const [tareas, setTareas] = useState([])
   const [notes, setNotes] = useState('')
   const [allIds, setAllIds] = useState([])
   const [loading, setLoading] = useState(true)
@@ -140,20 +141,22 @@ export default function ClienteDetalle() {
       { data: deliveries },
       { data: payments },
       { data: leads },
-      { count: taskCount },
+      { data: taskCount },
     ] = await Promise.all([
       supabase.from('clients').select('*').eq('id', id).single(),
       supabase.from('deliveries').select('*').eq('client_id', id).order('created_at', { ascending: false }),
       supabase.from('payments').select('*').eq('client_id', id).order('paid_at', { ascending: false }),
       supabase.from('leads').select('stage, created_at').eq('client_id', id).limit(1),
-      supabase.from('tasks').select('*', { count: 'exact', head: true }).eq('client_id', id).eq('done', false),
+      supabase.from('tasks').select('*').eq('client_id', id).order('done').order('created_at', { ascending: false }),
     ])
     setClient(c)
     setNotes(c?.notes || '')
     setDelivery(deliveries?.[0] || null)
     setLastPayment(payments?.[0] || null)
     setLeadStage(leads?.[0]?.stage || null)
-    setPendingTasks(taskCount || 0)
+    const tareasData = taskCount || []
+    setTareas(tareasData)
+    setPendingTasks(tareasData.filter(t => !t.done).length)
 
     // Construir log de actividad
     const events = []
@@ -470,12 +473,57 @@ export default function ClienteDetalle() {
 
           <div>
             <div className="text-xs text-[#AAA] mb-1">Tareas pendientes</div>
-            <div className={`text-sm font-medium ${pendingTasks > 0 ? 'text-[#1A1814]' : 'text-[#CCC]'}`}>
-              {pendingTasks > 0 ? `${pendingTasks} tarea${pendingTasks > 1 ? 's' : ''}` : 'Sin tareas'}
-            </div>
+            {tareas.filter(t => !t.done).length === 0 ? (
+              <div className="text-sm text-[#CCC]">Sin tareas</div>
+            ) : (
+              tareas.filter(t => !t.done).slice(0, 2).map(t => (
+                <div key={t.id} className="text-sm text-[#1A1814] truncate">{t.title}</div>
+              ))
+            )}
+            {tareas.filter(t => !t.done).length > 2 && (
+              <div className="text-xs text-[#888] mt-0.5">+{tareas.filter(t => !t.done).length - 2} más</div>
+            )}
           </div>
         </div>
       </Section>
+
+      {/* Tareas del cliente */}
+      {tareas.length > 0 && (
+        <Section title="Tareas">
+          <div className="space-y-2">
+            {tareas.map(t => (
+              <div key={t.id} className="flex items-center gap-3">
+                <button
+                  onClick={async () => {
+                    await supabase.from('tasks').update({ done: !t.done }).eq('id', t.id)
+                    setTareas(prev => prev.map(x => x.id === t.id ? { ...x, done: !x.done } : x))
+                    setPendingTasks(prev => t.done ? prev + 1 : prev - 1)
+                  }}
+                  className={`w-4 h-4 rounded border flex items-center justify-center flex-shrink-0 transition-colors ${
+                    t.done ? 'bg-[#C9A96E] border-[#C9A96E]' : 'border-[#E0D9CE] hover:border-[#C9A96E]'
+                  }`}
+                >
+                  {t.done && <svg width="8" height="6" viewBox="0 0 8 6" fill="none"><path d="M1 3L3 5L7 1" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>}
+                </button>
+                <button
+                  onClick={() => navigate('/tareas')}
+                  className="flex-1 min-w-0 text-left group"
+                >
+                  <p className={`text-sm truncate group-hover:text-[#C9A96E] transition-colors ${t.done ? 'line-through text-[#AAA]' : 'text-[#1A1814]'}`}>
+                    {t.title}
+                  </p>
+                  {(t.assigned_to || t.due_date) && (
+                    <p className="text-xs text-[#888] mt-0.5">
+                      {t.assigned_to === 'santi' ? 'Santi' : 'Matías'}
+                      {t.due_date && ` · ${t.due_date}`}
+                    </p>
+                  )}
+                </button>
+              </div>
+            ))}
+          </div>
+        </Section>
+      )}
 
       {/* Log de actividad */}
       {actividad.length > 0 && (
