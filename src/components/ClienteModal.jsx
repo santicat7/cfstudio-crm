@@ -207,7 +207,7 @@ export default function ClienteModal({ cliente, onClose, onSaved }) {
               <div>
                 <label className="block text-xs text-[#888] mb-1">Paquete seleccionado</label>
                 <input type="text" value={form.package} onChange={e => set('package', e.target.value)}
-                  placeholder="o escribí manualmente"
+                  placeholder=""
                   className="w-full px-3 py-2 border border-[#E0D9CE] text-sm text-[#1A1814] rounded-xl outline-none focus:border-[#1A1814] transition-colors bg-[#FDFBF7]" />
               </div>
               <div>
