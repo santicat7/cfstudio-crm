@@ -9,12 +9,12 @@ import { isWithinInterval, addDays, parseISO, startOfMonth, endOfMonth } from 'd
 function StatusBadge({ paid, total }) {
   if (!total) return <span className="text-xs text-[#CCC] dark:text-[#4A4440]">Sin precio</span>
   if (paid >= total) return (
-    <span className="text-xs px-2 py-0.5 rounded-xl font-medium bg-green-50 text-green-700 border border-green-200">Pagado completo</span>
+    <span className="text-xs px-2 py-0.5 rounded-xl font-medium bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400 border border-green-200 dark:border-green-800">Pagado completo</span>
   )
   if (paid > 0) return (
-    <span className="text-xs px-2 py-0.5 rounded-xl font-medium bg-yellow-50 text-yellow-700 border border-yellow-200">Parcialmente pagado</span>
+    <span className="text-xs px-2 py-0.5 rounded-xl font-medium bg-yellow-50 dark:bg-yellow-900/20 text-yellow-700 dark:text-yellow-400 border border-yellow-200 dark:border-yellow-800">Parcialmente pagado</span>
   )
-  return <span className="text-xs px-2 py-0.5 rounded-xl font-medium bg-[#EDE7DC] text-[#555] dark:text-[#A8A098]">Sin pagos</span>
+  return <span className="text-xs px-2 py-0.5 rounded-xl font-medium bg-[#EDE7DC] dark:bg-[#2A2520] text-[#555] dark:text-[#998E88]">Sin pagos</span>
 }
 
 export default function Pagos() {
@@ -129,7 +129,9 @@ export default function Pagos() {
                 key={row.id}
                 onClick={() => navigate(`/pagos/${row.id}`)}
                 className={`grid grid-cols-[2fr_1fr_1fr_1fr_1.5fr_auto] gap-4 px-5 py-3.5 border-b border-[#E0D9CE] dark:border-[#2E2923] last:border-0 cursor-pointer transition-colors items-center ${
-                  urgent ? 'bg-yellow-50 hover:bg-yellow-100' : 'hover:bg-[#F5F0E8] dark:bg-[#1C1916] dark:hover:bg-[#2A2620]'
+                  urgent
+                    ? 'bg-yellow-50 hover:bg-yellow-100 dark:bg-[#2A2210] dark:hover:bg-[#302810]'
+                    : 'hover:bg-[#F5F0E8] dark:hover:bg-[#2A2620]'
                 }`}
               >
                 <div className="flex items-center gap-2">

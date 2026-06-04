@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import {
   LayoutDashboard,
@@ -17,7 +18,6 @@ import {
   Moon,
 } from 'lucide-react'
 import { useAuth } from '../contexts/AuthContext'
-import { useTheme } from '../contexts/ThemeContext'
 import { getDisplayName } from '../lib/utils'
 
 const NAV = [
@@ -36,8 +36,20 @@ const NAV = [
 
 export default function Sidebar({ open, onClose }) {
   const { signOut, session } = useAuth()
-  const { dark, toggle } = useTheme()
   const navigate = useNavigate()
+  const [dark, setDark] = useState(() => document.documentElement.classList.contains('dark'))
+
+  function toggle() {
+    const next = !dark
+    setDark(next)
+    if (next) {
+      document.documentElement.classList.add('dark')
+      localStorage.setItem('theme', 'dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+      localStorage.setItem('theme', 'light')
+    }
+  }
 
   async function handleSignOut() {
     await signOut()
