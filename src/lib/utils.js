@@ -1,8 +1,10 @@
-// Formato moneda — siempre $ sin "US"
+// Formato moneda — pesos uruguayos
 export function formatUSD(n) {
   if (n == null || n === '') return '—'
-  return '$ ' + new Intl.NumberFormat('es-UY', { maximumFractionDigits: 0 }).format(n)
+  return '$ ' + new Intl.NumberFormat('es-UY', { maximumFractionDigits: 0 }).format(n)
 }
+
+export { formatUSD as formatPesos }
 
 // Mapeo email → nombre visible y asignado (santi/matias)
 const EMAIL_MAP = {

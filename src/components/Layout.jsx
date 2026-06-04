@@ -9,20 +9,20 @@ export default function Layout() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   return (
-    <div className="min-h-screen bg-[#F5F0E8]">
+    <div className="min-h-screen bg-[#F5F0E8] dark:bg-[#141210] transition-colors duration-200">
       <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
       {/* Main content */}
       <div className="md:ml-60 min-h-screen flex flex-col">
         {/* Topbar */}
-        <div className="flex items-center gap-3 px-4 md:px-8 py-3 border-b border-[#E0D9CE] bg-[#F5F0E8]">
+        <div className="flex items-center gap-3 px-4 md:px-8 py-3 border-b border-[#E0D9CE] dark:border-[#2A2520] bg-[#F5F0E8] dark:bg-[#141210]">
           <button
             onClick={() => setSidebarOpen(true)}
             className="md:hidden p-1.5 text-[#1A1814]/50 hover:text-[#1A1814] transition-colors"
           >
             <Menu size={20} />
           </button>
-          <span className="md:hidden text-sm font-semibold text-[#1A1814]">C<span style={{color:'#C9A96E',fontStyle:'italic'}}>&</span>F Studio</span>
+          <span className="md:hidden text-sm font-semibold text-[#1A1814] dark:text-[#EDE7DC]">C<span style={{color:'#C9A96E',fontStyle:'italic'}}>&</span>F Studio</span>
           <div className="hidden md:flex flex-1 justify-end">
             <GlobalSearch />
           </div>

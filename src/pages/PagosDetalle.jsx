@@ -14,7 +14,7 @@ const PAYMENT_TYPES = [
 
 const TYPE_LABEL = { sena: 'Seña', cuota: 'Cuota', saldo: 'Saldo final' }
 const TYPE_BADGE = {
-  sena: 'bg-[#EDE7DC] text-[#555]',
+  sena: 'bg-[#EDE7DC] text-[#555] dark:text-[#A8A098]',
   cuota: 'bg-yellow-50 text-yellow-700 border border-yellow-200',
   saldo: 'bg-green-50 text-green-700 border border-green-200',
 }
@@ -58,42 +58,42 @@ function PagoModal({ clientId, onClose, onSaved }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-black/30" onClick={onClose} />
-      <div className="relative bg-[#FDFBF7] border border-[#E0D9CE] rounded-xl w-full max-w-sm p-6">
+      <div className="relative bg-[#FDFBF7] dark:bg-[#1E1B17] border border-[#E0D9CE] dark:border-[#2A2520] rounded-xl w-full max-w-sm p-6">
         <div className="flex items-center justify-between mb-5">
-          <h2 className="text-sm font-semibold text-[#1A1814]">Registrar pago</h2>
-          <button onClick={onClose} className="text-[#888] hover:text-[#1A1814] transition-colors"><X size={16} /></button>
+          <h2 className="text-sm font-semibold text-[#1A1814] dark:text-[#EDE7DC]">Registrar pago</h2>
+          <button onClick={onClose} className="text-[#888] dark:text-[#7A7068] hover:text-[#1A1814] dark:text-[#EDE7DC] transition-colors"><X size={16} /></button>
         </div>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-xs font-medium text-[#1A1814] mb-1.5 uppercase tracking-wide">Tipo de pago</label>
+            <label className="block text-xs font-medium text-[#1A1814] dark:text-[#EDE7DC] mb-1.5 uppercase tracking-wide">Tipo de pago</label>
             <select value={form.type} onChange={e => set('type', e.target.value)}
-              className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] rounded-xl outline-none focus:border-[#1A1814] bg-[#FDFBF7] transition-colors">
+              className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] dark:text-[#EDE7DC] rounded-xl outline-none focus:border-[#1A1814] bg-[#FDFBF7] dark:bg-[#1E1B17] transition-colors">
               {PAYMENT_TYPES.map(t => <option key={t.value} value={t.value}>{t.label}</option>)}
             </select>
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-medium text-[#1A1814] mb-1.5 uppercase tracking-wide">Monto (USD)</label>
+              <label className="block text-xs font-medium text-[#1A1814] dark:text-[#EDE7DC] mb-1.5 uppercase tracking-wide">Monto (USD)</label>
               <input type="number" value={form.amount} onChange={e => set('amount', e.target.value)}
                 min="0" placeholder="0" required
-                className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] rounded-xl outline-none focus:border-[#1A1814] transition-colors" />
+                className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] dark:text-[#EDE7DC] rounded-xl outline-none focus:border-[#1A1814] transition-colors" />
             </div>
             <div>
-              <label className="block text-xs font-medium text-[#1A1814] mb-1.5 uppercase tracking-wide">Fecha</label>
+              <label className="block text-xs font-medium text-[#1A1814] dark:text-[#EDE7DC] mb-1.5 uppercase tracking-wide">Fecha</label>
               <input type="date" value={form.paid_at} onChange={e => set('paid_at', e.target.value)}
-                className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] rounded-xl outline-none focus:border-[#1A1814] transition-colors" />
+                className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] dark:text-[#EDE7DC] rounded-xl outline-none focus:border-[#1A1814] transition-colors" />
             </div>
           </div>
           <div>
-            <label className="block text-xs font-medium text-[#1A1814] mb-1.5 uppercase tracking-wide">Notas (opcional)</label>
+            <label className="block text-xs font-medium text-[#1A1814] dark:text-[#EDE7DC] mb-1.5 uppercase tracking-wide">Notas (opcional)</label>
             <input type="text" value={form.notes} onChange={e => set('notes', e.target.value)}
               placeholder="Ej: transferencia banco, efectivo..."
-              className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] rounded-xl outline-none focus:border-[#1A1814] transition-colors" />
+              className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] dark:text-[#EDE7DC] rounded-xl outline-none focus:border-[#1A1814] transition-colors" />
           </div>
           {error && <p className="text-xs text-red-600">{error}</p>}
           <div className="flex gap-2 pt-1">
             <button type="button" onClick={onClose}
-              className="flex-1 px-4 py-2 border border-[#D9D9D9] text-sm text-[#666] rounded-xl hover:border-[#1A1814] transition-colors">
+              className="flex-1 px-4 py-2 border border-[#D9D9D9] text-sm text-[#666] dark:text-[#998E88] rounded-xl hover:border-[#1A1814] transition-colors">
               Cancelar
             </button>
             <button type="submit" disabled={loading}
@@ -128,10 +128,10 @@ export default function PagosDetalle() {
   useEffect(() => { fetchData() }, [fetchData])
 
   if (loading) return (
-    <div className="flex items-center justify-center min-h-[60vh] text-sm text-[#AAA]">Cargando...</div>
+    <div className="flex items-center justify-center min-h-[60vh] text-sm text-[#AAA] dark:text-[#5A5450]">Cargando...</div>
   )
   if (!client) return (
-    <div className="text-center py-20 text-sm text-[#AAA]">Cliente no encontrado.</div>
+    <div className="text-center py-20 text-sm text-[#AAA] dark:text-[#5A5450]">Cliente no encontrado.</div>
   )
 
   const total = client.total_price || 0
@@ -143,10 +143,10 @@ export default function PagosDetalle() {
     <div className="max-w-xl">
       {/* Header */}
       <div className="flex items-center gap-3 mb-6">
-        <button onClick={() => navigate('/pagos')} className="p-1.5 text-[#888] hover:text-[#1A1814] transition-colors">
+        <button onClick={() => navigate('/pagos')} className="p-1.5 text-[#888] dark:text-[#7A7068] hover:text-[#1A1814] dark:text-[#EDE7DC] transition-colors">
           <ArrowLeft size={16} />
         </button>
-        <h1 className="text-xl font-semibold text-[#1A1814] flex-1">{client.name}</h1>
+        <h1 className="text-xl font-semibold text-[#1A1814] dark:text-[#EDE7DC] flex-1">{client.name}</h1>
         <button
           onClick={() => setShowModal(true)}
           className="flex items-center gap-1.5 bg-[#1A1814] text-white text-sm px-4 py-2 rounded-xl hover:bg-[#1A1814] transition-colors"
@@ -157,19 +157,19 @@ export default function PagosDetalle() {
       </div>
 
       {/* Financial summary */}
-      <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-xl p-5 mb-4">
+      <div className="bg-[#FDFBF7] dark:bg-[#1E1B17] border border-[#E0D9CE] dark:border-[#2A2520] rounded-xl p-5 mb-4">
         <div className="grid grid-cols-3 gap-4 mb-5">
           <div>
-            <div className="text-xs text-[#AAA] mb-0.5">Total paquete</div>
-            <div className="text-base font-semibold text-[#1A1814]">{formatUSD(total)}</div>
+            <div className="text-xs text-[#AAA] dark:text-[#5A5450] mb-0.5">Total paquete</div>
+            <div className="text-base font-semibold text-[#1A1814] dark:text-[#EDE7DC]">{formatUSD(total)}</div>
           </div>
           <div>
-            <div className="text-xs text-[#AAA] mb-0.5">Total pagado</div>
+            <div className="text-xs text-[#AAA] dark:text-[#5A5450] mb-0.5">Total pagado</div>
             <div className="text-base font-semibold text-green-700">{formatUSD(paid)}</div>
           </div>
           <div>
-            <div className="text-xs text-[#AAA] mb-0.5">Saldo pendiente</div>
-            <div className={`text-base font-semibold ${pending > 0 ? 'text-red-600' : 'text-[#AAA]'}`}>
+            <div className="text-xs text-[#AAA] dark:text-[#5A5450] mb-0.5">Saldo pendiente</div>
+            <div className={`text-base font-semibold ${pending > 0 ? 'text-red-600' : 'text-[#AAA] dark:text-[#5A5450]'}`}>
               {formatUSD(pending)}
             </div>
           </div>
@@ -178,7 +178,7 @@ export default function PagosDetalle() {
         {/* Progress bar */}
         {total > 0 && (
           <div>
-            <div className="flex justify-between text-xs text-[#AAA] mb-1.5">
+            <div className="flex justify-between text-xs text-[#AAA] dark:text-[#5A5450] mb-1.5">
               <span>Progreso de cobro</span>
               <span>{Math.round(pct)}%</span>
             </div>
@@ -194,9 +194,9 @@ export default function PagosDetalle() {
 
       {/* Payment history */}
       <h2 className="text-xs font-semibold uppercase tracking-wider text-[#C9A96E] mb-3">Historial de pagos</h2>
-      <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-xl divide-y divide-[#E0D9CE]">
+      <div className="bg-[#FDFBF7] dark:bg-[#1E1B17] border border-[#E0D9CE] dark:border-[#2A2520] rounded-xl divide-y divide-[#E0D9CE]">
         {payments.length === 0 ? (
-          <div className="px-5 py-8 text-center text-sm text-[#AAA]">
+          <div className="px-5 py-8 text-center text-sm text-[#AAA] dark:text-[#5A5450]">
             No hay pagos registrados todavía
           </div>
         ) : (
@@ -207,12 +207,12 @@ export default function PagosDetalle() {
                   <span className={`text-xs px-1.5 py-0.5 rounded-xl font-medium ${TYPE_BADGE[p.type]}`}>
                     {TYPE_LABEL[p.type]}
                   </span>
-                  <span className="text-xs text-[#AAA]">{formatDate(p.paid_at)}</span>
+                  <span className="text-xs text-[#AAA] dark:text-[#5A5450]">{formatDate(p.paid_at)}</span>
                 </div>
-                {p.notes && <div className="text-xs text-[#888] mt-0.5">{p.notes}</div>}
+                {p.notes && <div className="text-xs text-[#888] dark:text-[#7A7068] mt-0.5">{p.notes}</div>}
               </div>
               <div className="flex items-center gap-3">
-                <div className="text-sm font-semibold text-[#1A1814]">{formatUSD(p.amount)}</div>
+                <div className="text-sm font-semibold text-[#1A1814] dark:text-[#EDE7DC]">{formatUSD(p.amount)}</div>
                 <button
                   onClick={async () => {
                     await supabase.from('payments').delete().eq('id', p.id)

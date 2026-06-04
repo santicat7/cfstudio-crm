@@ -13,8 +13,11 @@ import {
   Clapperboard,
   LogOut,
   X,
+  Sun,
+  Moon,
 } from 'lucide-react'
 import { useAuth } from '../contexts/AuthContext'
+import { useTheme } from '../contexts/ThemeContext'
 import { getDisplayName } from '../lib/utils'
 
 const NAV = [
@@ -33,6 +36,7 @@ const NAV = [
 
 export default function Sidebar({ open, onClose }) {
   const { signOut, session } = useAuth()
+  const { dark, toggle } = useTheme()
   const navigate = useNavigate()
 
   async function handleSignOut() {
@@ -103,7 +107,15 @@ export default function Sidebar({ open, onClose }) {
         </nav>
 
         {/* Footer */}
-        <div className="px-5 py-4 border-t border-white/10">
+        <div className="px-5 py-4 border-t border-white/10 space-y-2">
+          {/* Theme toggle */}
+          <button
+            onClick={toggle}
+            className="flex items-center gap-3 text-sm text-white/40 hover:text-white transition-colors w-full"
+          >
+            {dark ? <Sun size={16} strokeWidth={1.75} /> : <Moon size={16} strokeWidth={1.75} />}
+            {dark ? 'Modo claro' : 'Modo oscuro'}
+          </button>
           <button
             onClick={handleSignOut}
             className="flex items-center gap-3 text-sm text-white/40 hover:text-white transition-colors w-full"

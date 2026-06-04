@@ -14,7 +14,7 @@ const DELIVERY_LABEL = {
   entregado: 'Entregado',
 }
 const DELIVERY_BADGE = {
-  sin_editar: 'bg-[#EDE7DC] text-[#555]',
+  sin_editar: 'bg-[#EDE7DC] text-[#555] dark:text-[#A8A098]',
   editando: 'bg-yellow-50 text-yellow-700 border border-yellow-200',
   revision: 'bg-yellow-50 text-yellow-800 border border-yellow-300',
   entregado: 'bg-green-50 text-green-700 border border-green-200',
@@ -25,7 +25,7 @@ const STAGE_LABEL = {
   cobrado: 'Cobrado', cancelado: 'Cancelado',
 }
 const STAGE_BADGE = {
-  consulta:   'bg-[#EDE7DC] text-[#555]',
+  consulta:   'bg-[#EDE7DC] text-[#555] dark:text-[#A8A098]',
   cotizado:   'bg-yellow-50 text-yellow-700 border border-yellow-200',
   confirmado: 'bg-green-50 text-green-700 border border-green-200',
   cobrado:    'bg-green-50 text-green-800 border border-green-300',
@@ -61,7 +61,7 @@ function safeFormatDatetime(dateStr) {
 
 function Section({ title, children }) {
   return (
-    <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-xl p-5 mb-4">
+    <div className="bg-[#FDFBF7] dark:bg-[#1E1B17] border border-[#E0D9CE] dark:border-[#2A2520] rounded-xl p-5 mb-4">
       <h2 className="text-xs font-semibold uppercase tracking-wider text-[#C9A96E] mb-4">{title}</h2>
       {children}
     </div>
@@ -71,8 +71,8 @@ function Section({ title, children }) {
 function Field({ label, children }) {
   return (
     <div className="mb-3 last:mb-0">
-      <div className="text-xs text-[#AAA] mb-0.5">{label}</div>
-      <div className="text-sm text-[#1A1814]">{children}</div>
+      <div className="text-xs text-[#AAA] dark:text-[#5A5450] mb-0.5">{label}</div>
+      <div className="text-sm text-[#1A1814] dark:text-[#EDE7DC]">{children}</div>
     </div>
   )
 }
@@ -98,19 +98,19 @@ function EventTimeField({ clientId, value, onChange }) {
           onChange={e => setVal(e.target.value)}
           placeholder="ej: 18:00"
           autoFocus
-          className="border border-[#1A1814] rounded px-2 py-1 text-sm text-[#1A1814] focus:outline-none w-24"
+          className="border border-[#1A1814] rounded px-2 py-1 text-sm text-[#1A1814] dark:text-[#EDE7DC] focus:outline-none w-24"
           onKeyDown={e => { if (e.key === 'Enter') save(); if (e.key === 'Escape') setEditing(false) }}
         />
-        <button onClick={save} className="text-xs text-[#1A1814] font-medium hover:underline">Guardar</button>
-        <button onClick={() => setEditing(false)} className="text-xs text-[#AAA] hover:text-[#888]">Cancelar</button>
+        <button onClick={save} className="text-xs text-[#1A1814] dark:text-[#EDE7DC] font-medium hover:underline">Guardar</button>
+        <button onClick={() => setEditing(false)} className="text-xs text-[#AAA] dark:text-[#5A5450] hover:text-[#888] dark:text-[#7A7068]">Cancelar</button>
       </div>
     )
   }
 
   return (
     <div className="flex items-center gap-2">
-      <span>{value || <span className="text-[#CCC] italic text-xs">Sin horario</span>}</span>
-      <button onClick={() => setEditing(true)} className="text-xs text-[#CCC] hover:text-[#888] transition-colors">editar</button>
+      <span>{value || <span className="text-[#CCC] dark:text-[#4A4440] italic text-xs">Sin horario</span>}</span>
+      <button onClick={() => setEditing(true)} className="text-xs text-[#CCC] dark:text-[#4A4440] hover:text-[#888] dark:text-[#7A7068] transition-colors">editar</button>
     </div>
   )
 }
@@ -220,7 +220,7 @@ export default function ClienteDetalle() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-[60vh] text-sm text-[#AAA]">
+      <div className="flex items-center justify-center min-h-[60vh] text-sm text-[#AAA] dark:text-[#5A5450]">
         Cargando...
       </div>
     )
@@ -229,8 +229,8 @@ export default function ClienteDetalle() {
   if (!client) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] gap-3">
-        <p className="text-sm text-[#888]">Cliente no encontrado.</p>
-        <button onClick={() => navigate('/clientes')} className="text-sm underline text-[#1A1814]">
+        <p className="text-sm text-[#888] dark:text-[#7A7068]">Cliente no encontrado.</p>
+        <button onClick={() => navigate('/clientes')} className="text-sm underline text-[#1A1814] dark:text-[#EDE7DC]">
           Volver
         </button>
       </div>
@@ -246,13 +246,13 @@ export default function ClienteDetalle() {
   const navBlock = allIds.length > 1 ? (
     <div className="flex items-center justify-between mt-2 mb-6">
       <button onClick={() => navigate(`/clientes/${prevId}`)} disabled={!prevId}
-        className="flex items-center gap-2 text-sm text-[#666] border border-[#D9D9D9] px-4 py-2 rounded-xl hover:border-[#1A1814] hover:text-[#1A1814] transition-colors disabled:opacity-30 disabled:cursor-not-allowed">
+        className="flex items-center gap-2 text-sm text-[#666] dark:text-[#998E88] border border-[#D9D9D9] px-4 py-2 rounded-xl hover:border-[#1A1814] hover:text-[#1A1814] dark:text-[#EDE7DC] transition-colors disabled:opacity-30 disabled:cursor-not-allowed">
         <ArrowLeft size={14} />
         Cliente anterior
       </button>
-      <span className="text-xs text-[#AAA]">{navIdx >= 0 ? navIdx + 1 : '?'} / {allIds.length}</span>
+      <span className="text-xs text-[#AAA] dark:text-[#5A5450]">{navIdx >= 0 ? navIdx + 1 : '?'} / {allIds.length}</span>
       <button onClick={() => navigate(`/clientes/${nextId}`)} disabled={!nextId}
-        className="flex items-center gap-2 text-sm text-[#666] border border-[#D9D9D9] px-4 py-2 rounded-xl hover:border-[#1A1814] hover:text-[#1A1814] transition-colors disabled:opacity-30 disabled:cursor-not-allowed">
+        className="flex items-center gap-2 text-sm text-[#666] dark:text-[#998E88] border border-[#D9D9D9] px-4 py-2 rounded-xl hover:border-[#1A1814] hover:text-[#1A1814] dark:text-[#EDE7DC] transition-colors disabled:opacity-30 disabled:cursor-not-allowed">
         Cliente siguiente
         <ArrowRight size={14} />
       </button>
@@ -265,14 +265,14 @@ export default function ClienteDetalle() {
       <div className="flex items-center gap-3 mb-6">
         <button
           onClick={() => navigate('/clientes')}
-          className="p-1.5 text-[#888] hover:text-[#1A1814] transition-colors"
+          className="p-1.5 text-[#888] dark:text-[#7A7068] hover:text-[#1A1814] dark:text-[#EDE7DC] transition-colors"
         >
           <ArrowLeft size={16} />
         </button>
-        <h1 className="text-xl font-semibold text-[#1A1814] flex-1">{client.name}</h1>
+        <h1 className="text-xl font-semibold text-[#1A1814] dark:text-[#EDE7DC] flex-1">{client.name}</h1>
         <button
           onClick={() => setShowEdit(true)}
-          className="flex items-center gap-1.5 border border-[#D9D9D9] text-sm text-[#1A1814] px-3 py-1.5 rounded-xl hover:border-[#1A1814] transition-colors"
+          className="flex items-center gap-1.5 border border-[#D9D9D9] text-sm text-[#1A1814] dark:text-[#EDE7DC] px-3 py-1.5 rounded-xl hover:border-[#1A1814] transition-colors"
         >
           <Pencil size={13} />
           Editar
@@ -292,9 +292,9 @@ export default function ClienteDetalle() {
 
         {client.phone && (
           <div className="mb-3">
-            <div className="text-xs text-[#AAA] mb-0.5">Teléfono</div>
+            <div className="text-xs text-[#AAA] dark:text-[#5A5450] mb-0.5">Teléfono</div>
             <div className="flex items-center gap-3">
-              <span className="text-sm text-[#1A1814]">{client.phone}</span>
+              <span className="text-sm text-[#1A1814] dark:text-[#EDE7DC]">{client.phone}</span>
               {whatsappPhone && (
                 <a
                   href={`https://wa.me/${whatsappPhone}`}
@@ -314,12 +314,12 @@ export default function ClienteDetalle() {
 
         {client.instagram && (
           <div className="mb-3 last:mb-0">
-            <div className="text-xs text-[#AAA] mb-0.5">Instagram</div>
+            <div className="text-xs text-[#AAA] dark:text-[#5A5450] mb-0.5">Instagram</div>
             <a
               href={`https://instagram.com/${client.instagram.replace('@', '')}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1 text-sm text-[#1A1814] underline underline-offset-2 hover:text-[#555] transition-colors w-fit"
+              className="flex items-center gap-1 text-sm text-[#1A1814] dark:text-[#EDE7DC] underline underline-offset-2 hover:text-[#555] dark:text-[#A8A098] transition-colors w-fit"
             >
               {client.instagram.startsWith('@') ? client.instagram : `@${client.instagram}`}
               <ExternalLink size={11} />
@@ -338,9 +338,9 @@ export default function ClienteDetalle() {
           <Field label="Precio total">{formatUSD(client.total_price)}</Field>
         </div>
         {/* Cliente recurrente */}
-        <div className="mt-4 pt-4 border-t border-[#E0D9CE] flex items-center justify-between">
+        <div className="mt-4 pt-4 border-t border-[#E0D9CE] dark:border-[#2A2520] flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className="text-xs text-[#888]">Visitas</span>
+            <span className="text-xs text-[#888] dark:text-[#7A7068]">Visitas</span>
             {(client.visit_count || 1) > 1 && (() => {
               const v = client.visit_count || 1
               const cls = v >= 8 ? 'bg-purple-900 text-white border-purple-900'
@@ -361,22 +361,22 @@ export default function ClienteDetalle() {
                 await supabase.from('clients').update({ visit_count: newCount }).eq('id', client.id)
                 setClient(prev => ({ ...prev, visit_count: newCount }))
               }}
-              className="w-7 h-7 flex items-center justify-center border border-[#E0D9CE] rounded-md text-[#888] hover:text-[#1A1814] hover:border-[#1A1814] transition-colors text-lg leading-none"
+              className="w-7 h-7 flex items-center justify-center border border-[#E0D9CE] dark:border-[#2A2520] rounded-md text-[#888] dark:text-[#7A7068] hover:text-[#1A1814] dark:text-[#EDE7DC] hover:border-[#1A1814] transition-colors text-lg leading-none"
             >−</button>
-            <span className="text-sm font-semibold text-[#1A1814] w-4 text-center">{client.visit_count || 1}</span>
+            <span className="text-sm font-semibold text-[#1A1814] dark:text-[#EDE7DC] w-4 text-center">{client.visit_count || 1}</span>
             <button
               onClick={async () => {
                 const newCount = (client.visit_count || 1) + 1
                 await supabase.from('clients').update({ visit_count: newCount }).eq('id', client.id)
                 setClient(prev => ({ ...prev, visit_count: newCount }))
               }}
-              className="w-7 h-7 flex items-center justify-center border border-[#E0D9CE] rounded-md text-[#888] hover:text-[#1A1814] hover:border-[#1A1814] transition-colors text-lg leading-none"
+              className="w-7 h-7 flex items-center justify-center border border-[#E0D9CE] dark:border-[#2A2520] rounded-md text-[#888] dark:text-[#7A7068] hover:text-[#1A1814] dark:text-[#EDE7DC] hover:border-[#1A1814] transition-colors text-lg leading-none"
             >+</button>
           </div>
         </div>
         {leadStage && (
-          <div className="mt-3 pt-3 border-t border-[#E0D9CE] flex items-center gap-2">
-            <span className="text-xs text-[#AAA]">Estado en pipeline:</span>
+          <div className="mt-3 pt-3 border-t border-[#E0D9CE] dark:border-[#2A2520] flex items-center gap-2">
+            <span className="text-xs text-[#AAA] dark:text-[#5A5450]">Estado en pipeline:</span>
             <span className={`text-xs px-2 py-0.5 rounded-xl font-medium ${STAGE_BADGE[leadStage]}`}>
               {STAGE_LABEL[leadStage]}
             </span>
@@ -393,7 +393,7 @@ export default function ClienteDetalle() {
           return (
             <>
               <div className="flex items-center justify-between mb-3">
-                <span className="text-xs text-[#888]">{done} de {PROCESO.length} pasos completados</span>
+                <span className="text-xs text-[#888] dark:text-[#7A7068]">{done} de {PROCESO.length} pasos completados</span>
                 <span className="text-xs font-semibold" style={{ color: pct === 100 ? '#22C55E' : '#C9A96E' }}>{pct}%</span>
               </div>
               <div className="h-1.5 bg-[#EDE7DC] rounded-full overflow-hidden mb-4">
@@ -418,7 +418,7 @@ export default function ClienteDetalle() {
                       <div className={`w-5 h-5 rounded border flex items-center justify-center flex-shrink-0 transition-colors ${
                         checked
                           ? 'border-[#C9A96E] bg-[#C9A96E]'
-                          : 'border-[#E0D9CE] bg-[#FDFBF7] group-hover:border-[#C9A96E]'
+                          : 'border-[#E0D9CE] dark:border-[#2A2520] bg-[#FDFBF7] dark:bg-[#1E1B17] group-hover:border-[#C9A96E]'
                       }`}>
                         {checked && (
                           <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
@@ -426,7 +426,7 @@ export default function ClienteDetalle() {
                           </svg>
                         )}
                       </div>
-                      <span className={`text-sm transition-colors ${checked ? 'text-[#AAA] line-through' : 'text-[#1A1814]'}`}>
+                      <span className={`text-sm transition-colors ${checked ? 'text-[#AAA] dark:text-[#5A5450] line-through' : 'text-[#1A1814] dark:text-[#EDE7DC]'}`}>
                         <span className="text-xs text-[#C9A96E] mr-1.5 font-medium">0{i + 1}</span>
                         {paso.label}
                       </span>
@@ -443,19 +443,19 @@ export default function ClienteDetalle() {
       <Section title="Historial">
         <div className="grid grid-cols-3 gap-4">
           <div>
-            <div className="text-xs text-[#AAA] mb-1">Último pago</div>
+            <div className="text-xs text-[#AAA] dark:text-[#5A5450] mb-1">Último pago</div>
             {lastPayment ? (
               <>
-                <div className="text-sm font-medium text-[#1A1814]">{formatUSD(lastPayment.amount)}</div>
-                <div className="text-xs text-[#888] mt-0.5 capitalize">{lastPayment.type}</div>
+                <div className="text-sm font-medium text-[#1A1814] dark:text-[#EDE7DC]">{formatUSD(lastPayment.amount)}</div>
+                <div className="text-xs text-[#888] dark:text-[#7A7068] mt-0.5 capitalize">{lastPayment.type}</div>
               </>
             ) : (
-              <div className="text-sm text-[#CCC]">Sin pagos</div>
+              <div className="text-sm text-[#CCC] dark:text-[#4A4440]">Sin pagos</div>
             )}
           </div>
 
           <div>
-            <div className="text-xs text-[#AAA] mb-1">Entrega</div>
+            <div className="text-xs text-[#AAA] dark:text-[#5A5450] mb-1">Entrega</div>
             {delivery ? (
               <span className={`text-xs px-2 py-0.5 rounded-xl font-medium ${DELIVERY_BADGE[delivery.status]}`}>
                 {DELIVERY_LABEL[delivery.status]}
@@ -464,7 +464,7 @@ export default function ClienteDetalle() {
               <button
                 onClick={handleCreateDelivery}
                 disabled={creatingDelivery}
-                className="text-xs border border-[#D9D9D9] px-2 py-1 rounded-xl text-[#666] hover:border-[#1A1814] transition-colors disabled:opacity-50"
+                className="text-xs border border-[#D9D9D9] px-2 py-1 rounded-xl text-[#666] dark:text-[#998E88] hover:border-[#1A1814] transition-colors disabled:opacity-50"
               >
                 {creatingDelivery ? 'Creando...' : '+ Crear entrega'}
               </button>
@@ -472,8 +472,8 @@ export default function ClienteDetalle() {
           </div>
 
           <div>
-            <div className="text-xs text-[#AAA] mb-1">Tareas pendientes</div>
-            <div className={`text-sm font-medium ${pendingTasks > 0 ? 'text-[#1A1814]' : 'text-[#CCC]'}`}>
+            <div className="text-xs text-[#AAA] dark:text-[#5A5450] mb-1">Tareas pendientes</div>
+            <div className={`text-sm font-medium ${pendingTasks > 0 ? 'text-[#1A1814] dark:text-[#EDE7DC]' : 'text-[#CCC] dark:text-[#4A4440]'}`}>
               {pendingTasks > 0 ? `${pendingTasks} tarea${pendingTasks > 1 ? 's' : ''}` : 'Sin tareas'}
             </div>
           </div>
@@ -493,7 +493,7 @@ export default function ClienteDetalle() {
                     setPendingTasks(prev => t.done ? prev + 1 : prev - 1)
                   }}
                   className={`w-4 h-4 rounded border flex items-center justify-center flex-shrink-0 transition-colors ${
-                    t.done ? 'bg-[#C9A96E] border-[#C9A96E]' : 'border-[#E0D9CE] hover:border-[#C9A96E]'
+                    t.done ? 'bg-[#C9A96E] border-[#C9A96E]' : 'border-[#E0D9CE] dark:border-[#2A2520] hover:border-[#C9A96E]'
                   }`}
                 >
                   {t.done && <svg width="8" height="6" viewBox="0 0 8 6" fill="none"><path d="M1 3L3 5L7 1" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>}
@@ -502,11 +502,11 @@ export default function ClienteDetalle() {
                   onClick={() => navigate('/tareas')}
                   className="flex-1 min-w-0 text-left group"
                 >
-                  <p className={`text-sm truncate group-hover:text-[#C9A96E] transition-colors ${t.done ? 'line-through text-[#AAA]' : 'text-[#1A1814]'}`}>
+                  <p className={`text-sm truncate group-hover:text-[#C9A96E] transition-colors ${t.done ? 'line-through text-[#AAA] dark:text-[#5A5450]' : 'text-[#1A1814] dark:text-[#EDE7DC]'}`}>
                     {t.title}
                   </p>
                   {(t.assigned_to || t.due_date) && (
-                    <p className="text-xs text-[#888] mt-0.5">
+                    <p className="text-xs text-[#888] dark:text-[#7A7068] mt-0.5">
                       {t.assigned_to === 'santi' ? 'Santi' : 'Matías'}
                       {t.due_date && ` · ${t.due_date}`}
                     </p>
@@ -530,13 +530,13 @@ export default function ClienteDetalle() {
                   'bg-[#EDE7DC]'
                 }`}>
                   {ev.icon === 'pago'      && <CreditCard size={12} className="text-green-600" />}
-                  {ev.icon === 'entrega'   && <Package size={12} className="text-[#888]" />}
+                  {ev.icon === 'entrega'   && <Package size={12} className="text-[#888] dark:text-[#7A7068]" />}
                   {ev.icon === 'entregado' && <Package size={12} className="text-green-600" />}
-                  {ev.icon === 'lead'      && <Tag size={12} className="text-[#888]" />}
+                  {ev.icon === 'lead'      && <Tag size={12} className="text-[#888] dark:text-[#7A7068]" />}
                 </div>
                 <div>
-                  <div className="text-sm text-[#1A1814]">{ev.text}</div>
-                  <div className="text-xs text-[#AAA] mt-0.5">
+                  <div className="text-sm text-[#1A1814] dark:text-[#EDE7DC]">{ev.text}</div>
+                  <div className="text-xs text-[#AAA] dark:text-[#5A5450] mt-0.5">
                     {safeFormatDatetime(ev.date)}
                   </div>
                 </div>
@@ -553,9 +553,9 @@ export default function ClienteDetalle() {
           onChange={handleNotesChange}
           rows={4}
           placeholder="Notas del equipo sobre este cliente..."
-          className="w-full text-sm text-[#1A1814] border border-[#E0D9CE] rounded-xl px-3 py-2.5 outline-none focus:border-[#1A1814] transition-colors resize-none placeholder:text-[#CCC]"
+          className="w-full text-sm text-[#1A1814] dark:text-[#EDE7DC] border border-[#E0D9CE] dark:border-[#2A2520] rounded-xl px-3 py-2.5 outline-none focus:border-[#1A1814] transition-colors resize-none placeholder:text-[#CCC] dark:text-[#4A4440]"
         />
-        <p className="text-xs text-[#CCC] mt-1">Se guarda automáticamente</p>
+        <p className="text-xs text-[#CCC] dark:text-[#4A4440] mt-1">Se guarda automáticamente</p>
       </Section>
 
       {/* Navegación entre clientes */}
@@ -574,15 +574,15 @@ export default function ClienteDetalle() {
       {showConfirmDelete && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-black/30" onClick={() => setShowConfirmDelete(false)} />
-          <div className="relative bg-[#FDFBF7] border border-[#E0D9CE] rounded-xl w-full max-w-sm p-6">
-            <h2 className="text-sm font-semibold text-[#1A1814] mb-2">Eliminar cliente</h2>
-            <p className="text-sm text-[#666] mb-5">
+          <div className="relative bg-[#FDFBF7] dark:bg-[#1E1B17] border border-[#E0D9CE] dark:border-[#2A2520] rounded-xl w-full max-w-sm p-6">
+            <h2 className="text-sm font-semibold text-[#1A1814] dark:text-[#EDE7DC] mb-2">Eliminar cliente</h2>
+            <p className="text-sm text-[#666] dark:text-[#998E88] mb-5">
               ¿Seguro que querés eliminar a <strong>{client.name}</strong>? Se borrarán también sus leads, pagos, tareas y entregas. Esta acción no se puede deshacer.
             </p>
             <div className="flex gap-2">
               <button
                 onClick={() => setShowConfirmDelete(false)}
-                className="flex-1 px-4 py-2 border border-[#D9D9D9] text-sm text-[#666] rounded-xl hover:border-[#1A1814] transition-colors"
+                className="flex-1 px-4 py-2 border border-[#D9D9D9] text-sm text-[#666] dark:text-[#998E88] rounded-xl hover:border-[#1A1814] transition-colors"
               >
                 Cancelar
               </button>

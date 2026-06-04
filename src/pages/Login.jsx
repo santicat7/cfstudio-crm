@@ -26,18 +26,18 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F5F0E8] flex items-center justify-center px-4">
+    <div className="min-h-screen bg-[#F5F0E8] dark:bg-[#141210] flex items-center justify-center px-4">
       <div className="w-full max-w-sm">
         <div className="mb-10">
-          <div className="text-2xl font-semibold tracking-tight text-[#1A1814] mb-1">
+          <div className="text-2xl font-semibold tracking-tight text-[#1A1814] dark:text-[#EDE7DC] mb-1">
             C&amp;F Studio
           </div>
-          <div className="text-sm text-[#666]">CRM interno — Paysandú, Uruguay</div>
+          <div className="text-sm text-[#666] dark:text-[#998E88]">CRM interno — Paysandú, Uruguay</div>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-xs font-medium text-[#1A1814] mb-1.5 uppercase tracking-wide">
+            <label className="block text-xs font-medium text-[#1A1814] dark:text-[#EDE7DC] mb-1.5 uppercase tracking-wide">
               Email
             </label>
             <input
@@ -46,12 +46,12 @@ export default function Login() {
               onChange={e => setEmail(e.target.value)}
               placeholder="tu@cfstudio.uy"
               required
-              className="w-full px-3 py-2.5 border border-[#D9D9D9] bg-[#FDFBF7] text-[#1A1814] text-sm rounded-xl outline-none focus:border-[#1A1814] transition-colors"
+              className="w-full px-3 py-2.5 border border-[#D9D9D9] bg-[#FDFBF7] dark:bg-[#1E1B17] text-[#1A1814] dark:text-[#EDE7DC] text-sm rounded-xl outline-none focus:border-[#1A1814] transition-colors"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-[#1A1814] mb-1.5 uppercase tracking-wide">
+            <label className="block text-xs font-medium text-[#1A1814] dark:text-[#EDE7DC] mb-1.5 uppercase tracking-wide">
               Contraseña
             </label>
             <input
@@ -60,7 +60,7 @@ export default function Login() {
               onChange={e => setPassword(e.target.value)}
               placeholder="••••••••"
               required
-              className="w-full px-3 py-2.5 border border-[#D9D9D9] bg-[#FDFBF7] text-[#1A1814] text-sm rounded-xl outline-none focus:border-[#1A1814] transition-colors"
+              className="w-full px-3 py-2.5 border border-[#D9D9D9] bg-[#FDFBF7] dark:bg-[#1E1B17] text-[#1A1814] dark:text-[#EDE7DC] text-sm rounded-xl outline-none focus:border-[#1A1814] transition-colors"
             />
           </div>
 
@@ -71,7 +71,7 @@ export default function Login() {
               onChange={e => setRemember(e.target.checked)}
               className="w-3.5 h-3.5 rounded-xl accent-[#111] cursor-pointer"
             />
-            <span className="text-sm text-[#666]">Recordar sesión</span>
+            <span className="text-sm text-[#666] dark:text-[#998E88]">Recordar sesión</span>
           </label>
 
           {error && (

@@ -8,8 +8,8 @@ import { es } from 'date-fns/locale'
 
 const ASSIGNEE_LABEL = { santi: 'Santi', matias: 'Matías' }
 const ASSIGNEE_BADGE = {
-  santi:  'bg-[#EDE7DC] text-[#555]',
-  matias: 'bg-[#EDE7DC] text-[#555]',
+  santi:  'bg-[#EDE7DC] text-[#555] dark:text-[#A8A098]',
+  matias: 'bg-[#EDE7DC] text-[#555] dark:text-[#A8A098]',
 }
 
 
@@ -60,27 +60,27 @@ function NuevaTareaModal({ clientes, onClose, onSaved }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-black/30" onClick={onClose} />
-      <div className="relative bg-[#FDFBF7] border border-[#E0D9CE] rounded-xl w-full max-w-md p-6">
+      <div className="relative bg-[#FDFBF7] dark:bg-[#1E1B17] border border-[#E0D9CE] dark:border-[#2A2520] rounded-xl w-full max-w-md p-6">
         <div className="flex items-center justify-between mb-5">
-          <h2 className="text-sm font-semibold text-[#1A1814]">Nueva tarea</h2>
-          <button onClick={onClose} className="text-[#888] hover:text-[#1A1814] transition-colors"><X size={16} /></button>
+          <h2 className="text-sm font-semibold text-[#1A1814] dark:text-[#EDE7DC]">Nueva tarea</h2>
+          <button onClick={onClose} className="text-[#888] dark:text-[#7A7068] hover:text-[#1A1814] dark:text-[#EDE7DC] transition-colors"><X size={16} /></button>
         </div>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-xs font-medium text-[#1A1814] mb-1.5 uppercase tracking-wide">Título *</label>
+            <label className="block text-xs font-medium text-[#1A1814] dark:text-[#EDE7DC] mb-1.5 uppercase tracking-wide">Título *</label>
             <input type="text" value={form.title} onChange={e => set('title', e.target.value)} required
               placeholder="Ej: Enviar contrato, editar galería..."
-              className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] rounded-xl outline-none focus:border-[#1A1814] transition-colors" />
+              className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] dark:text-[#EDE7DC] rounded-xl outline-none focus:border-[#1A1814] transition-colors" />
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-[#1A1814] mb-1.5 uppercase tracking-wide">Cliente</label>
+            <label className="block text-xs font-medium text-[#1A1814] dark:text-[#EDE7DC] mb-1.5 uppercase tracking-wide">Cliente</label>
             <input type="text" value={search} onChange={e => setSearch(e.target.value)}
               placeholder="Buscar cliente..."
-              className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] rounded-xl outline-none focus:border-[#1A1814] transition-colors mb-1" />
+              className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] dark:text-[#EDE7DC] rounded-xl outline-none focus:border-[#1A1814] transition-colors mb-1" />
             <select value={form.client_id} onChange={e => set('client_id', e.target.value)}
               size={Math.min(filtered.length + 1, 5)}
-              className="w-full px-3 py-1 border border-[#D9D9D9] text-sm text-[#1A1814] rounded-xl outline-none focus:border-[#1A1814] bg-[#FDFBF7]">
+              className="w-full px-3 py-1 border border-[#D9D9D9] text-sm text-[#1A1814] dark:text-[#EDE7DC] rounded-xl outline-none focus:border-[#1A1814] bg-[#FDFBF7] dark:bg-[#1E1B17]">
               <option value="">— Sin cliente —</option>
               {filtered.map(c => <option key={c.id} value={c.id}>{c.name}{c.event_type ? ` · ${c.event_type}` : ''}</option>)}
             </select>
@@ -88,30 +88,30 @@ function NuevaTareaModal({ clientes, onClose, onSaved }) {
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-medium text-[#1A1814] mb-1.5 uppercase tracking-wide">Asignado a</label>
+              <label className="block text-xs font-medium text-[#1A1814] dark:text-[#EDE7DC] mb-1.5 uppercase tracking-wide">Asignado a</label>
               <select value={form.assigned_to} onChange={e => set('assigned_to', e.target.value)}
-                className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] rounded-xl outline-none focus:border-[#1A1814] bg-[#FDFBF7] transition-colors">
+                className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] dark:text-[#EDE7DC] rounded-xl outline-none focus:border-[#1A1814] bg-[#FDFBF7] dark:bg-[#1E1B17] transition-colors">
                 <option value="santi">Santi</option>
                 <option value="matias">Matías</option>
               </select>
             </div>
             <div>
-              <label className="block text-xs font-medium text-[#1A1814] mb-1.5 uppercase tracking-wide">Fecha límite</label>
+              <label className="block text-xs font-medium text-[#1A1814] dark:text-[#EDE7DC] mb-1.5 uppercase tracking-wide">Fecha límite</label>
               <input type="date" value={form.due_date} onChange={e => set('due_date', e.target.value)}
-                className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] rounded-xl outline-none focus:border-[#1A1814] transition-colors" />
+                className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] dark:text-[#EDE7DC] rounded-xl outline-none focus:border-[#1A1814] transition-colors" />
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-[#1A1814] mb-1.5 uppercase tracking-wide">Notas (opcional)</label>
+            <label className="block text-xs font-medium text-[#1A1814] dark:text-[#EDE7DC] mb-1.5 uppercase tracking-wide">Notas (opcional)</label>
             <input type="text" value={form.notes} onChange={e => set('notes', e.target.value)}
-              className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] rounded-xl outline-none focus:border-[#1A1814] transition-colors" />
+              className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] dark:text-[#EDE7DC] rounded-xl outline-none focus:border-[#1A1814] transition-colors" />
           </div>
 
           {error && <p className="text-xs text-red-600">{error}</p>}
           <div className="flex gap-2 pt-1">
             <button type="button" onClick={onClose}
-              className="flex-1 px-4 py-2 border border-[#D9D9D9] text-sm text-[#666] rounded-xl hover:border-[#1A1814] transition-colors">
+              className="flex-1 px-4 py-2 border border-[#D9D9D9] text-sm text-[#666] dark:text-[#998E88] rounded-xl hover:border-[#1A1814] transition-colors">
               Cancelar
             </button>
             <button type="submit" disabled={loading}
@@ -183,9 +183,9 @@ export default function Tareas() {
     <div>
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-xl font-semibold text-[#1A1814]">Tareas</h1>
+          <h1 className="text-xl font-semibold text-[#1A1814] dark:text-[#EDE7DC]">Tareas</h1>
           {pendingCount > 0 && (
-            <p className="text-xs text-[#888] mt-0.5">{pendingCount} pendiente{pendingCount > 1 ? 's' : ''}</p>
+            <p className="text-xs text-[#888] dark:text-[#7A7068] mt-0.5">{pendingCount} pendiente{pendingCount > 1 ? 's' : ''}</p>
           )}
         </div>
         <button
@@ -202,7 +202,7 @@ export default function Tareas() {
         {FILTERS.map(f => (
           <button key={f.id} onClick={() => setFilter(f.id)}
             className={`text-xs px-3 py-1.5 rounded-xl font-medium transition-colors ${
-              filter === f.id ? 'bg-[#1A1814] text-white' : 'bg-[#FDFBF7] border border-[#D9D9D9] text-[#666] hover:border-[#1A1814]'
+              filter === f.id ? 'bg-[#1A1814] text-white' : 'bg-[#FDFBF7] dark:bg-[#1E1B17] border border-[#D9D9D9] text-[#666] dark:text-[#998E88] hover:border-[#1A1814]'
             }`}>
             {f.id === 'mias' ? `Mis tareas (${myAssignee === 'santi' ? 'Santi' : 'Matías'})` : f.label}
           </button>
@@ -210,9 +210,9 @@ export default function Tareas() {
       </div>
 
       {loading ? (
-        <div className="text-center text-sm text-[#AAA] py-16">Cargando...</div>
+        <div className="text-center text-sm text-[#AAA] dark:text-[#5A5450] py-16">Cargando...</div>
       ) : filtered.length === 0 ? (
-        <div className="text-center text-sm text-[#AAA] py-16">
+        <div className="text-center text-sm text-[#AAA] dark:text-[#5A5450] py-16">
           {filter === 'completadas' ? 'No hay tareas completadas' :
            filter === 'pendientes' ? 'No hay tareas pendientes' :
            'No hay tareas todavía'}
@@ -224,7 +224,7 @@ export default function Tareas() {
               <h2 className="text-xs font-semibold uppercase tracking-wider text-[#C9A96E] mb-2">
                 {group.label}
               </h2>
-              <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-xl divide-y divide-[#E0D9CE]">
+              <div className="bg-[#FDFBF7] dark:bg-[#1E1B17] border border-[#E0D9CE] dark:border-[#2A2520] rounded-xl divide-y divide-[#E0D9CE]">
                 {group.tasks.map(task => {
                   const overdue = isOverdue(task.due_date) && !task.done
                   const dueLabel = formatDue(task.due_date)
@@ -246,11 +246,11 @@ export default function Tareas() {
                       </button>
 
                       <div className="flex-1 min-w-0">
-                        <div className={`text-sm text-[#1A1814] ${task.done ? 'line-through' : 'font-medium'}`}>
+                        <div className={`text-sm text-[#1A1814] dark:text-[#EDE7DC] ${task.done ? 'line-through' : 'font-medium'}`}>
                           {task.title}
                         </div>
                         {task.notes && (
-                          <div className="text-xs text-[#888] mt-0.5">{task.notes}</div>
+                          <div className="text-xs text-[#888] dark:text-[#7A7068] mt-0.5">{task.notes}</div>
                         )}
                       </div>
 
@@ -261,7 +261,7 @@ export default function Tareas() {
                           </span>
                         )}
                         {dueLabel && (
-                          <span className={`text-xs font-medium ${overdue ? 'text-red-600' : 'text-[#AAA]'}`}>
+                          <span className={`text-xs font-medium ${overdue ? 'text-red-600' : 'text-[#AAA] dark:text-[#5A5450]'}`}>
                             {dueLabel}
                           </span>
                         )}

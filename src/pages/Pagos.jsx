@@ -7,14 +7,14 @@ import { isWithinInterval, addDays, parseISO, startOfMonth, endOfMonth } from 'd
 
 
 function StatusBadge({ paid, total }) {
-  if (!total) return <span className="text-xs text-[#CCC]">Sin precio</span>
+  if (!total) return <span className="text-xs text-[#CCC] dark:text-[#4A4440]">Sin precio</span>
   if (paid >= total) return (
     <span className="text-xs px-2 py-0.5 rounded-xl font-medium bg-green-50 text-green-700 border border-green-200">Pagado completo</span>
   )
   if (paid > 0) return (
     <span className="text-xs px-2 py-0.5 rounded-xl font-medium bg-yellow-50 text-yellow-700 border border-yellow-200">Parcialmente pagado</span>
   )
-  return <span className="text-xs px-2 py-0.5 rounded-xl font-medium bg-[#EDE7DC] text-[#555]">Sin pagos</span>
+  return <span className="text-xs px-2 py-0.5 rounded-xl font-medium bg-[#EDE7DC] text-[#555] dark:text-[#A8A098]">Sin pagos</span>
 }
 
 export default function Pagos() {
@@ -91,36 +91,36 @@ export default function Pagos() {
 
   return (
     <div>
-      <h1 className="text-xl font-semibold text-[#1A1814] mb-6">Pagos</h1>
+      <h1 className="text-xl font-semibold text-[#1A1814] dark:text-[#EDE7DC] mb-6">Pagos</h1>
 
       {/* Metric cards */}
       <div className="grid grid-cols-2 gap-3 mb-8">
-        <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-xl p-5">
-          <div className="text-2xl font-semibold text-[#1A1814] mb-1">
+        <div className="bg-[#FDFBF7] dark:bg-[#1E1B17] border border-[#E0D9CE] dark:border-[#2A2520] rounded-xl p-5">
+          <div className="text-2xl font-semibold text-[#1A1814] dark:text-[#EDE7DC] mb-1">
             {loading ? '—' : formatUSD(cobradoMes)}
           </div>
-          <div className="text-xs text-[#888]">Total cobrado este mes</div>
+          <div className="text-xs text-[#888] dark:text-[#7A7068]">Total cobrado este mes</div>
         </div>
-        <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-xl p-5">
-          <div className={`text-2xl font-semibold mb-1 ${pendienteGlobal > 0 ? 'text-red-600' : 'text-[#1A1814]'}`}>
+        <div className="bg-[#FDFBF7] dark:bg-[#1E1B17] border border-[#E0D9CE] dark:border-[#2A2520] rounded-xl p-5">
+          <div className={`text-2xl font-semibold mb-1 ${pendienteGlobal > 0 ? 'text-red-600' : 'text-[#1A1814] dark:text-[#EDE7DC]'}`}>
             {loading ? '—' : formatUSD(pendienteGlobal)}
           </div>
-          <div className="text-xs text-[#888]">Total pendiente de cobro</div>
+          <div className="text-xs text-[#888] dark:text-[#7A7068]">Total pendiente de cobro</div>
         </div>
       </div>
 
       {/* Client list */}
-      <div className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-xl overflow-hidden">
-        <div className="grid grid-cols-[2fr_1fr_1fr_1fr_1.5fr_auto] gap-4 px-5 py-2.5 border-b border-[#E0D9CE] bg-[#F5F0E8]">
+      <div className="bg-[#FDFBF7] dark:bg-[#1E1B17] border border-[#E0D9CE] dark:border-[#2A2520] rounded-xl overflow-hidden">
+        <div className="grid grid-cols-[2fr_1fr_1fr_1fr_1.5fr_auto] gap-4 px-5 py-2.5 border-b border-[#E0D9CE] dark:border-[#2A2520] bg-[#F5F0E8] dark:bg-[#141210]">
           {['Cliente', 'Total', 'Pagado', 'Pendiente', 'Estado', ''].map(h => (
             <div key={h} className="text-xs font-semibold uppercase tracking-wider text-[#C9A96E]">{h}</div>
           ))}
         </div>
 
         {loading ? (
-          <div className="px-5 py-10 text-center text-sm text-[#AAA]">Cargando...</div>
+          <div className="px-5 py-10 text-center text-sm text-[#AAA] dark:text-[#5A5450]">Cargando...</div>
         ) : rows.length === 0 ? (
-          <div className="px-5 py-10 text-center text-sm text-[#AAA]">Sin clientes cargados</div>
+          <div className="px-5 py-10 text-center text-sm text-[#AAA] dark:text-[#5A5450]">Sin clientes cargados</div>
         ) : (
           rows.map(row => {
             const urgent = isUrgent(row)
@@ -128,21 +128,21 @@ export default function Pagos() {
               <div
                 key={row.id}
                 onClick={() => navigate(`/pagos/${row.id}`)}
-                className={`grid grid-cols-[2fr_1fr_1fr_1fr_1.5fr_auto] gap-4 px-5 py-3.5 border-b border-[#E0D9CE] last:border-0 cursor-pointer transition-colors items-center ${
-                  urgent ? 'bg-yellow-50 hover:bg-yellow-100' : 'hover:bg-[#F5F0E8]'
+                className={`grid grid-cols-[2fr_1fr_1fr_1fr_1.5fr_auto] gap-4 px-5 py-3.5 border-b border-[#E0D9CE] dark:border-[#2A2520] last:border-0 cursor-pointer transition-colors items-center ${
+                  urgent ? 'bg-yellow-50 hover:bg-yellow-100' : 'hover:bg-[#F5F0E8] dark:bg-[#141210] dark:hover:bg-[#1E1B17]'
                 }`}
               >
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-medium text-[#1A1814]">{row.name}</span>
+                  <span className="text-sm font-medium text-[#1A1814] dark:text-[#EDE7DC]">{row.name}</span>
                   {urgent && <AlertTriangle size={13} className="text-yellow-600 flex-shrink-0" />}
                 </div>
-                <div className="text-sm text-[#666]">{formatUSD(row.total_price)}</div>
-                <div className="text-sm text-[#666]">{formatUSD(row.paid)}</div>
-                <div className={`text-sm font-medium ${row.pending > 0 ? 'text-[#1A1814]' : 'text-[#AAA]'}`}>
+                <div className="text-sm text-[#666] dark:text-[#998E88]">{formatUSD(row.total_price)}</div>
+                <div className="text-sm text-[#666] dark:text-[#998E88]">{formatUSD(row.paid)}</div>
+                <div className={`text-sm font-medium ${row.pending > 0 ? 'text-[#1A1814] dark:text-[#EDE7DC]' : 'text-[#AAA] dark:text-[#5A5450]'}`}>
                   {formatUSD(row.pending)}
                 </div>
                 <StatusBadge paid={row.paid} total={row.total_price} />
-                <ChevronRight size={14} className="text-[#CCC]" />
+                <ChevronRight size={14} className="text-[#CCC] dark:text-[#4A4440]" />
               </div>
             )
           })
@@ -167,22 +167,22 @@ export default function Pagos() {
               const categories = [...new Set(byType.map(p => p.category))]
               const isOpen = openEventType === eventType
               return (
-                <div key={eventType} className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-xl overflow-hidden">
+                <div key={eventType} className="bg-[#FDFBF7] dark:bg-[#1E1B17] border border-[#E0D9CE] dark:border-[#2A2520] rounded-xl overflow-hidden">
                   {/* Card header */}
                   <button
                     onClick={() => setOpenEventType(isOpen ? null : eventType)}
-                    className="w-full flex items-center justify-between px-5 py-4 hover:bg-[#F5F0E8] transition-colors"
+                    className="w-full flex items-center justify-between px-5 py-4 hover:bg-[#F5F0E8] dark:bg-[#141210] dark:hover:bg-[#1E1B17] transition-colors"
                   >
                     <div>
-                      <p className="text-sm font-semibold text-[#1A1814] text-left">{eventType}</p>
-                      <p className="text-xs text-[#888] mt-0.5">{byType.length} planes · {categories.length} categorías</p>
+                      <p className="text-sm font-semibold text-[#1A1814] dark:text-[#EDE7DC] text-left">{eventType}</p>
+                      <p className="text-xs text-[#888] dark:text-[#7A7068] mt-0.5">{byType.length} planes · {categories.length} categorías</p>
                     </div>
                     <ChevronRight size={16} className={`text-[#C9A96E] transition-transform ${isOpen ? 'rotate-90' : ''}`} />
                   </button>
 
                   {/* Expandable content */}
                   {isOpen && (
-                    <div className="border-t border-[#E0D9CE] px-5 py-4 space-y-5">
+                    <div className="border-t border-[#E0D9CE] dark:border-[#2A2520] px-5 py-4 space-y-5">
                       {categories.map(cat => (
                         <div key={cat}>
                           <p className="text-xs font-semibold text-[#C9A96E] uppercase tracking-wider mb-2">{cat}</p>
@@ -195,15 +195,15 @@ export default function Pagos() {
                                   className={`rounded-xl border transition-colors ${
                                     isHero
                                       ? 'border-[#C9A96E] bg-[#C9A96E]/8'
-                                      : 'border-[#E0D9CE]'
+                                      : 'border-[#E0D9CE] dark:border-[#2A2520]'
                                   }`}
                                 >
                                   <div className="flex items-center justify-between px-3 py-2">
                                     <div className="flex items-center gap-2">
-                                      <span className={`text-sm ${isHero ? 'font-semibold text-[#1A1814]' : 'text-[#444]'}`}>
+                                      <span className={`text-sm ${isHero ? 'font-semibold text-[#1A1814] dark:text-[#EDE7DC]' : 'text-[#444] dark:text-[#B8AFA8]'}`}>
                                         {pkg.name}
                                         {pkg.plan_name && (
-                                          <span className="ml-1.5 text-[#888] font-normal">· {pkg.plan_name}</span>
+                                          <span className="ml-1.5 text-[#888] dark:text-[#7A7068] font-normal">· {pkg.plan_name}</span>
                                         )}
                                       </span>
                                       {isHero && (
@@ -213,7 +213,7 @@ export default function Pagos() {
                                       )}
                                     </div>
                                     <div className="flex items-center gap-2">
-                                      <span className={`text-sm font-semibold ${isHero ? 'text-[#8B6A35]' : 'text-[#1A1814]'}`}>
+                                      <span className={`text-sm font-semibold ${isHero ? 'text-[#8B6A35]' : 'text-[#1A1814] dark:text-[#EDE7DC]'}`}>
                                         {'$ ' + Number(pkg.price).toLocaleString('es-UY')}
                                       </span>
                                       {pkg.description && (
@@ -227,7 +227,7 @@ export default function Pagos() {
                                     </div>
                                   </div>
                                   {descOpen && pkg.description && (
-                                    <div className="px-3 pb-2.5 text-xs text-[#666] leading-relaxed border-t border-[#E0D9CE] pt-2 whitespace-pre-line">
+                                    <div className="px-3 pb-2.5 text-xs text-[#666] dark:text-[#998E88] leading-relaxed border-t border-[#E0D9CE] dark:border-[#2A2520] pt-2 whitespace-pre-line">
                                       {pkg.description}
                                     </div>
                                   )}
