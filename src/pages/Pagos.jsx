@@ -23,6 +23,14 @@ export default function Pagos() {
   const [loading, setLoading] = useState(true)
   const [cobradoMes, setCobradoMes] = useState(0)
   const [pendienteGlobal, setPendienteGlobal] = useState(0)
+  const [packages, setPackages] = useState([])
+  const [openEventType, setOpenEventType] = useState(null)
+
+  useEffect(() => {
+    supabase.from('packages').select('*').eq('active', true)
+      .order('event_type').order('category').order('name')
+      .then(({ data }) => setPackages(data || []))
+  }, [])
 
   useEffect(() => {
     async function fetch() {
@@ -145,6 +153,57 @@ export default function Pagos() {
           <AlertTriangle size={11} />
           Clientes con evento en los próximos 30 días y saldo pendiente
         </p>
+      )}
+
+      {/* Paquetes */}
+      {packages.length > 0 && (
+        <div className="mt-10">
+          <h2 className="text-xs font-semibold uppercase tracking-wider text-[#C9A96E] mb-4">Paquetes</h2>
+          <div className="grid grid-cols-2 gap-4">
+            {['Boda', 'Quinceañera'].map(eventType => {
+              const byType = packages.filter(p => p.event_type === eventType)
+              if (!byType.length) return null
+              const categories = [...new Set(byType.map(p => p.category))]
+              const isOpen = openEventType === eventType
+              return (
+                <div key={eventType} className="bg-[#FDFBF7] border border-[#E0D9CE] rounded-xl overflow-hidden">
+                  {/* Card header */}
+                  <button
+                    onClick={() => setOpenEventType(isOpen ? null : eventType)}
+                    className="w-full flex items-center justify-between px-5 py-4 hover:bg-[#F5F0E8] transition-colors"
+                  >
+                    <div>
+                      <p className="text-sm font-semibold text-[#1A1814] text-left">{eventType}</p>
+                      <p className="text-xs text-[#888] mt-0.5">{byType.length} planes · {categories.length} categorías</p>
+                    </div>
+                    <ChevronRight size={16} className={`text-[#C9A96E] transition-transform ${isOpen ? 'rotate-90' : ''}`} />
+                  </button>
+
+                  {/* Expandable content */}
+                  {isOpen && (
+                    <div className="border-t border-[#E0D9CE] px-5 py-4 space-y-5">
+                      {categories.map(cat => (
+                        <div key={cat}>
+                          <p className="text-xs font-semibold text-[#C9A96E] uppercase tracking-wider mb-2">{cat}</p>
+                          <div className="space-y-2">
+                            {byType.filter(p => p.category === cat).map(pkg => (
+                              <div key={pkg.id} className="flex items-center justify-between py-1.5 border-b border-[#E0D9CE] last:border-0">
+                                <span className="text-sm text-[#444]">{pkg.name}</span>
+                                <span className="text-sm font-semibold text-[#1A1814]">
+                                  {'$ ' + Number(pkg.price).toLocaleString('es-UY')}
+                                </span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )
+            })}
+          </div>
+        </div>
       )}
     </div>
   )
