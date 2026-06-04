@@ -191,6 +191,9 @@ export default function ClienteModal({ cliente, onClose, onSaved }) {
                             }`}
                           >
                             <span className="text-xs font-semibold">{pkg.name}</span>
+                            {pkg.plan_name && (
+                              <span className="text-[10px] text-[#888] leading-tight">{pkg.plan_name}</span>
+                            )}
                             <span className="text-xs mt-0.5" style={{ color: '#8B6A35' }}>
                               {formatPesos(pkg.price)}
                             </span>

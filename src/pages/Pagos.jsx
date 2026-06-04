@@ -202,6 +202,9 @@ export default function Pagos() {
                                     <div className="flex items-center gap-2">
                                       <span className={`text-sm ${isHero ? 'font-semibold text-[#1A1814]' : 'text-[#444]'}`}>
                                         {pkg.name}
+                                        {pkg.plan_name && (
+                                          <span className="ml-1.5 text-[#888] font-normal">· {pkg.plan_name}</span>
+                                        )}
                                       </span>
                                       {isHero && (
                                         <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-[#C9A96E] text-white font-semibold tracking-wide">
