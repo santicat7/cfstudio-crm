@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 import { formatUSD } from '../lib/utils'
-import { ChevronRight, AlertTriangle } from 'lucide-react'
+import { ChevronRight, AlertTriangle, Info } from 'lucide-react'
 import { isWithinInterval, addDays, parseISO, startOfMonth, endOfMonth } from 'date-fns'
 
 
@@ -25,6 +25,7 @@ export default function Pagos() {
   const [pendienteGlobal, setPendienteGlobal] = useState(0)
   const [packages, setPackages] = useState([])
   const [openEventType, setOpenEventType] = useState(null)
+  const [openDesc, setOpenDesc] = useState(null) // pkg.id con descripción abierta
 
   useEffect(() => {
     supabase.from('packages').select('*').eq('active', true)
@@ -185,15 +186,51 @@ export default function Pagos() {
                       {categories.map(cat => (
                         <div key={cat}>
                           <p className="text-xs font-semibold text-[#C9A96E] uppercase tracking-wider mb-2">{cat}</p>
-                          <div className="space-y-2">
-                            {byType.filter(p => p.category === cat).map(pkg => (
-                              <div key={pkg.id} className="flex items-center justify-between py-1.5 border-b border-[#E0D9CE] last:border-0">
-                                <span className="text-sm text-[#444]">{pkg.name}</span>
-                                <span className="text-sm font-semibold text-[#1A1814]">
-                                  {'$ ' + Number(pkg.price).toLocaleString('es-UY')}
-                                </span>
-                              </div>
-                            ))}
+                          <div className="space-y-1.5">
+                            {byType.filter(p => p.category === cat).map(pkg => {
+                              const isHero = pkg.name === 'Plan 2' && pkg.category === 'Foto + Video'
+                              const descOpen = openDesc === pkg.id
+                              return (
+                                <div key={pkg.id}
+                                  className={`rounded-xl border transition-colors ${
+                                    isHero
+                                      ? 'border-[#C9A96E] bg-[#C9A96E]/8'
+                                      : 'border-[#E0D9CE]'
+                                  }`}
+                                >
+                                  <div className="flex items-center justify-between px-3 py-2">
+                                    <div className="flex items-center gap-2">
+                                      <span className={`text-sm ${isHero ? 'font-semibold text-[#1A1814]' : 'text-[#444]'}`}>
+                                        {pkg.name}
+                                      </span>
+                                      {isHero && (
+                                        <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-[#C9A96E] text-white font-semibold tracking-wide">
+                                          Recomendado
+                                        </span>
+                                      )}
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                      <span className={`text-sm font-semibold ${isHero ? 'text-[#8B6A35]' : 'text-[#1A1814]'}`}>
+                                        {'$ ' + Number(pkg.price).toLocaleString('es-UY')}
+                                      </span>
+                                      {pkg.description && (
+                                        <button
+                                          onClick={() => setOpenDesc(descOpen ? null : pkg.id)}
+                                          className="text-[#C9A96E] hover:text-[#8B6A35] transition-colors"
+                                        >
+                                          <Info size={14} />
+                                        </button>
+                                      )}
+                                    </div>
+                                  </div>
+                                  {descOpen && pkg.description && (
+                                    <div className="px-3 pb-2.5 text-xs text-[#666] leading-relaxed border-t border-[#E0D9CE] pt-2 whitespace-pre-line">
+                                      {pkg.description}
+                                    </div>
+                                  )}
+                                </div>
+                              )
+                            })}
                           </div>
                         </div>
                       ))}
