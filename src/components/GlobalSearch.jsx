@@ -81,58 +81,58 @@ export default function GlobalSearch() {
   return (
     <div ref={containerRef} className="relative w-64">
       <div className="relative">
-        <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#AAA] dark:text-[#5A5450]" />
+        <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-faint" />
         <input
           ref={inputRef}
           type="text"
           value={query}
           onChange={e => setQuery(e.target.value)}
           placeholder="Buscar… (Ctrl+K)"
-          className="w-full pl-8 pr-7 py-1.5 text-sm border border-[#D9D9D9] bg-[#FDFBF7] dark:bg-[#232019] text-[#1A1814] dark:text-[#C8C0B4] rounded-xl outline-none focus:border-[#1A1814] transition-colors placeholder:text-[#BBB]"
+          className="w-full pl-8 pr-7 py-1.5 text-sm border border-line bg-card text-body rounded-xl outline-none focus:border-strong transition-colors placeholder:text-faint"
         />
         {query && (
           <button onClick={() => { setQuery(''); setOpen(false) }}
-            className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[#CCC] dark:text-[#4A4440] hover:text-[#888] dark:text-[#7A7068]">
+            className="absolute right-2.5 top-1/2 -translate-y-1/2 text-dim hover:text-muted">
             <X size={12} />
           </button>
         )}
       </div>
 
       {open && (
-        <div className="absolute top-full mt-1.5 left-0 w-80 bg-[#FDFBF7] dark:bg-[#232019] border border-[#E0D9CE] dark:border-[#2E2923] rounded-xl z-50 overflow-hidden"
+        <div className="absolute top-full mt-1.5 left-0 w-80 bg-card border border-line rounded-xl z-50 overflow-hidden"
           style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.08)' }}>
           {loading ? (
-            <div className="px-4 py-3 text-xs text-[#AAA] dark:text-[#5A5450]">Buscando...</div>
+            <div className="px-4 py-3 text-xs text-faint">Buscando...</div>
           ) : results.map(group => {
             const Icon = SECTION_ICON[group.type]
             return (
               <div key={group.type}>
-                <div className="flex items-center gap-1.5 px-4 py-2 bg-[#F5F0E8] dark:bg-[#1C1916] border-b border-[#E0D9CE] dark:border-[#2E2923]">
-                  <Icon size={11} className="text-[#AAA] dark:text-[#5A5450]" />
-                  <span className="text-[10px] font-semibold text-[#AAA] dark:text-[#5A5450] uppercase tracking-wider">
+                <div className="flex items-center gap-1.5 px-4 py-2 bg-page border-b border-line">
+                  <Icon size={11} className="text-faint" />
+                  <span className="text-[10px] font-semibold text-faint uppercase tracking-wider">
                     {SECTION_LABEL[group.type]}
                   </span>
                 </div>
                 {group.items.map(item => {
                   if (group.type === 'clientes') return (
                     <button key={item.id} onClick={() => go(`/clientes/${item.id}`)}
-                      className="w-full flex items-center justify-between px-4 py-2.5 hover:bg-[#F0EBE1] transition-colors text-left border-b border-[#F5F5F5] last:border-0">
-                      <span className="text-sm text-[#1A1814] dark:text-[#C8C0B4]">{item.name}</span>
-                      {item.event_type && <span className="text-xs text-[#AAA] dark:text-[#5A5450]">{item.event_type}</span>}
+                      className="w-full flex items-center justify-between px-4 py-2.5 hover:bg-subtle transition-colors text-left border-b border-line last:border-0">
+                      <span className="text-sm text-body">{item.name}</span>
+                      {item.event_type && <span className="text-xs text-faint">{item.event_type}</span>}
                     </button>
                   )
                   if (group.type === 'leads') return (
                     <button key={item.id} onClick={() => go('/leads')}
-                      className="w-full flex items-center justify-between px-4 py-2.5 hover:bg-[#F0EBE1] transition-colors text-left border-b border-[#F5F5F5] last:border-0">
-                      <span className="text-sm text-[#1A1814] dark:text-[#C8C0B4]">{item.clients?.name}</span>
-                      {item.stage && <span className="text-xs text-[#AAA] dark:text-[#5A5450]">{STAGE_LABEL[item.stage]}</span>}
+                      className="w-full flex items-center justify-between px-4 py-2.5 hover:bg-subtle transition-colors text-left border-b border-line last:border-0">
+                      <span className="text-sm text-body">{item.clients?.name}</span>
+                      {item.stage && <span className="text-xs text-faint">{STAGE_LABEL[item.stage]}</span>}
                     </button>
                   )
                   if (group.type === 'tareas') return (
                     <button key={item.id} onClick={() => go('/tareas')}
-                      className="w-full flex items-center justify-between px-4 py-2.5 hover:bg-[#F0EBE1] transition-colors text-left border-b border-[#F5F5F5] last:border-0">
-                      <span className="text-sm text-[#1A1814] dark:text-[#C8C0B4] truncate mr-2">{item.title}</span>
-                      {item.clients?.name && <span className="text-xs text-[#AAA] dark:text-[#5A5450] flex-shrink-0">{item.clients.name}</span>}
+                      className="w-full flex items-center justify-between px-4 py-2.5 hover:bg-subtle transition-colors text-left border-b border-line last:border-0">
+                      <span className="text-sm text-body truncate mr-2">{item.title}</span>
+                      {item.clients?.name && <span className="text-xs text-faint flex-shrink-0">{item.clients.name}</span>}
                     </button>
                   )
                   return null

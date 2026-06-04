@@ -7,14 +7,14 @@ import { isWithinInterval, addDays, parseISO, startOfMonth, endOfMonth } from 'd
 
 
 function StatusBadge({ paid, total }) {
-  if (!total) return <span className="text-xs text-[#CCC] dark:text-[#4A4440]">Sin precio</span>
+  if (!total) return <span className="text-xs text-dim">Sin precio</span>
   if (paid >= total) return (
-    <span className="text-xs px-2 py-0.5 rounded-xl font-medium bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400 border border-green-200 dark:border-green-800">Pagado completo</span>
+    <span className="text-xs px-2 py-0.5 rounded-xl font-medium bg-green-50 text-green-700 border border-green-200">Pagado completo</span>
   )
   if (paid > 0) return (
-    <span className="text-xs px-2 py-0.5 rounded-xl font-medium bg-yellow-50 dark:bg-yellow-900/20 text-yellow-700 dark:text-yellow-400 border border-yellow-200 dark:border-yellow-800">Parcialmente pagado</span>
+    <span className="text-xs px-2 py-0.5 rounded-xl font-medium bg-yellow-50 text-yellow-700 border border-yellow-200">Parcialmente pagado</span>
   )
-  return <span className="text-xs px-2 py-0.5 rounded-xl font-medium bg-[#EDE7DC] dark:bg-[#2A2520] text-[#555] dark:text-[#998E88]">Sin pagos</span>
+  return <span className="text-xs px-2 py-0.5 rounded-xl font-medium bg-subtle text-soft">Sin pagos</span>
 }
 
 export default function Pagos() {
@@ -91,36 +91,36 @@ export default function Pagos() {
 
   return (
     <div>
-      <h1 className="text-xl font-semibold text-[#1A1814] dark:text-[#C8C0B4] mb-6">Pagos</h1>
+      <h1 className="text-xl font-semibold text-body mb-6">Pagos</h1>
 
       {/* Metric cards */}
       <div className="grid grid-cols-2 gap-3 mb-8">
-        <div className="bg-[#FDFBF7] dark:bg-[#232019] border border-[#E0D9CE] dark:border-[#2E2923] rounded-xl p-5">
-          <div className="text-2xl font-semibold text-[#1A1814] dark:text-[#C8C0B4] mb-1">
+        <div className="bg-card border border-line rounded-xl p-5">
+          <div className="text-2xl font-semibold text-body mb-1">
             {loading ? '—' : formatUSD(cobradoMes)}
           </div>
-          <div className="text-xs text-[#888] dark:text-[#7A7068]">Total cobrado este mes</div>
+          <div className="text-xs text-muted">Total cobrado este mes</div>
         </div>
-        <div className="bg-[#FDFBF7] dark:bg-[#232019] border border-[#E0D9CE] dark:border-[#2E2923] rounded-xl p-5">
-          <div className={`text-2xl font-semibold mb-1 ${pendienteGlobal > 0 ? 'text-red-600' : 'text-[#1A1814] dark:text-[#C8C0B4]'}`}>
+        <div className="bg-card border border-line rounded-xl p-5">
+          <div className={`text-2xl font-semibold mb-1 ${pendienteGlobal > 0 ? 'text-red-600' : 'text-body'}`}>
             {loading ? '—' : formatUSD(pendienteGlobal)}
           </div>
-          <div className="text-xs text-[#888] dark:text-[#7A7068]">Total pendiente de cobro</div>
+          <div className="text-xs text-muted">Total pendiente de cobro</div>
         </div>
       </div>
 
       {/* Client list */}
-      <div className="bg-[#FDFBF7] dark:bg-[#232019] border border-[#E0D9CE] dark:border-[#2E2923] rounded-xl overflow-hidden">
-        <div className="grid grid-cols-[2fr_1fr_1fr_1fr_1.5fr_auto] gap-4 px-5 py-2.5 border-b border-[#E0D9CE] dark:border-[#2E2923] bg-[#F5F0E8] dark:bg-[#1C1916]">
+      <div className="bg-card border border-line rounded-xl overflow-hidden">
+        <div className="grid grid-cols-[2fr_1fr_1fr_1fr_1.5fr_auto] gap-4 px-5 py-2.5 border-b border-line bg-page">
           {['Cliente', 'Total', 'Pagado', 'Pendiente', 'Estado', ''].map(h => (
-            <div key={h} className="text-xs font-semibold uppercase tracking-wider text-[#C9A96E]">{h}</div>
+            <div key={h} className="text-xs font-semibold uppercase tracking-wider text-gold">{h}</div>
           ))}
         </div>
 
         {loading ? (
-          <div className="px-5 py-10 text-center text-sm text-[#AAA] dark:text-[#5A5450]">Cargando...</div>
+          <div className="px-5 py-10 text-center text-sm text-faint">Cargando...</div>
         ) : rows.length === 0 ? (
-          <div className="px-5 py-10 text-center text-sm text-[#AAA] dark:text-[#5A5450]">Sin clientes cargados</div>
+          <div className="px-5 py-10 text-center text-sm text-faint">Sin clientes cargados</div>
         ) : (
           rows.map(row => {
             const urgent = isUrgent(row)
@@ -128,23 +128,23 @@ export default function Pagos() {
               <div
                 key={row.id}
                 onClick={() => navigate(`/pagos/${row.id}`)}
-                className={`grid grid-cols-[2fr_1fr_1fr_1fr_1.5fr_auto] gap-4 px-5 py-3.5 border-b border-[#E0D9CE] dark:border-[#2E2923] last:border-0 cursor-pointer transition-colors items-center ${
+                className={`grid grid-cols-[2fr_1fr_1fr_1fr_1.5fr_auto] gap-4 px-5 py-3.5 border-b border-line last:border-0 cursor-pointer transition-colors items-center ${
                   urgent
-                    ? 'bg-yellow-50 hover:bg-yellow-100 dark:bg-[#2A2210] dark:hover:bg-[#302810]'
-                    : 'hover:bg-[#F5F0E8] dark:hover:bg-[#2A2620]'
+                    ? 'bg-yellow-50 hover:bg-yellow-100'
+                    : 'hover:bg-page'
                 }`}
               >
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-medium text-[#1A1814] dark:text-[#C8C0B4]">{row.name}</span>
+                  <span className="text-sm font-medium text-body">{row.name}</span>
                   {urgent && <AlertTriangle size={13} className="text-yellow-600 flex-shrink-0" />}
                 </div>
-                <div className="text-sm text-[#666] dark:text-[#998E88]">{formatUSD(row.total_price)}</div>
-                <div className="text-sm text-[#666] dark:text-[#998E88]">{formatUSD(row.paid)}</div>
-                <div className={`text-sm font-medium ${row.pending > 0 ? 'text-[#1A1814] dark:text-[#C8C0B4]' : 'text-[#AAA] dark:text-[#5A5450]'}`}>
+                <div className="text-sm text-soft">{formatUSD(row.total_price)}</div>
+                <div className="text-sm text-soft">{formatUSD(row.paid)}</div>
+                <div className={`text-sm font-medium ${row.pending > 0 ? 'text-body' : 'text-faint'}`}>
                   {formatUSD(row.pending)}
                 </div>
                 <StatusBadge paid={row.paid} total={row.total_price} />
-                <ChevronRight size={14} className="text-[#CCC] dark:text-[#4A4440]" />
+                <ChevronRight size={14} className="text-dim" />
               </div>
             )
           })
@@ -161,7 +161,7 @@ export default function Pagos() {
       {/* Paquetes */}
       {packages.length > 0 && (
         <div className="mt-10">
-          <h2 className="text-xs font-semibold uppercase tracking-wider text-[#C9A96E] mb-4">Paquetes</h2>
+          <h2 className="text-xs font-semibold uppercase tracking-wider text-gold mb-4">Paquetes</h2>
           <div className="grid grid-cols-2 gap-4">
             {['Boda', 'Quinceañera'].map(eventType => {
               const byType = packages.filter(p => p.event_type === eventType)
@@ -169,25 +169,25 @@ export default function Pagos() {
               const categories = [...new Set(byType.map(p => p.category))]
               const isOpen = openEventType === eventType
               return (
-                <div key={eventType} className="bg-[#FDFBF7] dark:bg-[#232019] border border-[#E0D9CE] dark:border-[#2E2923] rounded-xl overflow-hidden">
+                <div key={eventType} className="bg-card border border-line rounded-xl overflow-hidden">
                   {/* Card header */}
                   <button
                     onClick={() => setOpenEventType(isOpen ? null : eventType)}
-                    className="w-full flex items-center justify-between px-5 py-4 hover:bg-[#F5F0E8] dark:bg-[#1C1916] dark:hover:bg-[#2A2620] transition-colors"
+                    className="w-full flex items-center justify-between px-5 py-4 hover:bg-page transition-colors"
                   >
                     <div>
-                      <p className="text-sm font-semibold text-[#1A1814] dark:text-[#C8C0B4] text-left">{eventType}</p>
-                      <p className="text-xs text-[#888] dark:text-[#7A7068] mt-0.5">{byType.length} planes · {categories.length} categorías</p>
+                      <p className="text-sm font-semibold text-body text-left">{eventType}</p>
+                      <p className="text-xs text-muted mt-0.5">{byType.length} planes · {categories.length} categorías</p>
                     </div>
-                    <ChevronRight size={16} className={`text-[#C9A96E] transition-transform ${isOpen ? 'rotate-90' : ''}`} />
+                    <ChevronRight size={16} className={`text-gold transition-transform ${isOpen ? 'rotate-90' : ''}`} />
                   </button>
 
                   {/* Expandable content */}
                   {isOpen && (
-                    <div className="border-t border-[#E0D9CE] dark:border-[#2E2923] px-5 py-4 space-y-5">
+                    <div className="border-t border-line px-5 py-4 space-y-5">
                       {categories.map(cat => (
                         <div key={cat}>
-                          <p className="text-xs font-semibold text-[#C9A96E] uppercase tracking-wider mb-2">{cat}</p>
+                          <p className="text-xs font-semibold text-gold uppercase tracking-wider mb-2">{cat}</p>
                           <div className="space-y-1.5">
                             {byType.filter(p => p.category === cat).map(pkg => {
                               const isHero = pkg.name === 'Plan 2' && pkg.category === 'Foto + Video'
@@ -196,32 +196,32 @@ export default function Pagos() {
                                 <div key={pkg.id}
                                   className={`rounded-xl border transition-colors ${
                                     isHero
-                                      ? 'border-[#C9A96E] bg-[#C9A96E]/8'
-                                      : 'border-[#E0D9CE] dark:border-[#2E2923]'
+                                      ? 'border-gold bg-gold/8'
+                                      : 'border-line'
                                   }`}
                                 >
                                   <div className="flex items-center justify-between px-3 py-2">
                                     <div className="flex items-center gap-2">
-                                      <span className={`text-sm ${isHero ? 'font-semibold text-[#1A1814] dark:text-[#C8C0B4]' : 'text-[#444] dark:text-[#B8AFA8]'}`}>
+                                      <span className={`text-sm ${isHero ? 'font-semibold text-body' : 'text-soft'}`}>
                                         {pkg.name}
                                         {pkg.plan_name && (
-                                          <span className="ml-1.5 text-[#888] dark:text-[#7A7068] font-normal">· {pkg.plan_name}</span>
+                                          <span className="ml-1.5 text-muted font-normal">· {pkg.plan_name}</span>
                                         )}
                                       </span>
                                       {isHero && (
-                                        <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-[#C9A96E] text-white font-semibold tracking-wide">
+                                        <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-gold text-white font-semibold tracking-wide">
                                           Recomendado
                                         </span>
                                       )}
                                     </div>
                                     <div className="flex items-center gap-2">
-                                      <span className={`text-sm font-semibold ${isHero ? 'text-[#8B6A35]' : 'text-[#1A1814] dark:text-[#C8C0B4]'}`}>
+                                      <span className={`text-sm font-semibold ${isHero ? 'text-golddk' : 'text-body'}`}>
                                         {'$ ' + Number(pkg.price).toLocaleString('es-UY')}
                                       </span>
                                       {pkg.description && (
                                         <button
                                           onClick={() => setOpenDesc(descOpen ? null : pkg.id)}
-                                          className="text-[#C9A96E] hover:text-[#8B6A35] transition-colors"
+                                          className="text-gold hover:text-golddk transition-colors"
                                         >
                                           <Info size={14} />
                                         </button>
@@ -229,7 +229,7 @@ export default function Pagos() {
                                     </div>
                                   </div>
                                   {descOpen && pkg.description && (
-                                    <div className="px-3 pb-2.5 text-xs text-[#666] dark:text-[#998E88] leading-relaxed border-t border-[#E0D9CE] dark:border-[#2E2923] pt-2 whitespace-pre-line">
+                                    <div className="px-3 pb-2.5 text-xs text-soft leading-relaxed border-t border-line pt-2 whitespace-pre-line">
                                       {pkg.description}
                                     </div>
                                   )}

@@ -95,12 +95,12 @@ export default function ClienteModal({ cliente, onClose, onSaved }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-black/30" onClick={onClose} />
-      <div className="relative bg-[#FDFBF7] dark:bg-[#232019] border border-[#E0D9CE] dark:border-[#2E2923] rounded-xl w-full max-w-lg max-h-[90vh] overflow-y-auto p-6">
+      <div className="relative bg-card border border-line rounded-xl w-full max-w-lg max-h-[90vh] overflow-y-auto p-6">
         <div className="flex items-center justify-between mb-5">
-          <h2 className="text-sm font-semibold text-[#1A1814] dark:text-[#C8C0B4]">
+          <h2 className="text-sm font-semibold text-body">
             {isEdit ? 'Editar cliente' : 'Nuevo cliente'}
           </h2>
-          <button onClick={onClose} className="text-[#888] dark:text-[#7A7068] hover:text-[#1A1814] dark:text-[#C8C0B4] transition-colors">
+          <button onClick={onClose} className="text-muted hover:text-body transition-colors">
             <X size={16} />
           </button>
         </div>
@@ -108,74 +108,74 @@ export default function ClienteModal({ cliente, onClose, onSaved }) {
         <form onSubmit={handleSubmit} className="space-y-5">
           {/* Contacto */}
           <div>
-            <p className="text-xs font-semibold text-[#C9A96E] uppercase tracking-wider mb-3">Contacto</p>
+            <p className="text-xs font-semibold text-gold uppercase tracking-wider mb-3">Contacto</p>
             <div className="space-y-3">
               <div>
-                <label className="block text-xs text-[#888] dark:text-[#7A7068] mb-1">Nombre *</label>
+                <label className="block text-xs text-muted mb-1">Nombre *</label>
                 <input type="text" value={form.name} onChange={e => set('name', e.target.value)} required
-                  className="w-full px-3 py-2 border border-[#E0D9CE] dark:border-[#2E2923] text-sm text-[#1A1814] dark:text-[#C8C0B4] rounded-xl outline-none focus:border-[#1A1814] transition-colors bg-[#FDFBF7] dark:bg-[#232019]" />
+                  className="w-full px-3 py-2 border border-line text-sm text-body rounded-xl outline-none focus:border-strong transition-colors bg-card" />
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs text-[#888] dark:text-[#7A7068] mb-1">Teléfono</label>
+                  <label className="block text-xs text-muted mb-1">Teléfono</label>
                   <input type="tel" value={form.phone} onChange={e => set('phone', e.target.value)}
                     placeholder="+598 99 000 000"
-                    className="w-full px-3 py-2 border border-[#E0D9CE] dark:border-[#2E2923] text-sm text-[#1A1814] dark:text-[#C8C0B4] rounded-xl outline-none focus:border-[#1A1814] transition-colors bg-[#FDFBF7] dark:bg-[#232019]" />
+                    className="w-full px-3 py-2 border border-line text-sm text-body rounded-xl outline-none focus:border-strong transition-colors bg-card" />
                 </div>
                 <div>
-                  <label className="block text-xs text-[#888] dark:text-[#7A7068] mb-1">Instagram</label>
+                  <label className="block text-xs text-muted mb-1">Instagram</label>
                   <input type="text" value={form.instagram} onChange={e => set('instagram', e.target.value)}
                     placeholder="@usuario"
-                    className="w-full px-3 py-2 border border-[#E0D9CE] dark:border-[#2E2923] text-sm text-[#1A1814] dark:text-[#C8C0B4] rounded-xl outline-none focus:border-[#1A1814] transition-colors bg-[#FDFBF7] dark:bg-[#232019]" />
+                    className="w-full px-3 py-2 border border-line text-sm text-body rounded-xl outline-none focus:border-strong transition-colors bg-card" />
                 </div>
               </div>
               <div>
-                <label className="block text-xs text-[#888] dark:text-[#7A7068] mb-1">Email</label>
+                <label className="block text-xs text-muted mb-1">Email</label>
                 <input type="email" value={form.email} onChange={e => set('email', e.target.value)}
-                  className="w-full px-3 py-2 border border-[#E0D9CE] dark:border-[#2E2923] text-sm text-[#1A1814] dark:text-[#C8C0B4] rounded-xl outline-none focus:border-[#1A1814] transition-colors bg-[#FDFBF7] dark:bg-[#232019]" />
+                  className="w-full px-3 py-2 border border-line text-sm text-body rounded-xl outline-none focus:border-strong transition-colors bg-card" />
               </div>
             </div>
           </div>
 
           {/* Evento */}
           <div>
-            <p className="text-xs font-semibold text-[#C9A96E] uppercase tracking-wider mb-3">Evento</p>
+            <p className="text-xs font-semibold text-gold uppercase tracking-wider mb-3">Evento</p>
             <div className="space-y-3">
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs text-[#888] dark:text-[#7A7068] mb-1">Tipo</label>
+                  <label className="block text-xs text-muted mb-1">Tipo</label>
                   <div className="relative">
                     <select value={form.event_type} onChange={e => { set('event_type', e.target.value); set('package', ''); set('total_price', '') }}
-                      className="w-full px-3 py-2 border border-[#E0D9CE] dark:border-[#2E2923] text-sm text-[#1A1814] dark:text-[#C8C0B4] rounded-xl outline-none focus:border-[#1A1814] bg-[#FDFBF7] dark:bg-[#232019] transition-colors appearance-none">
+                      className="w-full px-3 py-2 border border-line text-sm text-body rounded-xl outline-none focus:border-strong bg-card transition-colors appearance-none">
                       {EVENT_TYPES.map(t => <option key={t} value={t}>{t}</option>)}
                     </select>
-                    <ChevronDown size={13} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#888] dark:text-[#7A7068] pointer-events-none" />
+                    <ChevronDown size={13} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted pointer-events-none" />
                   </div>
                 </div>
                 <div>
-                  <label className="block text-xs text-[#888] dark:text-[#7A7068] mb-1">Fecha</label>
+                  <label className="block text-xs text-muted mb-1">Fecha</label>
                   <input type="date" value={form.event_date} onChange={e => set('event_date', e.target.value)}
-                    className="w-full px-3 py-2 border border-[#E0D9CE] dark:border-[#2E2923] text-sm text-[#1A1814] dark:text-[#C8C0B4] rounded-xl outline-none focus:border-[#1A1814] transition-colors bg-[#FDFBF7] dark:bg-[#232019]" />
+                    className="w-full px-3 py-2 border border-line text-sm text-body rounded-xl outline-none focus:border-strong transition-colors bg-card" />
                 </div>
               </div>
               <div>
-                <label className="block text-xs text-[#888] dark:text-[#7A7068] mb-1">Horario</label>
+                <label className="block text-xs text-muted mb-1">Horario</label>
                 <input type="text" value={form.event_time} onChange={e => set('event_time', e.target.value)}
                   placeholder="ej: 18:00"
-                  className="w-full px-3 py-2 border border-[#E0D9CE] dark:border-[#2E2923] text-sm text-[#1A1814] dark:text-[#C8C0B4] rounded-xl outline-none focus:border-[#1A1814] transition-colors bg-[#FDFBF7] dark:bg-[#232019]" />
+                  className="w-full px-3 py-2 border border-line text-sm text-body rounded-xl outline-none focus:border-strong transition-colors bg-card" />
               </div>
             </div>
           </div>
 
           {/* Paquete */}
           <div>
-            <p className="text-xs font-semibold text-[#C9A96E] uppercase tracking-wider mb-3">Paquete</p>
+            <p className="text-xs font-semibold text-gold uppercase tracking-wider mb-3">Paquete</p>
 
             {Object.keys(grouped).length > 0 && (
               <div className="space-y-3 mb-3">
                 {Object.entries(grouped).map(([category, plans]) => (
                   <div key={category}>
-                    <p className="text-xs text-[#888] dark:text-[#7A7068] mb-1.5">{category}</p>
+                    <p className="text-xs text-muted mb-1.5">{category}</p>
                     <div className="grid grid-cols-3 gap-2">
                       {plans.map(pkg => {
                         const isSelected = form.package === `${pkg.category} · ${pkg.name}`
@@ -186,13 +186,13 @@ export default function ClienteModal({ cliente, onClose, onSaved }) {
                             onClick={() => handlePackageSelect(pkg)}
                             className={`flex flex-col items-center py-2.5 px-2 rounded-xl border text-center transition-colors ${
                               isSelected
-                                ? 'border-[#C9A96E] bg-[#C9A96E]/10 text-[#1A1814] dark:text-[#C8C0B4]'
-                                : 'border-[#E0D9CE] dark:border-[#2E2923] hover:border-[#C9A96E] text-[#666] dark:text-[#998E88]'
+                                ? 'border-gold bg-gold/10 text-body'
+                                : 'border-line hover:border-gold text-soft'
                             }`}
                           >
                             <span className="text-xs font-semibold">{pkg.name}</span>
                             {pkg.plan_name && (
-                              <span className="text-[10px] text-[#888] dark:text-[#7A7068] leading-tight">{pkg.plan_name}</span>
+                              <span className="text-[10px] text-muted leading-tight">{pkg.plan_name}</span>
                             )}
                             <span className="text-xs mt-0.5" style={{ color: '#8B6A35' }}>
                               {formatPesos(pkg.price)}
@@ -208,16 +208,16 @@ export default function ClienteModal({ cliente, onClose, onSaved }) {
 
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs text-[#888] dark:text-[#7A7068] mb-1">Paquete seleccionado</label>
+                <label className="block text-xs text-muted mb-1">Paquete seleccionado</label>
                 <input type="text" value={form.package} onChange={e => set('package', e.target.value)}
                   placeholder=""
-                  className="w-full px-3 py-2 border border-[#E0D9CE] dark:border-[#2E2923] text-sm text-[#1A1814] dark:text-[#C8C0B4] rounded-xl outline-none focus:border-[#1A1814] transition-colors bg-[#FDFBF7] dark:bg-[#232019]" />
+                  className="w-full px-3 py-2 border border-line text-sm text-body rounded-xl outline-none focus:border-strong transition-colors bg-card" />
               </div>
               <div>
-                <label className="block text-xs text-[#888] dark:text-[#7A7068] mb-1">Precio ($)</label>
+                <label className="block text-xs text-muted mb-1">Precio ($)</label>
                 <input type="number" value={form.total_price} onChange={e => set('total_price', e.target.value)}
                   min="0" placeholder="0"
-                  className="w-full px-3 py-2 border border-[#E0D9CE] dark:border-[#2E2923] text-sm text-[#1A1814] dark:text-[#C8C0B4] rounded-xl outline-none focus:border-[#1A1814] transition-colors bg-[#FDFBF7] dark:bg-[#232019]" />
+                  className="w-full px-3 py-2 border border-line text-sm text-body rounded-xl outline-none focus:border-strong transition-colors bg-card" />
               </div>
             </div>
           </div>
@@ -226,11 +226,11 @@ export default function ClienteModal({ cliente, onClose, onSaved }) {
 
           <div className="flex gap-2 pt-1">
             <button type="button" onClick={onClose}
-              className="flex-1 px-4 py-2 border border-[#E0D9CE] dark:border-[#2E2923] text-sm text-[#666] dark:text-[#998E88] rounded-xl hover:border-[#1A1814] transition-colors">
+              className="flex-1 px-4 py-2 border border-line text-sm text-soft rounded-xl hover:border-strong transition-colors">
               Cancelar
             </button>
             <button type="submit" disabled={loading}
-              className="flex-1 px-4 py-2 bg-[#1A1814] text-white text-sm rounded-xl hover:bg-[#2C2620] transition-colors disabled:opacity-50">
+              className="flex-1 px-4 py-2 bg-ink text-white text-sm rounded-xl hover:bg-inkh transition-colors disabled:opacity-50">
               {loading ? 'Guardando...' : isEdit ? 'Guardar cambios' : 'Crear cliente'}
             </button>
           </div>

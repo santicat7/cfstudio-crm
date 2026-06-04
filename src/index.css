@@ -4,30 +4,61 @@
 
 @layer base {
   :root {
-    --ink: #1A1814;
-    --cream: #F5F0E8;
+    /* Semantic palette — LIGHT */
+    --c-page:    #F5F0E8;  /* page background */
+    --c-card:    #FDFBF7;  /* cards / surfaces */
+    --c-subtle:  #EDE7DC;  /* subtle bg (badges, hover, columns) */
+    --c-line:    #E0D9CE;  /* borders */
+    --c-strong:  #1A1814;  /* strong border / focus */
+    --c-body:    #1A1814;  /* main text */
+    --c-soft:    #555555;  /* secondary text */
+    --c-muted:   #888888;  /* muted text */
+    --c-faint:   #AAAAAA;  /* faint text */
+    --c-dim:     #CCCCCC;  /* very faint / icons */
+    --c-ink:     #1A1814;  /* primary button bg */
+    --c-inkh:    #2C2620;  /* primary button hover */
+    --c-golddk:  #8B6A35;  /* deep gold text */
+    --c-dot:     #AAAAAA;  /* neutral dot / chip */
+
+    /* legacy aliases (still referenced by body etc.) */
     --gold: #C9A96E;
-    --gold-dk: #8B6A35;
-    --border: #E0D9CE;
+    --cream: var(--c-page);
+    --ink: var(--c-body);
+    --border: var(--c-line);
   }
 
   .dark {
-    --ink: #C8C0B4;
-    --cream: #1C1916;
-    --gold: #C9A96E;
-    --gold-dk: #D4B07A;
-    --border: #2E2923;
+    /* Semantic palette — DARK (warm, low-contrast) */
+    --c-page:    #1C1916;
+    --c-card:    #232019;
+    --c-subtle:  #2A2620;
+    --c-line:    #34302A;
+    --c-strong:  #C8C0B4;
+    --c-body:    #C8C0B4;
+    --c-soft:    #A39A8C;
+    --c-muted:   #8A8175;
+    --c-faint:   #6E665C;
+    --c-dim:     #4A4440;
+    --c-ink:     #4A4238;
+    --c-inkh:    #564D42;
+    --c-golddk:  #D4B07A;
+    --c-dot:     #6E665C;
   }
 
   * {
     box-sizing: border-box;
   }
 
+  html {
+    background-color: var(--c-page);
+  }
+
   body {
-    background-color: var(--cream);
-    color: var(--ink);
+    background-color: var(--c-page);
+    color: var(--c-body);
     font-family: 'Inter', sans-serif;
     -webkit-font-smoothing: antialiased;
+    transition: background-color 0.2s ease, color 0.2s ease;
   }
 
   ::-webkit-scrollbar {
@@ -42,3 +73,57 @@
     border-radius: 2px;
   }
 }
+
+/* ---------------------------------------------------------------
+   Dark-mode equivalents for soft status colors (badges / alerts).
+   These tints are only used for status chips and highlight rows,
+   so a muted dark version of the same hue is correct everywhere.
+   Higher specificity (.dark .x) overrides the base utility.
+----------------------------------------------------------------- */
+/* YELLOW / AMBER */
+.dark .bg-yellow-50            { background-color: #2E2614; }
+.dark .bg-yellow-100           { background-color: #38301A; }
+.dark .hover\:bg-yellow-100:hover { background-color: #38301A; }
+.dark .border-yellow-200       { border-color: #4A3D1C; }
+.dark .border-yellow-300       { border-color: #5A4A22; }
+.dark .text-yellow-600         { color: #D8B870; }
+.dark .text-yellow-700         { color: #E0C078; }
+.dark .text-yellow-800         { color: #E8CC88; }
+.dark .text-yellow-900         { color: #F0D898; }
+
+/* GREEN */
+.dark .bg-green-50             { background-color: #16241A; }
+.dark .bg-green-100            { background-color: #1C2E22; }
+.dark .hover\:bg-green-100:hover { background-color: #1C2E22; }
+.dark .border-green-200        { border-color: #284A2E; }
+.dark .border-green-300        { border-color: #305838; }
+.dark .text-green-600          { color: #7FBF8A; }
+.dark .text-green-700          { color: #8FC99A; }
+.dark .text-green-800          { color: #9FD3AA; }
+
+/* RED */
+.dark .bg-red-50               { background-color: #2A1818; }
+.dark .bg-red-50\/40           { background-color: #2A181866; }
+.dark .bg-red-100              { background-color: #341C1C; }
+.dark .border-red-100          { border-color: #3A2020; }
+.dark .border-red-200          { border-color: #4A2A2A; }
+.dark .border-red-300          { border-color: #5A3232; }
+.dark .text-red-600            { color: #E09A9A; }
+.dark .text-red-700            { color: #E8AAAA; }
+
+/* BLUE */
+.dark .bg-blue-50              { background-color: #15202A; }
+.dark .bg-blue-100            { background-color: #1A2833; }
+.dark .border-blue-200         { border-color: #284558; }
+.dark .text-blue-700           { color: #7FB0D8; }
+
+/* PURPLE */
+.dark .bg-purple-50            { background-color: #221A2E; }
+.dark .bg-purple-100           { background-color: #2A2038; }
+.dark .border-purple-50        { border-color: #221A2E; }
+.dark .border-purple-300       { border-color: #4A3658; }
+.dark .text-purple-700         { color: #B58FD8; }
+
+/* ORANGE */
+.dark .bg-orange-100           { background-color: #2E2014; }
+.dark .text-orange-700         { color: #D8A070; }

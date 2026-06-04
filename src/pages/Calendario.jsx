@@ -12,12 +12,12 @@ import { ChevronLeft, ChevronRight, AlertTriangle, X, ExternalLink } from 'lucid
 const DAYS = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom']
 
 const STAGE_STYLE = {
-  consulta:   { pill: 'bg-[#AAAAAA] text-white',         dot: 'bg-[#AAAAAA]',  label: 'Consulta' },
+  consulta:   { pill: 'bg-dot text-white',         dot: 'bg-dot',  label: 'Consulta' },
   cotizado:   { pill: 'bg-yellow-400 text-yellow-900',   dot: 'bg-yellow-400', label: 'Cotizado' },
   confirmado: { pill: 'bg-green-500 text-white',          dot: 'bg-green-500',  label: 'Confirmado' },
   cobrado:    { pill: 'bg-green-700 text-white',          dot: 'bg-green-700',  label: 'Cobrado' },
   cancelado:  { pill: 'bg-red-400 text-white',            dot: 'bg-red-400',    label: 'Cancelado' },
-  default:    { pill: 'bg-[#AAAAAA] text-white',          dot: 'bg-[#AAAAAA]',  label: '' },
+  default:    { pill: 'bg-dot text-white',          dot: 'bg-dot',  label: '' },
 }
 
 const DELIVERY_LABEL = {
@@ -27,7 +27,7 @@ const DELIVERY_LABEL = {
   entregado: 'Entregado',
 }
 const DELIVERY_BADGE = {
-  sin_editar: 'bg-[#EDE7DC] text-[#555] dark:text-[#A8A098]',
+  sin_editar: 'bg-subtle text-soft',
   editando: 'bg-yellow-50 text-yellow-700 border border-yellow-200',
   revision: 'bg-yellow-50 text-yellow-800 border border-yellow-300',
   entregado: 'bg-green-50 text-green-700 border border-green-200',
@@ -56,14 +56,14 @@ function EventPopover({ events, onClose, anchorRef }) {
   return (
     <div
       ref={ref}
-      className="absolute z-50 bg-[#FDFBF7] dark:bg-[#232019] border border-[#E0D9CE] dark:border-[#2E2923] rounded-xl w-72 p-4 top-full mt-1 left-0"
+      className="absolute z-50 bg-card border border-line rounded-xl w-72 p-4 top-full mt-1 left-0"
       style={{ boxShadow: '0 4px 16px rgba(0,0,0,0.08)' }}
     >
       <div className="flex items-center justify-between mb-3">
-        <span className="text-xs font-semibold uppercase tracking-wider text-[#C9A96E]">
+        <span className="text-xs font-semibold uppercase tracking-wider text-gold">
           {events.length} evento{events.length > 1 ? 's' : ''}
         </span>
-        <button onClick={onClose} className="text-[#CCC] dark:text-[#4A4440] hover:text-[#888] dark:text-[#7A7068] transition-colors">
+        <button onClick={onClose} className="text-dim hover:text-muted transition-colors">
           <X size={13} />
         </button>
       </div>
@@ -80,19 +80,19 @@ function EventPopover({ events, onClose, anchorRef }) {
           const style = getStageStyle(ev.leads?.[0]?.stage)
           const delivery = ev.deliveries?.[0]
           return (
-            <div key={ev.id} className="pb-3 border-b border-[#E0D9CE] dark:border-[#2E2923] last:border-0 last:pb-0">
+            <div key={ev.id} className="pb-3 border-b border-line last:border-0 last:pb-0">
               <div className="flex items-start justify-between gap-2 mb-1.5">
                 <div>
-                  <div className="text-sm font-medium text-[#1A1814] dark:text-[#C8C0B4]">{ev.name}</div>
+                  <div className="text-sm font-medium text-body">{ev.name}</div>
                   <div className="flex items-center gap-1.5 mt-0.5">
-                    <span className="text-xs text-[#888] dark:text-[#7A7068]">{ev.event_type}</span>
+                    <span className="text-xs text-muted">{ev.event_type}</span>
                     {ev.leads?.[0]?.stage && (
                       <span className={`text-[10px] px-1.5 py-0.5 rounded-xl font-medium ${style.pill}`}>
                         {STAGE_STYLE[ev.leads[0].stage]?.label}
                       </span>
                     )}
                     {ev.package && (
-                      <span className="text-xs text-[#888] dark:text-[#7A7068]">{ev.package}</span>
+                      <span className="text-xs text-muted">{ev.package}</span>
                     )}
                   </div>
                 </div>
@@ -108,7 +108,7 @@ function EventPopover({ events, onClose, anchorRef }) {
 
               <button
                 onClick={() => { navigate(`/clientes/${ev.id}`); onClose() }}
-                className="flex items-center gap-1 text-xs text-[#1A1814] dark:text-[#C8C0B4] underline underline-offset-2 hover:text-[#555] dark:text-[#A8A098] transition-colors"
+                className="flex items-center gap-1 text-xs text-body underline underline-offset-2 hover:text-soft transition-colors"
               >
                 Ver ficha completa
                 <ExternalLink size={10} />
@@ -140,18 +140,18 @@ function DayCell({ date, events, currentMonth }) {
 
   return (
     <div
-      className={`relative min-h-[96px] p-1.5 border-b border-r border-[#E0D9CE] dark:border-[#2E2923] ${
-        !inMonth ? 'bg-[#F7F7F7]' : 'bg-[#FDFBF7] dark:bg-[#232019]'
+      className={`relative min-h-[96px] p-1.5 border-b border-r border-line ${
+        !inMonth ? 'bg-page' : 'bg-card'
       } ${hasConflict && inMonth ? 'ring-1 ring-inset ring-red-300' : ''}`}
     >
       <div className="flex items-center justify-between mb-1">
         <span
           className={`text-xs font-medium w-5 h-5 flex items-center justify-center rounded-full ${
             isCurrentDay
-              ? 'bg-[#1A1814] text-white'
+              ? 'bg-ink text-white'
               : inMonth
-              ? 'text-[#1A1814] dark:text-[#C8C0B4]'
-              : 'text-[#CCC] dark:text-[#4A4440]'
+              ? 'text-body'
+              : 'text-dim'
           }`}
         >
           {format(date, 'd')}
@@ -179,7 +179,7 @@ function DayCell({ date, events, currentMonth }) {
         {extra > 0 && (
           <button
             onClick={() => openPopover(events)}
-            className="text-[10px] text-[#888] dark:text-[#7A7068] hover:text-[#1A1814] dark:text-[#C8C0B4] transition-colors px-1"
+            className="text-[10px] text-muted hover:text-body transition-colors px-1"
           >
             +{extra} más
           </button>
@@ -205,22 +205,22 @@ function WeekView({ weekStart, eventsByDate }) {
   })
 
   return (
-    <div className="bg-[#FDFBF7] dark:bg-[#232019] border border-[#E0D9CE] dark:border-[#2E2923] rounded-xl overflow-hidden">
+    <div className="bg-card border border-line rounded-xl overflow-hidden">
       {/* Day headers */}
-      <div className="grid grid-cols-7 border-b border-[#E0D9CE] dark:border-[#2E2923]">
+      <div className="grid grid-cols-7 border-b border-line">
         {days.map(day => (
           <div
             key={day.toISOString()}
-            className={`text-center py-3 border-r border-[#E0D9CE] dark:border-[#2E2923] last:border-0 ${
-              isToday(day) ? 'bg-[#F0EBE1]' : ''
+            className={`text-center py-3 border-r border-line last:border-0 ${
+              isToday(day) ? 'bg-subtle' : ''
             }`}
           >
-            <div className="text-xs font-semibold uppercase tracking-wider text-[#C9A96E]">
+            <div className="text-xs font-semibold uppercase tracking-wider text-gold">
               {format(day, 'EEE', { locale: es })}
             </div>
             <div
               className={`mx-auto mt-1 w-7 h-7 flex items-center justify-center rounded-full text-sm font-medium ${
-                isToday(day) ? 'bg-[#1A1814] text-white' : 'text-[#1A1814] dark:text-[#C8C0B4]'
+                isToday(day) ? 'bg-ink text-white' : 'text-body'
               }`}
             >
               {format(day, 'd')}
@@ -242,7 +242,7 @@ function WeekView({ weekStart, eventsByDate }) {
             >
               {events.length === 0 && (
                 <div className="h-full flex items-center justify-center">
-                  <span className="text-xs text-[#E0E0E0]">—</span>
+                  <span className="text-xs text-dim">—</span>
                 </div>
               )}
               {events.map(ev => {
@@ -340,19 +340,19 @@ export default function Calendario() {
     <div>
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-xl font-semibold text-[#1A1814] dark:text-[#C8C0B4] capitalize">{headerLabel}</h1>
+        <h1 className="text-xl font-semibold text-body capitalize">{headerLabel}</h1>
         <div className="flex items-center gap-2">
           {/* View toggle */}
-          <div className="flex border border-[#D9D9D9] rounded-xl overflow-hidden text-sm">
+          <div className="flex border border-line rounded-xl overflow-hidden text-sm">
             <button
               onClick={() => setView('mes')}
-              className={`px-3 py-1.5 transition-colors ${view === 'mes' ? 'bg-[#1A1814] text-white' : 'text-[#666] dark:text-[#998E88] hover:text-[#1A1814] dark:text-[#C8C0B4] hover:bg-[#F0EBE1]'}`}
+              className={`px-3 py-1.5 transition-colors ${view === 'mes' ? 'bg-ink text-white' : 'text-soft hover:text-body hover:bg-subtle'}`}
             >
               Mes
             </button>
             <button
               onClick={() => setView('semana')}
-              className={`px-3 py-1.5 border-l border-[#D9D9D9] transition-colors ${view === 'semana' ? 'bg-[#1A1814] text-white' : 'text-[#666] dark:text-[#998E88] hover:text-[#1A1814] dark:text-[#C8C0B4] hover:bg-[#F0EBE1]'}`}
+              className={`px-3 py-1.5 border-l border-line transition-colors ${view === 'semana' ? 'bg-ink text-white' : 'text-soft hover:text-body hover:bg-subtle'}`}
             >
               Semana
             </button>
@@ -360,19 +360,19 @@ export default function Calendario() {
 
           <button
             onClick={goToday}
-            className="text-sm border border-[#D9D9D9] px-3 py-1.5 rounded-xl text-[#1A1814] dark:text-[#C8C0B4] hover:border-[#1A1814] transition-colors"
+            className="text-sm border border-line px-3 py-1.5 rounded-xl text-body hover:border-strong transition-colors"
           >
             Hoy
           </button>
           <button
             onClick={goBack}
-            className="p-1.5 border border-[#D9D9D9] rounded-xl text-[#666] dark:text-[#998E88] hover:border-[#1A1814] hover:text-[#1A1814] dark:text-[#C8C0B4] transition-colors"
+            className="p-1.5 border border-line rounded-xl text-soft hover:border-strong hover:text-body transition-colors"
           >
             <ChevronLeft size={15} />
           </button>
           <button
             onClick={goForward}
-            className="p-1.5 border border-[#D9D9D9] rounded-xl text-[#666] dark:text-[#998E88] hover:border-[#1A1814] hover:text-[#1A1814] dark:text-[#C8C0B4] transition-colors"
+            className="p-1.5 border border-line rounded-xl text-soft hover:border-strong hover:text-body transition-colors"
           >
             <ChevronRight size={15} />
           </button>
@@ -380,20 +380,20 @@ export default function Calendario() {
       </div>
 
       {loading ? (
-        <div className="text-center text-sm text-[#AAA] dark:text-[#5A5450] py-20">Cargando...</div>
+        <div className="text-center text-sm text-faint py-20">Cargando...</div>
       ) : (
         <>
           {view === 'mes' && monthEvents.length > 0 && (
-            <div className="mb-4 text-xs text-[#888] dark:text-[#7A7068]">
+            <div className="mb-4 text-xs text-muted">
               {monthEvents.length} evento{monthEvents.length > 1 ? 's' : ''} este mes
             </div>
           )}
 
           {view === 'mes' ? (
-            <div className="bg-[#FDFBF7] dark:bg-[#232019] border border-[#E0D9CE] dark:border-[#2E2923] rounded-xl overflow-hidden">
-              <div className="grid grid-cols-7 border-b border-[#E0D9CE] dark:border-[#2E2923]">
+            <div className="bg-card border border-line rounded-xl overflow-hidden">
+              <div className="grid grid-cols-7 border-b border-line">
                 {DAYS.map(d => (
-                  <div key={d} className="text-center text-xs font-semibold uppercase tracking-wider text-[#C9A96E] py-2.5">
+                  <div key={d} className="text-center text-xs font-semibold uppercase tracking-wider text-gold py-2.5">
                     {d}
                   </div>
                 ))}
@@ -422,12 +422,12 @@ export default function Calendario() {
             {Object.entries(STAGE_STYLE).filter(([k]) => k !== 'default').map(([stage, s]) => (
               <div key={stage} className="flex items-center gap-1.5">
                 <div className={`w-2.5 h-2.5 rounded-full ${s.dot}`} />
-                <span className="text-xs text-[#888] dark:text-[#7A7068]">{s.label}</span>
+                <span className="text-xs text-muted">{s.label}</span>
               </div>
             ))}
             <div className="flex items-center gap-1.5">
               <AlertTriangle size={11} className="text-red-400" />
-              <span className="text-xs text-[#888] dark:text-[#7A7068]">Conflicto</span>
+              <span className="text-xs text-muted">Conflicto</span>
             </div>
           </div>
         </>

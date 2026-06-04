@@ -110,67 +110,67 @@ function Modal({ onClose, onSaved }) {
 
   return (
     <div className="fixed inset-0 bg-black/30 z-50 flex items-end md:items-center justify-center p-0 md:p-4">
-      <div className="bg-[#FDFBF7] dark:bg-[#232019] w-full md:max-w-md rounded-t-2xl md:rounded-2xl shadow-xl max-h-[92vh] overflow-y-auto">
-        <div className="flex items-center justify-between px-5 py-4 border-b border-[#E0D9CE] dark:border-[#2E2923] sticky top-0 bg-[#FDFBF7] dark:bg-[#232019]">
-          <h2 className="text-sm font-semibold text-[#1A1814] dark:text-[#C8C0B4]">Nuevo gasto</h2>
-          <button onClick={onClose} className="text-[#888] dark:text-[#7A7068] hover:text-[#1A1814] dark:text-[#C8C0B4]"><X size={18} /></button>
+      <div className="bg-card w-full md:max-w-md rounded-t-2xl md:rounded-2xl shadow-xl max-h-[92vh] overflow-y-auto">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-line sticky top-0 bg-card">
+          <h2 className="text-sm font-semibold text-body">Nuevo gasto</h2>
+          <button onClick={onClose} className="text-muted hover:text-body"><X size={18} /></button>
         </div>
 
         <form onSubmit={handleSubmit} className="p-5 flex flex-col gap-4">
           {/* Date + Amount */}
           <div className="grid grid-cols-2 gap-3">
             <div className="flex flex-col gap-1">
-              <label className="text-xs text-[#888] dark:text-[#7A7068]">Fecha</label>
+              <label className="text-xs text-muted">Fecha</label>
               <input
                 type="date"
                 value={form.date}
                 onChange={e => set('date', e.target.value)}
-                className="border border-[#E0D9CE] dark:border-[#2E2923] rounded-lg px-3 py-2 text-sm text-[#1A1814] dark:text-[#C8C0B4] focus:outline-none focus:border-[#1A1814]"
+                className="border border-line rounded-lg px-3 py-2 text-sm text-body focus:outline-none focus:border-strong"
               />
             </div>
             <div className="flex flex-col gap-1">
-              <label className="text-xs text-[#888] dark:text-[#7A7068]">Monto ($)</label>
+              <label className="text-xs text-muted">Monto ($)</label>
               <input
                 type="number"
                 placeholder="0"
                 value={form.amount}
                 onChange={e => set('amount', e.target.value)}
-                className="border border-[#E0D9CE] dark:border-[#2E2923] rounded-lg px-3 py-2 text-sm text-[#1A1814] dark:text-[#C8C0B4] focus:outline-none focus:border-[#1A1814]"
+                className="border border-line rounded-lg px-3 py-2 text-sm text-body focus:outline-none focus:border-strong"
               />
             </div>
           </div>
 
           {/* Category */}
           <div className="flex flex-col gap-1">
-            <label className="text-xs text-[#888] dark:text-[#7A7068]">Rubro</label>
+            <label className="text-xs text-muted">Rubro</label>
             <div className="relative">
               <select
                 value={form.category}
                 onChange={e => set('category', e.target.value)}
-                className="w-full border border-[#E0D9CE] dark:border-[#2E2923] rounded-lg px-3 py-2 text-sm text-[#1A1814] dark:text-[#C8C0B4] focus:outline-none focus:border-[#1A1814] appearance-none bg-[#FDFBF7] dark:bg-[#232019]"
+                className="w-full border border-line rounded-lg px-3 py-2 text-sm text-body focus:outline-none focus:border-strong appearance-none bg-card"
               >
                 <option value="">Seleccionar rubro...</option>
                 {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
               </select>
-              <ChevronDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#888] dark:text-[#7A7068] pointer-events-none" />
+              <ChevronDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted pointer-events-none" />
             </div>
           </div>
 
           {/* Description */}
           <div className="flex flex-col gap-1">
-            <label className="text-xs text-[#888] dark:text-[#7A7068]">Descripción</label>
+            <label className="text-xs text-muted">Descripción</label>
             <input
               type="text"
               placeholder="ej: Facebook Ads mayo"
               value={form.description}
               onChange={e => set('description', e.target.value)}
-              className="border border-[#E0D9CE] dark:border-[#2E2923] rounded-lg px-3 py-2 text-sm text-[#1A1814] dark:text-[#C8C0B4] focus:outline-none focus:border-[#1A1814]"
+              className="border border-line rounded-lg px-3 py-2 text-sm text-body focus:outline-none focus:border-strong"
             />
           </div>
 
           {/* Paid by */}
           <div className="flex flex-col gap-1">
-            <label className="text-xs text-[#888] dark:text-[#7A7068]">¿Quién pagó?</label>
+            <label className="text-xs text-muted">¿Quién pagó?</label>
             <div className="grid grid-cols-2 gap-2">
               {PEOPLE.map(p => (
                 <button
@@ -179,8 +179,8 @@ function Modal({ onClose, onSaved }) {
                   onClick={() => set('paid_by', p.value)}
                   className={`py-2 rounded-lg text-sm font-medium border transition-colors ${
                     form.paid_by === p.value
-                      ? 'bg-[#1A1814] text-white border-[#1A1814]'
-                      : 'bg-[#FDFBF7] dark:bg-[#232019] text-[#666] dark:text-[#998E88] border-[#E0D9CE] dark:border-[#2E2923] hover:border-[#1A1814]'
+                      ? 'bg-ink text-white border-strong'
+                      : 'bg-card text-soft border-line hover:border-strong'
                   }`}
                 >
                   {p.label}
@@ -191,14 +191,14 @@ function Modal({ onClose, onSaved }) {
 
           {/* Receipt */}
           <div className="flex flex-col gap-1">
-            <label className="text-xs text-[#888] dark:text-[#7A7068]">Ticket / Factura (opcional)</label>
+            <label className="text-xs text-muted">Ticket / Factura (opcional)</label>
             {preview ? (
               <div className="relative">
-                <img src={preview} alt="preview" className="w-full max-h-48 object-contain rounded-lg border border-[#E0D9CE] dark:border-[#2E2923]" />
+                <img src={preview} alt="preview" className="w-full max-h-48 object-contain rounded-lg border border-line" />
                 <button
                   type="button"
                   onClick={() => { setFile(null); setPreview(null) }}
-                  className="absolute top-2 right-2 bg-[#FDFBF7] dark:bg-[#232019] rounded-full p-1 shadow text-[#888] dark:text-[#7A7068] hover:text-[#1A1814] dark:text-[#C8C0B4]"
+                  className="absolute top-2 right-2 bg-card rounded-full p-1 shadow text-muted hover:text-body"
                 >
                   <X size={14} />
                 </button>
@@ -207,7 +207,7 @@ function Modal({ onClose, onSaved }) {
               <button
                 type="button"
                 onClick={() => fileRef.current.click()}
-                className="flex items-center justify-center gap-2 border border-dashed border-[#CCC] rounded-lg py-4 text-sm text-[#888] dark:text-[#7A7068] hover:border-[#1A1814] hover:text-[#1A1814] dark:text-[#C8C0B4] transition-colors"
+                className="flex items-center justify-center gap-2 border border-dashed border-line rounded-lg py-4 text-sm text-muted hover:border-strong hover:text-body transition-colors"
               >
                 <Upload size={16} />
                 Subir foto
@@ -218,13 +218,13 @@ function Modal({ onClose, onSaved }) {
 
           {/* Notes */}
           <div className="flex flex-col gap-1">
-            <label className="text-xs text-[#888] dark:text-[#7A7068]">Notas (opcional)</label>
+            <label className="text-xs text-muted">Notas (opcional)</label>
             <textarea
               rows={2}
               placeholder="Notas adicionales..."
               value={form.notes}
               onChange={e => set('notes', e.target.value)}
-              className="border border-[#E0D9CE] dark:border-[#2E2923] rounded-lg px-3 py-2 text-sm text-[#1A1814] dark:text-[#C8C0B4] focus:outline-none focus:border-[#1A1814] resize-none"
+              className="border border-line rounded-lg px-3 py-2 text-sm text-body focus:outline-none focus:border-strong resize-none"
             />
           </div>
 
@@ -233,7 +233,7 @@ function Modal({ onClose, onSaved }) {
           <button
             type="submit"
             disabled={saving}
-            className="w-full bg-[#1A1814] text-white rounded-lg py-2.5 text-sm font-medium hover:bg-[#2C2620] transition-colors disabled:opacity-50"
+            className="w-full bg-ink text-white rounded-lg py-2.5 text-sm font-medium hover:bg-inkh transition-colors disabled:opacity-50"
           >
             {saving ? 'Guardando...' : 'Guardar gasto'}
           </button>
@@ -294,12 +294,12 @@ export default function Gastos() {
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-xl font-semibold text-[#1A1814] dark:text-[#C8C0B4]">Gastos</h1>
-          <p className="text-sm text-[#888] dark:text-[#7A7068] mt-0.5">Gastos de la empresa por rubro</p>
+          <h1 className="text-xl font-semibold text-body">Gastos</h1>
+          <p className="text-sm text-muted mt-0.5">Gastos de la empresa por rubro</p>
         </div>
         <button
           onClick={() => setShowModal(true)}
-          className="flex items-center gap-2 bg-[#1A1814] text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-[#2C2620] transition-colors"
+          className="flex items-center gap-2 bg-ink text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-inkh transition-colors"
         >
           <Plus size={16} />
           Nuevo gasto
@@ -308,20 +308,20 @@ export default function Gastos() {
 
       {/* Balance cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
-        <div className="bg-[#FDFBF7] dark:bg-[#232019] border border-[#E0D9CE] dark:border-[#2E2923] rounded-xl p-4">
-          <p className="text-xs text-[#888] dark:text-[#7A7068] mb-1">Total general</p>
-          <p className="text-xl font-semibold text-[#1A1814] dark:text-[#C8C0B4]">{formatMoney(totalGeneral)}</p>
-          <p className="text-xs text-[#888] dark:text-[#7A7068] mt-1">Cada uno debería poner {formatMoney(mitad)}</p>
+        <div className="bg-card border border-line rounded-xl p-4">
+          <p className="text-xs text-muted mb-1">Total general</p>
+          <p className="text-xl font-semibold text-body">{formatMoney(totalGeneral)}</p>
+          <p className="text-xs text-muted mt-1">Cada uno debería poner {formatMoney(mitad)}</p>
         </div>
 
         {[
           { name: 'Santiago', total: totalSantiago, diff: diffSantiago },
           { name: 'Matías', total: totalMatias, diff: diffMatias },
         ].map(({ name, total, diff }) => (
-          <div key={name} className="bg-[#FDFBF7] dark:bg-[#232019] border border-[#E0D9CE] dark:border-[#2E2923] rounded-xl p-4">
-            <p className="text-xs text-[#888] dark:text-[#7A7068] mb-1">{name}</p>
-            <p className="text-xl font-semibold text-[#1A1814] dark:text-[#C8C0B4]">{formatMoney(total)}</p>
-            <p className={`text-xs mt-1 font-medium ${diff > 0 ? 'text-green-600' : diff < 0 ? 'text-red-500' : 'text-[#888] dark:text-[#7A7068]'}`}>
+          <div key={name} className="bg-card border border-line rounded-xl p-4">
+            <p className="text-xs text-muted mb-1">{name}</p>
+            <p className="text-xl font-semibold text-body">{formatMoney(total)}</p>
+            <p className={`text-xs mt-1 font-medium ${diff > 0 ? 'text-green-600' : diff < 0 ? 'text-red-500' : 'text-muted'}`}>
               {diff > 0
                 ? `Le deben ${formatMoney(diff)}`
                 : diff < 0
@@ -334,21 +334,21 @@ export default function Gastos() {
 
       {/* By category */}
       {byCategory.length > 0 && (
-        <div className="bg-[#FDFBF7] dark:bg-[#232019] border border-[#E0D9CE] dark:border-[#2E2923] rounded-xl p-4 mb-6">
-          <p className="text-xs font-medium text-[#888] dark:text-[#7A7068] mb-3">Por rubro</p>
+        <div className="bg-card border border-line rounded-xl p-4 mb-6">
+          <p className="text-xs font-medium text-muted mb-3">Por rubro</p>
           <div className="flex flex-col gap-2">
             {byCategory.map(({ cat, total }) => (
               <div key={cat} className="flex items-center gap-3">
                 <span className={`text-xs px-2 py-0.5 rounded-full font-medium w-28 text-center flex-shrink-0 ${CATEGORY_COLORS[cat] || 'bg-gray-100 text-gray-700'}`}>
                   {cat}
                 </span>
-                <div className="flex-1 bg-[#F0EBE1] rounded-full h-1.5 overflow-hidden">
+                <div className="flex-1 bg-subtle rounded-full h-1.5 overflow-hidden">
                   <div
-                    className="h-full bg-[#C9A96E] rounded-full"
+                    className="h-full bg-gold rounded-full"
                     style={{ width: `${totalGeneral > 0 ? (total / totalGeneral) * 100 : 0}%` }}
                   />
                 </div>
-                <span className="text-sm text-[#1A1814] dark:text-[#C8C0B4] font-medium w-20 text-right">{formatMoney(total)}</span>
+                <span className="text-sm text-body font-medium w-20 text-right">{formatMoney(total)}</span>
               </div>
             ))}
           </div>
@@ -361,37 +361,37 @@ export default function Gastos() {
           <select
             value={filterCategory}
             onChange={e => setFilterCategory(e.target.value)}
-            className="border border-[#E0D9CE] dark:border-[#2E2923] rounded-lg px-3 py-1.5 text-xs text-[#666] dark:text-[#998E88] focus:outline-none focus:border-[#1A1814] appearance-none bg-[#FDFBF7] dark:bg-[#232019] pr-7"
+            className="border border-line rounded-lg px-3 py-1.5 text-xs text-soft focus:outline-none focus:border-strong appearance-none bg-card pr-7"
           >
             <option value="">Todos los rubros</option>
             {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
           </select>
-          <ChevronDown size={12} className="absolute right-2 top-1/2 -translate-y-1/2 text-[#888] dark:text-[#7A7068] pointer-events-none" />
+          <ChevronDown size={12} className="absolute right-2 top-1/2 -translate-y-1/2 text-muted pointer-events-none" />
         </div>
         <div className="relative">
           <select
             value={filterPerson}
             onChange={e => setFilterPerson(e.target.value)}
-            className="border border-[#E0D9CE] dark:border-[#2E2923] rounded-lg px-3 py-1.5 text-xs text-[#666] dark:text-[#998E88] focus:outline-none focus:border-[#1A1814] appearance-none bg-[#FDFBF7] dark:bg-[#232019] pr-7"
+            className="border border-line rounded-lg px-3 py-1.5 text-xs text-soft focus:outline-none focus:border-strong appearance-none bg-card pr-7"
           >
             <option value="">Todos</option>
             {PEOPLE.map(p => <option key={p.value} value={p.value}>{p.label}</option>)}
           </select>
-          <ChevronDown size={12} className="absolute right-2 top-1/2 -translate-y-1/2 text-[#888] dark:text-[#7A7068] pointer-events-none" />
+          <ChevronDown size={12} className="absolute right-2 top-1/2 -translate-y-1/2 text-muted pointer-events-none" />
         </div>
       </div>
 
       {/* Expenses list */}
       {loading ? (
-        <div className="text-sm text-[#888] dark:text-[#7A7068] py-8 text-center">Cargando...</div>
+        <div className="text-sm text-muted py-8 text-center">Cargando...</div>
       ) : filtered.length === 0 ? (
-        <div className="text-sm text-[#888] dark:text-[#7A7068] py-8 text-center">No hay gastos registrados.</div>
+        <div className="text-sm text-muted py-8 text-center">No hay gastos registrados.</div>
       ) : (
         <div className="flex flex-col gap-2">
           {filtered.map(exp => (
-            <div key={exp.id} className="bg-[#FDFBF7] dark:bg-[#232019] border border-[#E0D9CE] dark:border-[#2E2923] rounded-xl overflow-hidden">
+            <div key={exp.id} className="bg-card border border-line rounded-xl overflow-hidden">
               <div
-                className="flex items-center gap-3 px-4 py-3 cursor-pointer hover:bg-[#F5F0E8] dark:bg-[#1C1916] dark:hover:bg-[#2A2620] transition-colors"
+                className="flex items-center gap-3 px-4 py-3 cursor-pointer hover:bg-page transition-colors"
                 onClick={() => setExpandedId(expandedId === exp.id ? null : exp.id)}
               >
                 <div className="flex-1 min-w-0">
@@ -400,38 +400,38 @@ export default function Gastos() {
                       {exp.category}
                     </span>
                     {exp.description && (
-                      <span className="text-sm text-[#1A1814] dark:text-[#C8C0B4] truncate">{exp.description}</span>
+                      <span className="text-sm text-body truncate">{exp.description}</span>
                     )}
                   </div>
                   <div className="flex items-center gap-2 mt-1">
-                    <span className="text-xs text-[#888] dark:text-[#7A7068]">
+                    <span className="text-xs text-muted">
                       {format(parseISO(exp.date), "d MMM yyyy", { locale: es })}
                     </span>
-                    <span className="text-xs text-[#888] dark:text-[#7A7068]">·</span>
-                    <span className="text-xs text-[#888] dark:text-[#7A7068] capitalize">{exp.paid_by}</span>
+                    <span className="text-xs text-muted">·</span>
+                    <span className="text-xs text-muted capitalize">{exp.paid_by}</span>
                   </div>
                 </div>
-                <span className="text-sm font-semibold text-[#1A1814] dark:text-[#C8C0B4] flex-shrink-0">{formatMoney(exp.amount)}</span>
-                {exp.receipt_url && <Image size={14} className="text-[#888] dark:text-[#7A7068] flex-shrink-0" />}
+                <span className="text-sm font-semibold text-body flex-shrink-0">{formatMoney(exp.amount)}</span>
+                {exp.receipt_url && <Image size={14} className="text-muted flex-shrink-0" />}
               </div>
 
               {expandedId === exp.id && (
-                <div className="px-4 pb-4 border-t border-[#E0D9CE] dark:border-[#2E2923] pt-3 flex flex-col gap-3">
+                <div className="px-4 pb-4 border-t border-line pt-3 flex flex-col gap-3">
                   {exp.notes && (
-                    <p className="text-sm text-[#666] dark:text-[#998E88]">{exp.notes}</p>
+                    <p className="text-sm text-soft">{exp.notes}</p>
                   )}
                   {exp.receipt_url && (
                     <div>
                       <img
                         src={exp.receipt_url}
                         alt="ticket"
-                        className="max-h-60 object-contain rounded-lg border border-[#E0D9CE] dark:border-[#2E2923] w-full"
+                        className="max-h-60 object-contain rounded-lg border border-line w-full"
                       />
                       <a
                         href={exp.receipt_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-xs text-[#888] dark:text-[#7A7068] hover:text-[#1A1814] dark:text-[#C8C0B4] mt-1"
+                        className="inline-flex items-center gap-1 text-xs text-muted hover:text-body mt-1"
                       >
                         <ExternalLink size={12} /> Ver imagen completa
                       </a>

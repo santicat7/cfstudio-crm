@@ -8,8 +8,8 @@ import { es } from 'date-fns/locale'
 
 const ASSIGNEE_LABEL = { santi: 'Santi', matias: 'Matías' }
 const ASSIGNEE_BADGE = {
-  santi:  'bg-[#EDE7DC] text-[#555] dark:text-[#A8A098]',
-  matias: 'bg-[#EDE7DC] text-[#555] dark:text-[#A8A098]',
+  santi:  'bg-subtle text-soft',
+  matias: 'bg-subtle text-soft',
 }
 
 
@@ -60,27 +60,27 @@ function NuevaTareaModal({ clientes, onClose, onSaved }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-black/30" onClick={onClose} />
-      <div className="relative bg-[#FDFBF7] dark:bg-[#232019] border border-[#E0D9CE] dark:border-[#2E2923] rounded-xl w-full max-w-md p-6">
+      <div className="relative bg-card border border-line rounded-xl w-full max-w-md p-6">
         <div className="flex items-center justify-between mb-5">
-          <h2 className="text-sm font-semibold text-[#1A1814] dark:text-[#C8C0B4]">Nueva tarea</h2>
-          <button onClick={onClose} className="text-[#888] dark:text-[#7A7068] hover:text-[#1A1814] dark:text-[#C8C0B4] transition-colors"><X size={16} /></button>
+          <h2 className="text-sm font-semibold text-body">Nueva tarea</h2>
+          <button onClick={onClose} className="text-muted hover:text-body transition-colors"><X size={16} /></button>
         </div>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-xs font-medium text-[#1A1814] dark:text-[#C8C0B4] mb-1.5 uppercase tracking-wide">Título *</label>
+            <label className="block text-xs font-medium text-body mb-1.5 uppercase tracking-wide">Título *</label>
             <input type="text" value={form.title} onChange={e => set('title', e.target.value)} required
               placeholder="Ej: Enviar contrato, editar galería..."
-              className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] dark:text-[#C8C0B4] rounded-xl outline-none focus:border-[#1A1814] transition-colors" />
+              className="w-full px-3 py-2 border border-line text-sm text-body rounded-xl outline-none focus:border-strong transition-colors" />
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-[#1A1814] dark:text-[#C8C0B4] mb-1.5 uppercase tracking-wide">Cliente</label>
+            <label className="block text-xs font-medium text-body mb-1.5 uppercase tracking-wide">Cliente</label>
             <input type="text" value={search} onChange={e => setSearch(e.target.value)}
               placeholder="Buscar cliente..."
-              className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] dark:text-[#C8C0B4] rounded-xl outline-none focus:border-[#1A1814] transition-colors mb-1" />
+              className="w-full px-3 py-2 border border-line text-sm text-body rounded-xl outline-none focus:border-strong transition-colors mb-1" />
             <select value={form.client_id} onChange={e => set('client_id', e.target.value)}
               size={Math.min(filtered.length + 1, 5)}
-              className="w-full px-3 py-1 border border-[#D9D9D9] text-sm text-[#1A1814] dark:text-[#C8C0B4] rounded-xl outline-none focus:border-[#1A1814] bg-[#FDFBF7] dark:bg-[#232019]">
+              className="w-full px-3 py-1 border border-line text-sm text-body rounded-xl outline-none focus:border-strong bg-card">
               <option value="">— Sin cliente —</option>
               {filtered.map(c => <option key={c.id} value={c.id}>{c.name}{c.event_type ? ` · ${c.event_type}` : ''}</option>)}
             </select>
@@ -88,34 +88,34 @@ function NuevaTareaModal({ clientes, onClose, onSaved }) {
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-medium text-[#1A1814] dark:text-[#C8C0B4] mb-1.5 uppercase tracking-wide">Asignado a</label>
+              <label className="block text-xs font-medium text-body mb-1.5 uppercase tracking-wide">Asignado a</label>
               <select value={form.assigned_to} onChange={e => set('assigned_to', e.target.value)}
-                className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] dark:text-[#C8C0B4] rounded-xl outline-none focus:border-[#1A1814] bg-[#FDFBF7] dark:bg-[#232019] transition-colors">
+                className="w-full px-3 py-2 border border-line text-sm text-body rounded-xl outline-none focus:border-strong bg-card transition-colors">
                 <option value="santi">Santi</option>
                 <option value="matias">Matías</option>
               </select>
             </div>
             <div>
-              <label className="block text-xs font-medium text-[#1A1814] dark:text-[#C8C0B4] mb-1.5 uppercase tracking-wide">Fecha límite</label>
+              <label className="block text-xs font-medium text-body mb-1.5 uppercase tracking-wide">Fecha límite</label>
               <input type="date" value={form.due_date} onChange={e => set('due_date', e.target.value)}
-                className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] dark:text-[#C8C0B4] rounded-xl outline-none focus:border-[#1A1814] transition-colors" />
+                className="w-full px-3 py-2 border border-line text-sm text-body rounded-xl outline-none focus:border-strong transition-colors" />
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-[#1A1814] dark:text-[#C8C0B4] mb-1.5 uppercase tracking-wide">Notas (opcional)</label>
+            <label className="block text-xs font-medium text-body mb-1.5 uppercase tracking-wide">Notas (opcional)</label>
             <input type="text" value={form.notes} onChange={e => set('notes', e.target.value)}
-              className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] dark:text-[#C8C0B4] rounded-xl outline-none focus:border-[#1A1814] transition-colors" />
+              className="w-full px-3 py-2 border border-line text-sm text-body rounded-xl outline-none focus:border-strong transition-colors" />
           </div>
 
           {error && <p className="text-xs text-red-600">{error}</p>}
           <div className="flex gap-2 pt-1">
             <button type="button" onClick={onClose}
-              className="flex-1 px-4 py-2 border border-[#D9D9D9] text-sm text-[#666] dark:text-[#998E88] rounded-xl hover:border-[#1A1814] transition-colors">
+              className="flex-1 px-4 py-2 border border-line text-sm text-soft rounded-xl hover:border-strong transition-colors">
               Cancelar
             </button>
             <button type="submit" disabled={loading}
-              className="flex-1 px-4 py-2 bg-[#1A1814] text-white text-sm rounded-xl hover:bg-[#1A1814] transition-colors disabled:opacity-50">
+              className="flex-1 px-4 py-2 bg-ink text-white text-sm rounded-xl hover:bg-ink transition-colors disabled:opacity-50">
               {loading ? 'Guardando...' : 'Crear tarea'}
             </button>
           </div>
@@ -183,14 +183,14 @@ export default function Tareas() {
     <div>
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-xl font-semibold text-[#1A1814] dark:text-[#C8C0B4]">Tareas</h1>
+          <h1 className="text-xl font-semibold text-body">Tareas</h1>
           {pendingCount > 0 && (
-            <p className="text-xs text-[#888] dark:text-[#7A7068] mt-0.5">{pendingCount} pendiente{pendingCount > 1 ? 's' : ''}</p>
+            <p className="text-xs text-muted mt-0.5">{pendingCount} pendiente{pendingCount > 1 ? 's' : ''}</p>
           )}
         </div>
         <button
           onClick={() => setShowModal(true)}
-          className="flex items-center gap-1.5 bg-[#1A1814] text-white text-sm px-4 py-2 rounded-xl hover:bg-[#1A1814] transition-colors"
+          className="flex items-center gap-1.5 bg-ink text-white text-sm px-4 py-2 rounded-xl hover:bg-ink transition-colors"
         >
           <Plus size={14} />
           Nueva tarea
@@ -202,7 +202,7 @@ export default function Tareas() {
         {FILTERS.map(f => (
           <button key={f.id} onClick={() => setFilter(f.id)}
             className={`text-xs px-3 py-1.5 rounded-xl font-medium transition-colors ${
-              filter === f.id ? 'bg-[#1A1814] text-white' : 'bg-[#FDFBF7] dark:bg-[#232019] border border-[#D9D9D9] text-[#666] dark:text-[#998E88] hover:border-[#1A1814]'
+              filter === f.id ? 'bg-ink text-white' : 'bg-card border border-line text-soft hover:border-strong'
             }`}>
             {f.id === 'mias' ? `Mis tareas (${myAssignee === 'santi' ? 'Santi' : 'Matías'})` : f.label}
           </button>
@@ -210,9 +210,9 @@ export default function Tareas() {
       </div>
 
       {loading ? (
-        <div className="text-center text-sm text-[#AAA] dark:text-[#5A5450] py-16">Cargando...</div>
+        <div className="text-center text-sm text-faint py-16">Cargando...</div>
       ) : filtered.length === 0 ? (
-        <div className="text-center text-sm text-[#AAA] dark:text-[#5A5450] py-16">
+        <div className="text-center text-sm text-faint py-16">
           {filter === 'completadas' ? 'No hay tareas completadas' :
            filter === 'pendientes' ? 'No hay tareas pendientes' :
            'No hay tareas todavía'}
@@ -221,10 +221,10 @@ export default function Tareas() {
         <div className="space-y-6">
           {Object.entries(groups).map(([key, group]) => (
             <div key={key}>
-              <h2 className="text-xs font-semibold uppercase tracking-wider text-[#C9A96E] mb-2">
+              <h2 className="text-xs font-semibold uppercase tracking-wider text-gold mb-2">
                 {group.label}
               </h2>
-              <div className="bg-[#FDFBF7] dark:bg-[#232019] border border-[#E0D9CE] dark:border-[#2E2923] rounded-xl divide-y divide-[#E0D9CE]">
+              <div className="bg-card border border-line rounded-xl divide-y divide-[#E0D9CE]">
                 {group.tasks.map(task => {
                   const overdue = isOverdue(task.due_date) && !task.done
                   const dueLabel = formatDue(task.due_date)
@@ -234,8 +234,8 @@ export default function Tareas() {
                         onClick={() => toggleDone(task)}
                         className={`mt-0.5 flex-shrink-0 w-4 h-4 rounded-xl border transition-colors ${
                           task.done
-                            ? 'bg-[#1A1814] border-[#1A1814]'
-                            : 'border-[#D9D9D9] hover:border-[#1A1814]'
+                            ? 'bg-ink border-strong'
+                            : 'border-line hover:border-strong'
                         } flex items-center justify-center`}
                       >
                         {task.done && (
@@ -246,11 +246,11 @@ export default function Tareas() {
                       </button>
 
                       <div className="flex-1 min-w-0">
-                        <div className={`text-sm text-[#1A1814] dark:text-[#C8C0B4] ${task.done ? 'line-through' : 'font-medium'}`}>
+                        <div className={`text-sm text-body ${task.done ? 'line-through' : 'font-medium'}`}>
                           {task.title}
                         </div>
                         {task.notes && (
-                          <div className="text-xs text-[#888] dark:text-[#7A7068] mt-0.5">{task.notes}</div>
+                          <div className="text-xs text-muted mt-0.5">{task.notes}</div>
                         )}
                       </div>
 
@@ -261,7 +261,7 @@ export default function Tareas() {
                           </span>
                         )}
                         {dueLabel && (
-                          <span className={`text-xs font-medium ${overdue ? 'text-red-600' : 'text-[#AAA] dark:text-[#5A5450]'}`}>
+                          <span className={`text-xs font-medium ${overdue ? 'text-red-600' : 'text-faint'}`}>
                             {dueLabel}
                           </span>
                         )}
@@ -270,7 +270,7 @@ export default function Tareas() {
                             await supabase.from('tasks').delete().eq('id', task.id)
                             fetchTasks()
                           }}
-                          className="text-[#DDD] hover:text-red-400 transition-colors ml-1"
+                          className="text-dim hover:text-red-400 transition-colors ml-1"
                           title="Eliminar tarea"
                         >
                           <Trash2 size={12} />

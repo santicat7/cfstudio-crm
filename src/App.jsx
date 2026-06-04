@@ -1,6 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { AuthProvider, useAuth } from './contexts/AuthContext'
-import { ThemeProvider } from './contexts/ThemeContext'
 import Layout from './components/Layout'
 import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
@@ -21,8 +20,8 @@ import ComingSoon from './pages/ComingSoon'
 function ProtectedRoute({ children }) {
   const { session, loading } = useAuth()
   if (loading) return (
-    <div className="min-h-screen bg-[#F5F0E8] dark:bg-[#1C1916] flex items-center justify-center">
-      <div className="text-sm text-[#888] dark:text-[#7A7068]">Cargando...</div>
+    <div className="min-h-screen bg-page flex items-center justify-center">
+      <div className="text-sm text-muted">Cargando...</div>
     </div>
   )
   if (!session) return <Navigate to="/login" replace />
@@ -39,7 +38,6 @@ function PublicRoute({ children }) {
 export default function App() {
   return (
     <BrowserRouter>
-      <ThemeProvider>
       <AuthProvider>
         <Routes>
           <Route path="/login" element={
@@ -68,7 +66,6 @@ export default function App() {
           <Route path="*" element={<Navigate to="/dashboard" replace />} />
         </Routes>
       </AuthProvider>
-      </ThemeProvider>
     </BrowserRouter>
   )
 }

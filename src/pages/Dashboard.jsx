@@ -15,7 +15,7 @@ const STAGE_LABEL = {
 }
 
 const STAGE_BADGE = {
-  consulta: 'bg-[#EDE7DC] text-[#555] dark:text-[#A8A098]',
+  consulta: 'bg-subtle text-soft',
   cotizado: 'bg-yellow-50 text-yellow-700 border border-yellow-200',
   confirmado: 'bg-green-50 text-green-700 border border-green-200',
   cobrado: 'bg-green-50 text-green-800 border border-green-300',
@@ -30,7 +30,7 @@ const DELIVERY_LABEL = {
 }
 
 const DELIVERY_BADGE = {
-  sin_editar: 'bg-[#EDE7DC] text-[#555] dark:text-[#A8A098]',
+  sin_editar: 'bg-subtle text-soft',
   editando: 'bg-yellow-50 text-yellow-700 border border-yellow-200',
   revision: 'bg-yellow-50 text-yellow-800 border border-yellow-300',
   entregado: 'bg-green-50 text-green-700 border border-green-200',
@@ -46,18 +46,18 @@ const SOURCE_LABEL = {
 
 function MetricCard({ label, value, alert, loading }) {
   return (
-    <div className="bg-[#FDFBF7] dark:bg-[#232019] border border-[#E0D9CE] dark:border-[#2E2923] rounded-xl p-5">
-      <div className={`text-3xl font-semibold leading-none mb-2 ${alert ? 'text-red-600' : 'text-[#1A1814] dark:text-[#C8C0B4]'}`}>
+    <div className="bg-card border border-line rounded-xl p-5">
+      <div className={`text-3xl font-semibold leading-none mb-2 ${alert ? 'text-red-600' : 'text-body'}`}>
         {loading ? '—' : value}
       </div>
-      <div className="text-xs text-[#888] dark:text-[#7A7068]">{label}</div>
+      <div className="text-xs text-muted">{label}</div>
     </div>
   )
 }
 
 function EmptyState({ text }) {
   return (
-    <div className="py-8 text-center text-sm text-[#AAA] dark:text-[#5A5450]">{text}</div>
+    <div className="py-8 text-center text-sm text-faint">{text}</div>
   )
 }
 
@@ -334,7 +334,7 @@ export default function Dashboard() {
         </div>
       )}
 
-      <h1 className="text-xl font-semibold text-[#1A1814] dark:text-[#C8C0B4] mb-6">Dashboard</h1>
+      <h1 className="text-xl font-semibold text-body mb-6">Dashboard</h1>
 
       {/* Metric cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
@@ -364,22 +364,22 @@ export default function Dashboard() {
 
       {/* Próximos eventos */}
       <div className="mb-8">
-        <h2 className="text-xs font-semibold text-[#1A1814] dark:text-[#C8C0B4] uppercase tracking-wider mb-3">
+        <h2 className="text-xs font-semibold text-body uppercase tracking-wider mb-3">
           Próximos eventos
         </h2>
-        <div className="bg-[#FDFBF7] dark:bg-[#232019] border border-[#E0D9CE] dark:border-[#2E2923] border-l-4 border-l-[#111] rounded-xl divide-y divide-[#E0D9CE]">
+        <div className="bg-card border border-line border-l-4 border-l-[#111] rounded-xl divide-y divide-[#E0D9CE]">
           {loading ? (
-            <div className="px-5 py-8 text-center text-sm text-[#AAA] dark:text-[#5A5450]">Cargando...</div>
+            <div className="px-5 py-8 text-center text-sm text-faint">Cargando...</div>
           ) : proximosEventos.length === 0 ? (
             <EmptyState text="No hay eventos próximos" />
           ) : (
             proximosEventos.map(client => {
               const delivery = client.deliveries?.[0]
               return (
-                <div key={client.id} onClick={() => navigate(`/clientes/${client.id}`)} className="flex items-center justify-between px-5 py-3.5 cursor-pointer hover:bg-[#F0EBE1] transition-colors">
+                <div key={client.id} onClick={() => navigate(`/clientes/${client.id}`)} className="flex items-center justify-between px-5 py-3.5 cursor-pointer hover:bg-subtle transition-colors">
                   <div>
-                    <div className="text-sm font-medium text-[#1A1814] dark:text-[#C8C0B4]">{client.name}</div>
-                    <div className="text-xs text-[#888] dark:text-[#7A7068] mt-0.5">
+                    <div className="text-sm font-medium text-body">{client.name}</div>
+                    <div className="text-xs text-muted mt-0.5">
                       {client.event_type}
                       {client.event_date && (
                         <> · {format(new Date(client.event_date + 'T12:00:00'), "d 'de' MMMM yyyy", { locale: es })}</>
@@ -405,20 +405,20 @@ export default function Dashboard() {
         const total = ingresos + gastos
         const pctIngresos = total > 0 ? (ingresos / total) * 100 : 50
         return (
-          <div className="bg-[#FDFBF7] dark:bg-[#232019] border border-[#E0D9CE] dark:border-[#2E2923] rounded-xl p-5 mb-8">
+          <div className="bg-card border border-line rounded-xl p-5 mb-8">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xs font-semibold text-[#1A1814] dark:text-[#C8C0B4] uppercase tracking-wider">
+              <h2 className="text-xs font-semibold text-body uppercase tracking-wider">
                 Resumen del mes — {format(new Date(), 'MMMM yyyy', { locale: es })}
               </h2>
               {!loading && (
                 <div className="text-right">
-                  <div className={`flex items-center gap-1 text-sm font-semibold justify-end ${ganancia > 0 ? 'text-green-600' : ganancia < 0 ? 'text-red-500' : 'text-[#888] dark:text-[#7A7068]'}`}>
+                  <div className={`flex items-center gap-1 text-sm font-semibold justify-end ${ganancia > 0 ? 'text-green-600' : ganancia < 0 ? 'text-red-500' : 'text-muted'}`}>
                     {ganancia > 0 ? <TrendingUp size={15} /> : ganancia < 0 ? <TrendingDown size={15} /> : <Minus size={15} />}
                     {formatMoney(Math.abs(ganancia))}
-                    <span className="text-xs font-normal text-[#888] dark:text-[#7A7068] ml-1">{ganancia > 0 ? 'ganancia' : ganancia < 0 ? 'pérdida' : ''}</span>
+                    <span className="text-xs font-normal text-muted ml-1">{ganancia > 0 ? 'ganancia' : ganancia < 0 ? 'pérdida' : ''}</span>
                   </div>
                   {ganancia > 0 && (
-                    <p className="text-xs text-[#888] dark:text-[#7A7068] mt-0.5">{formatMoney(ganancia / 2)} c/u</p>
+                    <p className="text-xs text-muted mt-0.5">{formatMoney(ganancia / 2)} c/u</p>
                   )}
                 </div>
               )}
@@ -426,16 +426,16 @@ export default function Dashboard() {
 
             <div className="grid grid-cols-3 gap-4 mb-4">
               <div>
-                <p className="text-xs text-[#888] dark:text-[#7A7068] mb-1">Ingresos</p>
+                <p className="text-xs text-muted mb-1">Ingresos</p>
                 <p className="text-lg font-semibold text-green-600">{loading ? '—' : formatMoney(ingresos)}</p>
               </div>
               <div>
-                <p className="text-xs text-[#888] dark:text-[#7A7068] mb-1">Gastos</p>
+                <p className="text-xs text-muted mb-1">Gastos</p>
                 <p className="text-lg font-semibold text-red-500">{loading ? '—' : formatMoney(gastos)}</p>
               </div>
               <div>
-                <p className="text-xs text-[#888] dark:text-[#7A7068] mb-1">Ganancia</p>
-                <p className={`text-lg font-semibold ${ganancia >= 0 ? 'text-[#1A1814] dark:text-[#C8C0B4]' : 'text-red-500'}`}>{loading ? '—' : formatMoney(ganancia)}</p>
+                <p className="text-xs text-muted mb-1">Ganancia</p>
+                <p className={`text-lg font-semibold ${ganancia >= 0 ? 'text-body' : 'text-red-500'}`}>{loading ? '—' : formatMoney(ganancia)}</p>
               </div>
             </div>
 
@@ -464,12 +464,12 @@ export default function Dashboard() {
         const pct = target > 0 ? Math.min((ingresos / target) * 100, 100) : 0
         const falta = target > 0 ? Math.max(target - ingresos, 0) : 0
         return (
-          <div className="bg-[#FDFBF7] dark:bg-[#232019] border border-[#E0D9CE] dark:border-[#2E2923] rounded-xl p-5 mb-8">
+          <div className="bg-card border border-line rounded-xl p-5 mb-8">
             <div className="flex items-center justify-between mb-3">
-              <h2 className="text-xs font-semibold text-[#1A1814] dark:text-[#C8C0B4] uppercase tracking-wider">Meta de ingresos — {format(new Date(), 'MMMM', { locale: es })}</h2>
+              <h2 className="text-xs font-semibold text-body uppercase tracking-wider">Meta de ingresos — {format(new Date(), 'MMMM', { locale: es })}</h2>
               <button
                 onClick={() => setEditandoMeta(true)}
-                className="text-xs text-[#888] dark:text-[#7A7068] hover:text-[#1A1814] dark:text-[#C8C0B4] transition-colors"
+                className="text-xs text-muted hover:text-body transition-colors"
               >
                 {meta ? 'Editar' : 'Fijar meta'}
               </button>
@@ -482,43 +482,43 @@ export default function Dashboard() {
                   placeholder="ej: 5000"
                   value={metaInput}
                   onChange={e => setMetaInput(e.target.value)}
-                  className="border border-[#E0D9CE] dark:border-[#2E2923] rounded-lg px-3 py-2 text-sm text-[#1A1814] dark:text-[#C8C0B4] focus:outline-none focus:border-[#1A1814] flex-1"
+                  className="border border-line rounded-lg px-3 py-2 text-sm text-body focus:outline-none focus:border-strong flex-1"
                   autoFocus
                 />
                 <button
                   onClick={saveMeta}
                   disabled={savingMeta}
-                  className="bg-[#1A1814] text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-[#2C2620] transition-colors disabled:opacity-50"
+                  className="bg-ink text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-inkh transition-colors disabled:opacity-50"
                 >
                   {savingMeta ? '...' : 'Guardar'}
                 </button>
                 <button
                   onClick={() => setEditandoMeta(false)}
-                  className="text-sm text-[#888] dark:text-[#7A7068] hover:text-[#1A1814] dark:text-[#C8C0B4] px-2"
+                  className="text-sm text-muted hover:text-body px-2"
                 >
                   Cancelar
                 </button>
               </div>
             ) : !meta ? (
-              <p className="text-sm text-[#AAA] dark:text-[#5A5450]">No hay meta fijada para este mes.</p>
+              <p className="text-sm text-faint">No hay meta fijada para este mes.</p>
             ) : (
               <>
                 <div className="flex items-end justify-between mb-2">
                   <div>
-                    <span className="text-2xl font-semibold text-[#1A1814] dark:text-[#C8C0B4]">{formatMoney(ingresos)}</span>
-                    <span className="text-sm text-[#888] dark:text-[#7A7068] ml-2">de {formatMoney(target)}</span>
+                    <span className="text-2xl font-semibold text-body">{formatMoney(ingresos)}</span>
+                    <span className="text-sm text-muted ml-2">de {formatMoney(target)}</span>
                   </div>
-                  <span className={`text-sm font-semibold ${pct >= 100 ? 'text-green-600' : 'text-[#888] dark:text-[#7A7068]'}`}>
+                  <span className={`text-sm font-semibold ${pct >= 100 ? 'text-green-600' : 'text-muted'}`}>
                     {Math.round(pct)}%
                   </span>
                 </div>
-                <div className="h-3 bg-[#EDE7DC] rounded-full overflow-hidden">
+                <div className="h-3 bg-subtle rounded-full overflow-hidden">
                   <div
-                    className={`h-full rounded-full transition-all duration-500 ${pct >= 100 ? 'bg-green-500' : pct >= 60 ? 'bg-[#C9A96E]' : 'bg-[#8B6A35]'}`}
+                    className={`h-full rounded-full transition-all duration-500 ${pct >= 100 ? 'bg-green-500' : pct >= 60 ? 'bg-gold' : 'bg-golddk'}`}
                     style={{ width: `${pct}%` }}
                   />
                 </div>
-                <p className="text-xs text-[#888] dark:text-[#7A7068] mt-2">
+                <p className="text-xs text-muted mt-2">
                   {pct >= 100
                     ? '🎉 ¡Meta alcanzada!'
                     : `Faltan ${formatMoney(falta)} para la meta`}
@@ -532,12 +532,12 @@ export default function Dashboard() {
       {/* Eventos pasados */}
       {(eventospasados.length > 0 || loading) && (
         <div className="mb-8">
-          <h2 className="text-xs font-semibold text-[#1A1814] dark:text-[#C8C0B4] uppercase tracking-wider mb-3">
+          <h2 className="text-xs font-semibold text-body uppercase tracking-wider mb-3">
             Eventos pasados — seguimiento
           </h2>
-          <div className="bg-[#FDFBF7] dark:bg-[#232019] border border-[#E0D9CE] dark:border-[#2E2923] rounded-xl divide-y divide-[#E0D9CE]">
+          <div className="bg-card border border-line rounded-xl divide-y divide-[#E0D9CE]">
             {loading ? (
-              <div className="px-5 py-8 text-center text-sm text-[#AAA] dark:text-[#5A5450]">Cargando...</div>
+              <div className="px-5 py-8 text-center text-sm text-faint">Cargando...</div>
             ) : (
               eventospasados.map(client => {
                 const delivery = client.deliveries?.[0]
@@ -545,10 +545,10 @@ export default function Dashboard() {
                 const saldo = Math.max((client.total_price || 0) - totalPaid, 0)
                 const cobradoCompleto = client.total_price > 0 && saldo === 0
                 return (
-                  <div key={client.id} onClick={() => navigate(`/clientes/${client.id}`)} className="flex items-center justify-between px-5 py-3.5 gap-4 cursor-pointer hover:bg-[#F0EBE1] transition-colors">
+                  <div key={client.id} onClick={() => navigate(`/clientes/${client.id}`)} className="flex items-center justify-between px-5 py-3.5 gap-4 cursor-pointer hover:bg-subtle transition-colors">
                     <div className="min-w-0">
-                      <div className="text-sm font-medium text-[#1A1814] dark:text-[#C8C0B4]">{client.name}</div>
-                      <div className="text-xs text-[#888] dark:text-[#7A7068] mt-0.5">
+                      <div className="text-sm font-medium text-body">{client.name}</div>
+                      <div className="text-xs text-muted mt-0.5">
                         {client.event_type}
                         {client.event_date && (
                           <> · {format(new Date(client.event_date + 'T12:00:00'), "d 'de' MMMM yyyy", { locale: es })}</>
@@ -562,7 +562,7 @@ export default function Dashboard() {
                           {DELIVERY_LABEL[delivery.status]}
                         </span>
                       ) : (
-                        <span className="text-xs px-2 py-0.5 rounded-xl bg-[#EDE7DC] text-[#AAA] dark:text-[#5A5450]">Sin entrega</span>
+                        <span className="text-xs px-2 py-0.5 rounded-xl bg-subtle text-faint">Sin entrega</span>
                       )}
                       {/* Pago */}
                       {client.total_price > 0 && (
@@ -581,20 +581,20 @@ export default function Dashboard() {
 
       {/* Leads recientes */}
       <div>
-        <h2 className="text-xs font-semibold text-[#1A1814] dark:text-[#C8C0B4] uppercase tracking-wider mb-3">
+        <h2 className="text-xs font-semibold text-body uppercase tracking-wider mb-3">
           Leads recientes
         </h2>
-        <div className="bg-[#FDFBF7] dark:bg-[#232019] border border-[#E0D9CE] dark:border-[#2E2923] rounded-xl divide-y divide-[#E0D9CE]">
+        <div className="bg-card border border-line rounded-xl divide-y divide-[#E0D9CE]">
           {loading ? (
-            <div className="px-5 py-8 text-center text-sm text-[#AAA] dark:text-[#5A5450]">Cargando...</div>
+            <div className="px-5 py-8 text-center text-sm text-faint">Cargando...</div>
           ) : leadsRecientes.length === 0 ? (
             <EmptyState text="Todavía no hay leads cargados" />
           ) : (
             leadsRecientes.map(lead => (
-              <div key={lead.id} onClick={() => lead.client_id && navigate(`/clientes/${lead.client_id}`)} className={`flex items-center justify-between px-5 py-3.5 transition-colors ${lead.client_id ? 'cursor-pointer hover:bg-[#F0EBE1]' : ''}`}>
+              <div key={lead.id} onClick={() => lead.client_id && navigate(`/clientes/${lead.client_id}`)} className={`flex items-center justify-between px-5 py-3.5 transition-colors ${lead.client_id ? 'cursor-pointer hover:bg-subtle' : ''}`}>
                 <div>
-                  <div className="text-sm font-medium text-[#1A1814] dark:text-[#C8C0B4]">{lead.clients?.name}</div>
-                  <div className="text-xs text-[#888] dark:text-[#7A7068] mt-0.5">
+                  <div className="text-sm font-medium text-body">{lead.clients?.name}</div>
+                  <div className="text-xs text-muted mt-0.5">
                     {lead.clients?.event_type}
                     {lead.source && <> · {SOURCE_LABEL[lead.source]}</>}
                     {lead.amount_quoted && <> · {formatUSD(lead.amount_quoted)}</>}
