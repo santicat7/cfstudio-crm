@@ -8,11 +8,11 @@ export default class PageErrorBoundary extends Component {
     if (this.state.error) {
       return (
         <div className="flex flex-col items-center justify-center min-h-[60vh] gap-3 p-8">
-          <p className="text-sm font-medium text-[#1A1814] dark:text-[#EDE7DC]">Ocurrió un error en esta página.</p>
+          <p className="text-sm font-medium text-[#1A1814] dark:text-[#C8C0B4]">Ocurrió un error en esta página.</p>
           <p className="text-xs text-[#888] dark:text-[#7A7068] max-w-sm text-center">{this.state.error?.message}</p>
           <button
             onClick={() => { this.setState({ error: null }); window.history.back() }}
-            className="text-sm border border-[#D9D9D9] px-4 py-2 rounded-xl text-[#1A1814] dark:text-[#EDE7DC] hover:border-[#1A1814] transition-colors"
+            className="text-sm border border-[#D9D9D9] px-4 py-2 rounded-xl text-[#1A1814] dark:text-[#C8C0B4] hover:border-[#1A1814] transition-colors"
           >
             Volver
           </button>

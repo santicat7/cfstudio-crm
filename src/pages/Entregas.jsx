@@ -68,7 +68,7 @@ function EditPopover({ delivery, anchor, onClose, onSaved }) {
   }
 
   return (
-    <div ref={ref} className="fixed z-50 bg-[#FDFBF7] dark:bg-[#1E1B17] border border-[#E0D9CE] dark:border-[#2A2520] rounded-xl w-72 p-4"
+    <div ref={ref} className="fixed z-50 bg-[#FDFBF7] dark:bg-[#232019] border border-[#E0D9CE] dark:border-[#2E2923] rounded-xl w-72 p-4"
       style={{ top: pos.top, left: pos.left, boxShadow: '0 4px 24px rgba(0,0,0,0.10)' }}>
       <div className="flex items-center justify-between mb-3">
         <span className="text-xs font-semibold uppercase tracking-wider text-[#C9A96E]">Editar entrega</span>
@@ -76,7 +76,7 @@ function EditPopover({ delivery, anchor, onClose, onSaved }) {
       </div>
       <div className="space-y-3">
         <div>
-          <label className="block text-xs font-medium text-[#1A1814] dark:text-[#EDE7DC] mb-1.5 uppercase tracking-wide">Estado</label>
+          <label className="block text-xs font-medium text-[#1A1814] dark:text-[#C8C0B4] mb-1.5 uppercase tracking-wide">Estado</label>
           <div className="grid grid-cols-2 gap-1.5">
             {STATUSES.map(s => (
               <button key={s.value} onClick={() => setStatus(s.value)}
@@ -89,15 +89,15 @@ function EditPopover({ delivery, anchor, onClose, onSaved }) {
           </div>
         </div>
         <div>
-          <label className="block text-xs font-medium text-[#1A1814] dark:text-[#EDE7DC] mb-1.5 uppercase tracking-wide">Link galería</label>
+          <label className="block text-xs font-medium text-[#1A1814] dark:text-[#C8C0B4] mb-1.5 uppercase tracking-wide">Link galería</label>
           <input type="url" value={galleryUrl} onChange={e => setGalleryUrl(e.target.value)}
             placeholder="Drive, WeTransfer..."
-            className="w-full px-2.5 py-1.5 border border-[#D9D9D9] text-xs text-[#1A1814] dark:text-[#EDE7DC] rounded-xl outline-none focus:border-[#1A1814] transition-colors" />
+            className="w-full px-2.5 py-1.5 border border-[#D9D9D9] text-xs text-[#1A1814] dark:text-[#C8C0B4] rounded-xl outline-none focus:border-[#1A1814] transition-colors" />
         </div>
         <div>
-          <label className="block text-xs font-medium text-[#1A1814] dark:text-[#EDE7DC] mb-1.5 uppercase tracking-wide">Fecha prometida</label>
+          <label className="block text-xs font-medium text-[#1A1814] dark:text-[#C8C0B4] mb-1.5 uppercase tracking-wide">Fecha prometida</label>
           <input type="date" value={promisedAt} onChange={e => setPromisedAt(e.target.value)}
-            className="w-full px-2.5 py-1.5 border border-[#D9D9D9] text-xs text-[#1A1814] dark:text-[#EDE7DC] rounded-xl outline-none focus:border-[#1A1814] transition-colors" />
+            className="w-full px-2.5 py-1.5 border border-[#D9D9D9] text-xs text-[#1A1814] dark:text-[#C8C0B4] rounded-xl outline-none focus:border-[#1A1814] transition-colors" />
         </div>
         <button onClick={save} disabled={saving}
           className="w-full bg-[#1A1814] text-white text-xs py-2 rounded-xl hover:bg-[#1A1814] transition-colors disabled:opacity-50">
@@ -116,10 +116,10 @@ function DeliveryRow({ delivery, onUpdated }) {
   const statusInfo = STATUS_MAP[delivery.status] || STATUS_MAP.sin_editar
 
   return (
-    <div className={`flex items-center gap-4 px-5 py-3.5 border-b border-[#E0D9CE] dark:border-[#2A2520] last:border-0 ${overdue ? 'bg-red-50' : ''}`}>
+    <div className={`flex items-center gap-4 px-5 py-3.5 border-b border-[#E0D9CE] dark:border-[#2E2923] last:border-0 ${overdue ? 'bg-red-50' : ''}`}>
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2">
-          <span className="text-sm font-medium text-[#1A1814] dark:text-[#EDE7DC]">{delivery.clients?.name}</span>
+          <span className="text-sm font-medium text-[#1A1814] dark:text-[#C8C0B4]">{delivery.clients?.name}</span>
           {overdue && <span className="text-[10px] font-medium text-red-600 bg-red-100 px-1.5 py-0.5 rounded-xl">Atrasado</span>}
         </div>
         <div className="text-xs text-[#888] dark:text-[#7A7068] mt-0.5">{delivery.clients?.event_type}</div>
@@ -142,7 +142,7 @@ function DeliveryRow({ delivery, onUpdated }) {
       <div className="w-8 flex-shrink-0 flex justify-end">
         {delivery.gallery_url
           ? <a href={delivery.gallery_url} target="_blank" rel="noopener noreferrer"
-              className="text-[#888] dark:text-[#7A7068] hover:text-[#1A1814] dark:text-[#EDE7DC] transition-colors" onClick={e => e.stopPropagation()}>
+              className="text-[#888] dark:text-[#7A7068] hover:text-[#1A1814] dark:text-[#C8C0B4] transition-colors" onClick={e => e.stopPropagation()}>
               <ExternalLink size={14} />
             </a>
           : <span className="text-[#E0E0E0]"><ExternalLink size={14} /></span>
@@ -208,11 +208,11 @@ function SeguimientoRow({ delivery, onUpdated }) {
   }
 
   return (
-    <div className="px-5 py-4 border-b border-[#E0D9CE] dark:border-[#2A2520] last:border-0">
+    <div className="px-5 py-4 border-b border-[#E0D9CE] dark:border-[#2E2923] last:border-0">
       <div className="flex items-start justify-between gap-4 mb-3">
         {/* Info */}
         <div>
-          <div className="text-sm font-medium text-[#1A1814] dark:text-[#EDE7DC]">{name}</div>
+          <div className="text-sm font-medium text-[#1A1814] dark:text-[#C8C0B4]">{name}</div>
           <div className="text-xs text-[#888] dark:text-[#7A7068] mt-0.5">
             {tipo}
             {delivery.clients?.event_date && (
@@ -262,7 +262,7 @@ function SeguimientoRow({ delivery, onUpdated }) {
         value={notes}
         onChange={e => handleNotes(e.target.value)}
         placeholder="Nota de seguimiento..."
-        className="w-full px-3 py-1.5 border border-[#E0D9CE] dark:border-[#2A2520] text-xs text-[#1A1814] dark:text-[#EDE7DC] rounded-xl outline-none focus:border-[#888] transition-colors placeholder:text-[#CCC] dark:text-[#4A4440]"
+        className="w-full px-3 py-1.5 border border-[#E0D9CE] dark:border-[#2E2923] text-xs text-[#1A1814] dark:text-[#C8C0B4] rounded-xl outline-none focus:border-[#888] transition-colors placeholder:text-[#CCC] dark:text-[#4A4440]"
       />
     </div>
   )
@@ -301,26 +301,26 @@ function NuevaEntregaModal({ onClose, onSaved }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-black/30" onClick={onClose} />
-      <div className="relative bg-[#FDFBF7] dark:bg-[#1E1B17] border border-[#E0D9CE] dark:border-[#2A2520] rounded-xl w-full max-w-sm p-6">
+      <div className="relative bg-[#FDFBF7] dark:bg-[#232019] border border-[#E0D9CE] dark:border-[#2E2923] rounded-xl w-full max-w-sm p-6">
         <div className="flex items-center justify-between mb-5">
-          <h2 className="text-sm font-semibold text-[#1A1814] dark:text-[#EDE7DC]">Nueva entrega</h2>
-          <button onClick={onClose} className="text-[#888] dark:text-[#7A7068] hover:text-[#1A1814] dark:text-[#EDE7DC] transition-colors"><X size={16} /></button>
+          <h2 className="text-sm font-semibold text-[#1A1814] dark:text-[#C8C0B4]">Nueva entrega</h2>
+          <button onClick={onClose} className="text-[#888] dark:text-[#7A7068] hover:text-[#1A1814] dark:text-[#C8C0B4] transition-colors"><X size={16} /></button>
         </div>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-xs font-medium text-[#1A1814] dark:text-[#EDE7DC] mb-1.5 uppercase tracking-wide">Cliente *</label>
+            <label className="block text-xs font-medium text-[#1A1814] dark:text-[#C8C0B4] mb-1.5 uppercase tracking-wide">Cliente *</label>
             <select value={clientId} onChange={e => handleClientChange(e.target.value)} required
-              className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] dark:text-[#EDE7DC] rounded-xl outline-none focus:border-[#1A1814] bg-[#FDFBF7] dark:bg-[#1E1B17] transition-colors">
+              className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] dark:text-[#C8C0B4] rounded-xl outline-none focus:border-[#1A1814] bg-[#FDFBF7] dark:bg-[#232019] transition-colors">
               <option value="">— Seleccionar cliente —</option>
               {clientes.map(c => <option key={c.id} value={c.id}>{c.name}{c.event_type ? ` · ${c.event_type}` : ''}</option>)}
             </select>
           </div>
           <div>
-            <label className="block text-xs font-medium text-[#1A1814] dark:text-[#EDE7DC] mb-1.5 uppercase tracking-wide">
+            <label className="block text-xs font-medium text-[#1A1814] dark:text-[#C8C0B4] mb-1.5 uppercase tracking-wide">
               Fecha límite <span className="normal-case font-normal text-[#AAA] dark:text-[#5A5450]">(auto: evento +30 días)</span>
             </label>
             <input type="date" value={promisedAt} onChange={e => setPromisedAt(e.target.value)}
-              className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] dark:text-[#EDE7DC] rounded-xl outline-none focus:border-[#1A1814] transition-colors" />
+              className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] dark:text-[#C8C0B4] rounded-xl outline-none focus:border-[#1A1814] transition-colors" />
           </div>
           {error && <p className="text-xs text-red-600">{error}</p>}
           <div className="flex gap-2 pt-1">
@@ -365,7 +365,7 @@ export default function Entregas() {
     <div>
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-xl font-semibold text-[#1A1814] dark:text-[#EDE7DC]">Entregas</h1>
+          <h1 className="text-xl font-semibold text-[#1A1814] dark:text-[#C8C0B4]">Entregas</h1>
           {overdue > 0 && tab === 'en_curso' && (
             <p className="text-xs text-red-600 mt-0.5">{overdue} atrasada{overdue > 1 ? 's' : ''}</p>
           )}
@@ -381,23 +381,23 @@ export default function Entregas() {
       <div className="flex gap-1 mb-5">
         <button onClick={() => setTab('en_curso')}
           className={`flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-xl font-medium transition-colors ${
-            tab === 'en_curso' ? 'bg-[#1A1814] text-white' : 'bg-[#FDFBF7] dark:bg-[#1E1B17] border border-[#D9D9D9] text-[#666] dark:text-[#998E88] hover:border-[#1A1814]'
+            tab === 'en_curso' ? 'bg-[#1A1814] text-white' : 'bg-[#FDFBF7] dark:bg-[#232019] border border-[#D9D9D9] text-[#666] dark:text-[#998E88] hover:border-[#1A1814]'
           }`}>
           En curso
           {enCurso.length > 0 && (
-            <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${tab === 'en_curso' ? 'bg-[#FDFBF7] dark:bg-[#1E1B17]/20' : 'bg-[#EDE7DC]'}`}>
+            <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${tab === 'en_curso' ? 'bg-[#FDFBF7] dark:bg-[#232019]/20' : 'bg-[#EDE7DC]'}`}>
               {enCurso.length}
             </span>
           )}
         </button>
         <button onClick={() => setTab('seguimiento')}
           className={`flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-xl font-medium transition-colors ${
-            tab === 'seguimiento' ? 'bg-[#1A1814] text-white' : 'bg-[#FDFBF7] dark:bg-[#1E1B17] border border-[#D9D9D9] text-[#666] dark:text-[#998E88] hover:border-[#1A1814]'
+            tab === 'seguimiento' ? 'bg-[#1A1814] text-white' : 'bg-[#FDFBF7] dark:bg-[#232019] border border-[#D9D9D9] text-[#666] dark:text-[#998E88] hover:border-[#1A1814]'
           }`}>
           <MessageCircle size={11} />
           Seguimiento post-entrega
           {entregadas.length > 0 && (
-            <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${tab === 'seguimiento' ? 'bg-[#FDFBF7] dark:bg-[#1E1B17]/20' : 'bg-[#EDE7DC]'}`}>
+            <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${tab === 'seguimiento' ? 'bg-[#FDFBF7] dark:bg-[#232019]/20' : 'bg-[#EDE7DC]'}`}>
               {entregadas.length}
             </span>
           )}
@@ -407,8 +407,8 @@ export default function Entregas() {
       {/* En curso */}
       {tab === 'en_curso' && (
         <>
-          <div className="bg-[#FDFBF7] dark:bg-[#1E1B17] border border-[#E0D9CE] dark:border-[#2A2520] rounded-xl overflow-hidden">
-            <div className="flex items-center gap-4 px-5 py-2.5 border-b border-[#E0D9CE] dark:border-[#2A2520] bg-[#F5F0E8] dark:bg-[#141210]">
+          <div className="bg-[#FDFBF7] dark:bg-[#232019] border border-[#E0D9CE] dark:border-[#2E2923] rounded-xl overflow-hidden">
+            <div className="flex items-center gap-4 px-5 py-2.5 border-b border-[#E0D9CE] dark:border-[#2E2923] bg-[#F5F0E8] dark:bg-[#1C1916]">
               <div className="flex-1 text-xs font-semibold uppercase tracking-wider text-[#C9A96E]">Cliente</div>
               <div className="flex-shrink-0 w-28 text-xs font-semibold uppercase tracking-wider text-[#C9A96E]">Estado</div>
               <div className="flex-shrink-0 w-24 text-right text-xs font-semibold uppercase tracking-wider text-[#C9A96E]">Entrega</div>
@@ -432,7 +432,7 @@ export default function Entregas() {
 
       {/* Seguimiento post-entrega */}
       {tab === 'seguimiento' && (
-        <div className="bg-[#FDFBF7] dark:bg-[#1E1B17] border border-[#E0D9CE] dark:border-[#2A2520] rounded-xl overflow-hidden">
+        <div className="bg-[#FDFBF7] dark:bg-[#232019] border border-[#E0D9CE] dark:border-[#2E2923] rounded-xl overflow-hidden">
           {loading ? (
             <div className="px-5 py-10 text-center text-sm text-[#AAA] dark:text-[#5A5450]">Cargando...</div>
           ) : entregadas.length === 0 ? (

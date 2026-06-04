@@ -89,21 +89,21 @@ function TemplateModal({ template, onClose, onSaved }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-black/30" onClick={onClose} />
-      <div className="relative bg-[#FDFBF7] dark:bg-[#1E1B17] border border-[#E0D9CE] dark:border-[#2A2520] rounded-xl w-full max-w-lg p-6">
+      <div className="relative bg-[#FDFBF7] dark:bg-[#232019] border border-[#E0D9CE] dark:border-[#2E2923] rounded-xl w-full max-w-lg p-6">
         <div className="flex items-center justify-between mb-5">
-          <h2 className="text-sm font-semibold text-[#1A1814] dark:text-[#EDE7DC]">{isEdit ? 'Editar template' : 'Nuevo template'}</h2>
-          <button onClick={onClose} className="text-[#888] dark:text-[#7A7068] hover:text-[#1A1814] dark:text-[#EDE7DC] transition-colors"><X size={16} /></button>
+          <h2 className="text-sm font-semibold text-[#1A1814] dark:text-[#C8C0B4]">{isEdit ? 'Editar template' : 'Nuevo template'}</h2>
+          <button onClick={onClose} className="text-[#888] dark:text-[#7A7068] hover:text-[#1A1814] dark:text-[#C8C0B4] transition-colors"><X size={16} /></button>
         </div>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-xs font-medium text-[#1A1814] dark:text-[#EDE7DC] mb-1.5 uppercase tracking-wide">Título</label>
+            <label className="block text-xs font-medium text-[#1A1814] dark:text-[#C8C0B4] mb-1.5 uppercase tracking-wide">Título</label>
             <input type="text" value={title} onChange={e => setTitle(e.target.value)} required
-              className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] dark:text-[#EDE7DC] rounded-xl outline-none focus:border-[#1A1814] transition-colors" />
+              className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] dark:text-[#C8C0B4] rounded-xl outline-none focus:border-[#1A1814] transition-colors" />
           </div>
           <div>
-            <label className="block text-xs font-medium text-[#1A1814] dark:text-[#EDE7DC] mb-1.5 uppercase tracking-wide">Mensaje</label>
+            <label className="block text-xs font-medium text-[#1A1814] dark:text-[#C8C0B4] mb-1.5 uppercase tracking-wide">Mensaje</label>
             <textarea value={body} onChange={e => setBody(e.target.value)} required rows={6}
-              className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] dark:text-[#EDE7DC] rounded-xl outline-none focus:border-[#1A1814] transition-colors resize-none" />
+              className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] dark:text-[#C8C0B4] rounded-xl outline-none focus:border-[#1A1814] transition-colors resize-none" />
             <div className="flex flex-wrap gap-1.5 mt-2">
               {VARS.map(v => (
                 <button key={v} type="button"
@@ -172,15 +172,15 @@ function TemplateCard({ template, clients, onEdit, onDelete }) {
   }
 
   return (
-    <div className="bg-[#FDFBF7] dark:bg-[#1E1B17] border border-[#E0D9CE] dark:border-[#2A2520] rounded-xl p-5">
+    <div className="bg-[#FDFBF7] dark:bg-[#232019] border border-[#E0D9CE] dark:border-[#2E2923] rounded-xl p-5">
       {/* Card header */}
       <div className="flex items-start justify-between mb-4">
         <div>
-          <h3 className="text-sm font-semibold text-[#1A1814] dark:text-[#EDE7DC]">{template.title}</h3>
+          <h3 className="text-sm font-semibold text-[#1A1814] dark:text-[#C8C0B4]">{template.title}</h3>
         </div>
         <div className="flex items-center gap-1">
           <button onClick={() => onEdit(template)}
-            className="p-1.5 text-[#AAA] dark:text-[#5A5450] hover:text-[#1A1814] dark:text-[#EDE7DC] transition-colors">
+            className="p-1.5 text-[#AAA] dark:text-[#5A5450] hover:text-[#1A1814] dark:text-[#C8C0B4] transition-colors">
             <Pencil size={13} />
           </button>
           <button onClick={() => onDelete(template)}
@@ -194,7 +194,7 @@ function TemplateCard({ template, clients, onEdit, onDelete }) {
       <div className="mb-3">
         <label className="block text-xs font-medium text-[#888] dark:text-[#7A7068] mb-1.5 uppercase tracking-wide">Cliente</label>
         <select value={selectedClientId} onChange={e => setSelectedClientId(e.target.value)}
-          className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] dark:text-[#EDE7DC] rounded-xl outline-none focus:border-[#1A1814] bg-[#FDFBF7] dark:bg-[#1E1B17] transition-colors">
+          className="w-full px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] dark:text-[#C8C0B4] rounded-xl outline-none focus:border-[#1A1814] bg-[#FDFBF7] dark:bg-[#232019] transition-colors">
           <option value="">— Seleccionar cliente —</option>
           {clients.map(c => (
             <option key={c.id} value={c.id}>
@@ -207,7 +207,7 @@ function TemplateCard({ template, clients, onEdit, onDelete }) {
       {/* Preview */}
       <div className="mb-3">
         <label className="block text-xs font-medium text-[#888] dark:text-[#7A7068] mb-1.5 uppercase tracking-wide">Vista previa</label>
-        <div className="bg-[#F7F7F7] border border-[#EEEEEE] rounded-xl px-3 py-3 text-sm text-[#1A1814] dark:text-[#EDE7DC] leading-relaxed whitespace-pre-wrap min-h-[72px]">
+        <div className="bg-[#F7F7F7] border border-[#EEEEEE] rounded-xl px-3 py-3 text-sm text-[#1A1814] dark:text-[#C8C0B4] leading-relaxed whitespace-pre-wrap min-h-[72px]">
           {preview.split(/(\{link_google\})/).map((part, i) =>
             part === '{link_google}'
               ? <span key={i} className="bg-yellow-100 text-yellow-800 text-xs px-1 py-0.5 rounded font-mono">[pegá link de Google acá]</span>
@@ -279,7 +279,7 @@ export default function Mensajes() {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-xl font-semibold text-[#1A1814] dark:text-[#EDE7DC]">Templates de mensajes</h1>
+        <h1 className="text-xl font-semibold text-[#1A1814] dark:text-[#C8C0B4]">Templates de mensajes</h1>
         <div className="flex items-center gap-2">
           {templates.length === 0 && !loading && (
             <button onClick={handleSeedDefaults} disabled={seeding}
@@ -350,8 +350,8 @@ export default function Mensajes() {
       {deleteTarget && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-black/30" onClick={() => setDeleteTarget(null)} />
-          <div className="relative bg-[#FDFBF7] dark:bg-[#1E1B17] border border-[#E0D9CE] dark:border-[#2A2520] rounded-xl w-full max-w-sm p-6">
-            <h2 className="text-sm font-semibold text-[#1A1814] dark:text-[#EDE7DC] mb-2">Eliminar template</h2>
+          <div className="relative bg-[#FDFBF7] dark:bg-[#232019] border border-[#E0D9CE] dark:border-[#2E2923] rounded-xl w-full max-w-sm p-6">
+            <h2 className="text-sm font-semibold text-[#1A1814] dark:text-[#C8C0B4] mb-2">Eliminar template</h2>
             <p className="text-sm text-[#666] dark:text-[#998E88] mb-5">
               ¿Eliminar <strong>"{deleteTarget.title}"</strong>? Esta acción no se puede deshacer.
             </p>

@@ -76,11 +76,11 @@ export default function Clientes() {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-xl font-semibold text-[#1A1814] dark:text-[#EDE7DC]">Clientes</h1>
+        <h1 className="text-xl font-semibold text-[#1A1814] dark:text-[#C8C0B4]">Clientes</h1>
         <div className="flex gap-2">
           <button
             onClick={exportCSV}
-            className="flex items-center gap-1.5 border border-[#D9D9D9] text-sm text-[#666] dark:text-[#998E88] px-4 py-2 rounded-xl hover:border-[#1A1814] hover:text-[#1A1814] dark:text-[#EDE7DC] transition-colors"
+            className="flex items-center gap-1.5 border border-[#D9D9D9] text-sm text-[#666] dark:text-[#998E88] px-4 py-2 rounded-xl hover:border-[#1A1814] hover:text-[#1A1814] dark:text-[#C8C0B4] transition-colors"
           >
             <Download size={14} />
             Exportar CSV
@@ -104,13 +104,13 @@ export default function Clientes() {
             value={search}
             onChange={e => setSearch(e.target.value)}
             placeholder="Buscar por nombre..."
-            className="w-full pl-8 pr-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] dark:text-[#EDE7DC] rounded-xl outline-none focus:border-[#1A1814] transition-colors"
+            className="w-full pl-8 pr-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] dark:text-[#C8C0B4] rounded-xl outline-none focus:border-[#1A1814] transition-colors"
           />
         </div>
         <select
           value={filterType}
           onChange={e => setFilterType(e.target.value)}
-          className="px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] dark:text-[#EDE7DC] rounded-xl outline-none focus:border-[#1A1814] bg-[#FDFBF7] dark:bg-[#1E1B17] transition-colors"
+          className="px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] dark:text-[#C8C0B4] rounded-xl outline-none focus:border-[#1A1814] bg-[#FDFBF7] dark:bg-[#232019] transition-colors"
         >
           <option value="">Todos los tipos</option>
           {EVENT_TYPES.map(t => <option key={t} value={t}>{t}</option>)}
@@ -118,7 +118,7 @@ export default function Clientes() {
         <select
           value={filterStage}
           onChange={e => setFilterStage(e.target.value)}
-          className="px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] dark:text-[#EDE7DC] rounded-xl outline-none focus:border-[#1A1814] bg-[#FDFBF7] dark:bg-[#1E1B17] transition-colors"
+          className="px-3 py-2 border border-[#D9D9D9] text-sm text-[#1A1814] dark:text-[#C8C0B4] rounded-xl outline-none focus:border-[#1A1814] bg-[#FDFBF7] dark:bg-[#232019] transition-colors"
         >
           <option value="">Todos los estados</option>
           <option value="consulta">Consulta</option>
@@ -130,9 +130,9 @@ export default function Clientes() {
       </div>
 
       {/* Tabla */}
-      <div className="bg-[#FDFBF7] dark:bg-[#1E1B17] border border-[#E0D9CE] dark:border-[#2A2520] rounded-xl overflow-hidden">
+      <div className="bg-[#FDFBF7] dark:bg-[#232019] border border-[#E0D9CE] dark:border-[#2E2923] rounded-xl overflow-hidden">
         {/* Header */}
-        <div className="grid grid-cols-[2fr_1fr_1fr_1fr_1fr_auto] gap-4 px-5 py-2.5 border-b border-[#E0D9CE] dark:border-[#2A2520] bg-[#F5F0E8] dark:bg-[#141210]">
+        <div className="grid grid-cols-[2fr_1fr_1fr_1fr_1fr_auto] gap-4 px-5 py-2.5 border-b border-[#E0D9CE] dark:border-[#2E2923] bg-[#F5F0E8] dark:bg-[#1C1916]">
           {['Nombre', 'Tipo', 'Fecha', 'Paquete', 'Entrega', ''].map(h => (
             <div key={h} className="text-xs font-semibold uppercase tracking-wider text-[#C9A96E]">{h}</div>
           ))}
@@ -151,10 +151,10 @@ export default function Clientes() {
               <div
                 key={c.id}
                 onClick={() => navigate(`/clientes/${c.id}`)}
-                className="grid grid-cols-[2fr_1fr_1fr_1fr_1fr_auto] gap-4 px-5 py-3.5 border-b border-[#E0D9CE] dark:border-[#2A2520] last:border-0 hover:bg-[#F5F0E8] dark:bg-[#141210] dark:hover:bg-[#1E1B17] cursor-pointer transition-colors items-center"
+                className="grid grid-cols-[2fr_1fr_1fr_1fr_1fr_auto] gap-4 px-5 py-3.5 border-b border-[#E0D9CE] dark:border-[#2E2923] last:border-0 hover:bg-[#F5F0E8] dark:bg-[#1C1916] dark:hover:bg-[#2A2620] cursor-pointer transition-colors items-center"
               >
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-medium text-[#1A1814] dark:text-[#EDE7DC]">{c.name}</span>
+                  <span className="text-sm font-medium text-[#1A1814] dark:text-[#C8C0B4]">{c.name}</span>
                   {c.visit_count > 1 && (() => {
                     const v = c.visit_count
                     const cls = v >= 8 ? 'bg-purple-900 text-white border-purple-900'

@@ -88,7 +88,7 @@ export default function GlobalSearch() {
           value={query}
           onChange={e => setQuery(e.target.value)}
           placeholder="Buscar… (Ctrl+K)"
-          className="w-full pl-8 pr-7 py-1.5 text-sm border border-[#D9D9D9] bg-[#FDFBF7] dark:bg-[#1E1B17] text-[#1A1814] dark:text-[#EDE7DC] rounded-xl outline-none focus:border-[#1A1814] transition-colors placeholder:text-[#BBB]"
+          className="w-full pl-8 pr-7 py-1.5 text-sm border border-[#D9D9D9] bg-[#FDFBF7] dark:bg-[#232019] text-[#1A1814] dark:text-[#C8C0B4] rounded-xl outline-none focus:border-[#1A1814] transition-colors placeholder:text-[#BBB]"
         />
         {query && (
           <button onClick={() => { setQuery(''); setOpen(false) }}
@@ -99,7 +99,7 @@ export default function GlobalSearch() {
       </div>
 
       {open && (
-        <div className="absolute top-full mt-1.5 left-0 w-80 bg-[#FDFBF7] dark:bg-[#1E1B17] border border-[#E0D9CE] dark:border-[#2A2520] rounded-xl z-50 overflow-hidden"
+        <div className="absolute top-full mt-1.5 left-0 w-80 bg-[#FDFBF7] dark:bg-[#232019] border border-[#E0D9CE] dark:border-[#2E2923] rounded-xl z-50 overflow-hidden"
           style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.08)' }}>
           {loading ? (
             <div className="px-4 py-3 text-xs text-[#AAA] dark:text-[#5A5450]">Buscando...</div>
@@ -107,7 +107,7 @@ export default function GlobalSearch() {
             const Icon = SECTION_ICON[group.type]
             return (
               <div key={group.type}>
-                <div className="flex items-center gap-1.5 px-4 py-2 bg-[#F5F0E8] dark:bg-[#141210] border-b border-[#E0D9CE] dark:border-[#2A2520]">
+                <div className="flex items-center gap-1.5 px-4 py-2 bg-[#F5F0E8] dark:bg-[#1C1916] border-b border-[#E0D9CE] dark:border-[#2E2923]">
                   <Icon size={11} className="text-[#AAA] dark:text-[#5A5450]" />
                   <span className="text-[10px] font-semibold text-[#AAA] dark:text-[#5A5450] uppercase tracking-wider">
                     {SECTION_LABEL[group.type]}
@@ -117,21 +117,21 @@ export default function GlobalSearch() {
                   if (group.type === 'clientes') return (
                     <button key={item.id} onClick={() => go(`/clientes/${item.id}`)}
                       className="w-full flex items-center justify-between px-4 py-2.5 hover:bg-[#F0EBE1] transition-colors text-left border-b border-[#F5F5F5] last:border-0">
-                      <span className="text-sm text-[#1A1814] dark:text-[#EDE7DC]">{item.name}</span>
+                      <span className="text-sm text-[#1A1814] dark:text-[#C8C0B4]">{item.name}</span>
                       {item.event_type && <span className="text-xs text-[#AAA] dark:text-[#5A5450]">{item.event_type}</span>}
                     </button>
                   )
                   if (group.type === 'leads') return (
                     <button key={item.id} onClick={() => go('/leads')}
                       className="w-full flex items-center justify-between px-4 py-2.5 hover:bg-[#F0EBE1] transition-colors text-left border-b border-[#F5F5F5] last:border-0">
-                      <span className="text-sm text-[#1A1814] dark:text-[#EDE7DC]">{item.clients?.name}</span>
+                      <span className="text-sm text-[#1A1814] dark:text-[#C8C0B4]">{item.clients?.name}</span>
                       {item.stage && <span className="text-xs text-[#AAA] dark:text-[#5A5450]">{STAGE_LABEL[item.stage]}</span>}
                     </button>
                   )
                   if (group.type === 'tareas') return (
                     <button key={item.id} onClick={() => go('/tareas')}
                       className="w-full flex items-center justify-between px-4 py-2.5 hover:bg-[#F0EBE1] transition-colors text-left border-b border-[#F5F5F5] last:border-0">
-                      <span className="text-sm text-[#1A1814] dark:text-[#EDE7DC] truncate mr-2">{item.title}</span>
+                      <span className="text-sm text-[#1A1814] dark:text-[#C8C0B4] truncate mr-2">{item.title}</span>
                       {item.clients?.name && <span className="text-xs text-[#AAA] dark:text-[#5A5450] flex-shrink-0">{item.clients.name}</span>}
                     </button>
                   )

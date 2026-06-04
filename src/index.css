@@ -12,11 +12,11 @@
   }
 
   .dark {
-    --ink: #EDE7DC;
-    --cream: #141210;
+    --ink: #C8C0B4;
+    --cream: #1C1916;
     --gold: #C9A96E;
     --gold-dk: #D4B07A;
-    --border: #2A2520;
+    --border: #2E2923;
   }
 
   * {

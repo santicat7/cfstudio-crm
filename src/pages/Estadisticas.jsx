@@ -27,9 +27,9 @@ const SOURCE_COLOR = ['#111111', '#555555', '#888888', '#AAAAAA']
 
 function Card({ title, value, sub }) {
   return (
-    <div className="bg-[#FDFBF7] dark:bg-[#1E1B17] border border-[#E0D9CE] dark:border-[#2A2520] rounded-xl p-5">
+    <div className="bg-[#FDFBF7] dark:bg-[#232019] border border-[#E0D9CE] dark:border-[#2E2923] rounded-xl p-5">
       <div className="text-xs text-[#888] dark:text-[#7A7068] mb-1">{title}</div>
-      <div className="text-2xl font-semibold text-[#1A1814] dark:text-[#EDE7DC]">{value}</div>
+      <div className="text-2xl font-semibold text-[#1A1814] dark:text-[#C8C0B4]">{value}</div>
       {sub && <div className="text-xs text-[#AAA] dark:text-[#5A5450] mt-0.5">{sub}</div>}
     </div>
   )
@@ -42,8 +42,8 @@ function SectionTitle({ children }) {
 const CustomTooltip = ({ active, payload, label }) => {
   if (!active || !payload?.length) return null
   return (
-    <div className="bg-[#FDFBF7] dark:bg-[#1E1B17] border border-[#E0D9CE] dark:border-[#2A2520] rounded-xl px-3 py-2 text-xs shadow-sm">
-      <div className="font-medium text-[#1A1814] dark:text-[#EDE7DC] mb-1">{label}</div>
+    <div className="bg-[#FDFBF7] dark:bg-[#232019] border border-[#E0D9CE] dark:border-[#2E2923] rounded-xl px-3 py-2 text-xs shadow-sm">
+      <div className="font-medium text-[#1A1814] dark:text-[#C8C0B4] mb-1">{label}</div>
       {payload.map((p, i) => (
         <div key={i} className="text-[#555] dark:text-[#A8A098]">{p.name}: <span className="font-semibold">{typeof p.value === 'number' && p.name?.includes('$') ? formatUSD(p.value) : p.value}</span></div>
       ))}
@@ -180,7 +180,7 @@ export default function Estadisticas() {
 
   return (
     <div>
-      <h1 className="text-xl font-semibold text-[#1A1814] dark:text-[#EDE7DC] mb-6">Estadísticas</h1>
+      <h1 className="text-xl font-semibold text-[#1A1814] dark:text-[#C8C0B4] mb-6">Estadísticas</h1>
 
       {/* KPIs */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
@@ -192,7 +192,7 @@ export default function Estadisticas() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
         {/* Ingresos por mes */}
-        <div className="bg-[#FDFBF7] dark:bg-[#1E1B17] border border-[#E0D9CE] dark:border-[#2A2520] rounded-xl p-5">
+        <div className="bg-[#FDFBF7] dark:bg-[#232019] border border-[#E0D9CE] dark:border-[#2E2923] rounded-xl p-5">
           <SectionTitle>Ingresos por mes (últimos 6 meses)</SectionTitle>
           <ResponsiveContainer width="100%" height={220}>
             <BarChart data={ingresosMes} margin={{ top: 4, right: 8, left: 0, bottom: 0 }}>
@@ -206,7 +206,7 @@ export default function Estadisticas() {
         </div>
 
         {/* Pipeline de leads */}
-        <div className="bg-[#FDFBF7] dark:bg-[#1E1B17] border border-[#E0D9CE] dark:border-[#2A2520] rounded-xl p-5">
+        <div className="bg-[#FDFBF7] dark:bg-[#232019] border border-[#E0D9CE] dark:border-[#2E2923] rounded-xl p-5">
           <SectionTitle>Pipeline de leads por etapa</SectionTitle>
           <ResponsiveContainer width="100%" height={220}>
             <BarChart data={stageData} margin={{ top: 4, right: 8, left: 0, bottom: 0 }}>
@@ -222,7 +222,7 @@ export default function Estadisticas() {
       </div>
 
       {/* Flujo de caja mensual */}
-      <div className="bg-[#FDFBF7] dark:bg-[#1E1B17] border border-[#E0D9CE] dark:border-[#2A2520] rounded-xl p-5 mb-8">
+      <div className="bg-[#FDFBF7] dark:bg-[#232019] border border-[#E0D9CE] dark:border-[#2E2923] rounded-xl p-5 mb-8">
         <SectionTitle>Flujo de caja — últimos 6 meses</SectionTitle>
         <ResponsiveContainer width="100%" height={240}>
           <BarChart data={flujoCaja} margin={{ top: 4, right: 8, left: 0, bottom: 0 }}>
@@ -234,8 +234,8 @@ export default function Estadisticas() {
               content={({ active, payload, label }) => {
                 if (!active || !payload?.length) return null
                 return (
-                  <div className="bg-[#FDFBF7] dark:bg-[#1E1B17] border border-[#E0D9CE] dark:border-[#2A2520] rounded-xl px-3 py-2 text-xs shadow-sm">
-                    <div className="font-medium text-[#1A1814] dark:text-[#EDE7DC] mb-1">{label}</div>
+                  <div className="bg-[#FDFBF7] dark:bg-[#232019] border border-[#E0D9CE] dark:border-[#2E2923] rounded-xl px-3 py-2 text-xs shadow-sm">
+                    <div className="font-medium text-[#1A1814] dark:text-[#C8C0B4] mb-1">{label}</div>
                     {payload.map((p, i) => (
                       <div key={i} style={{ color: p.fill }} className="flex justify-between gap-4">
                         <span>{p.name}</span>
@@ -264,7 +264,7 @@ export default function Estadisticas() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
         {/* Canal de origen — pie */}
-        <div className="bg-[#FDFBF7] dark:bg-[#1E1B17] border border-[#E0D9CE] dark:border-[#2A2520] rounded-xl p-5">
+        <div className="bg-[#FDFBF7] dark:bg-[#232019] border border-[#E0D9CE] dark:border-[#2E2923] rounded-xl p-5">
           <SectionTitle>Origen de leads</SectionTitle>
           {sourceData.length === 0 ? (
             <div className="text-sm text-[#AAA] dark:text-[#5A5450] py-8 text-center">Sin datos</div>
@@ -283,21 +283,21 @@ export default function Estadisticas() {
         </div>
 
         {/* Conversión por canal */}
-        <div className="bg-[#FDFBF7] dark:bg-[#1E1B17] border border-[#E0D9CE] dark:border-[#2A2520] rounded-xl p-5">
+        <div className="bg-[#FDFBF7] dark:bg-[#232019] border border-[#E0D9CE] dark:border-[#2E2923] rounded-xl p-5">
           <SectionTitle>Conversión por canal</SectionTitle>
           {sourceConversion.length === 0 ? (
             <div className="text-sm text-[#AAA] dark:text-[#5A5450] py-8 text-center">Sin datos</div>
           ) : (
             <div>
               {/* Header */}
-              <div className="grid grid-cols-[1fr_auto_auto_auto_auto] gap-3 pb-2 border-b border-[#E0D9CE] dark:border-[#2A2520] mb-1">
+              <div className="grid grid-cols-[1fr_auto_auto_auto_auto] gap-3 pb-2 border-b border-[#E0D9CE] dark:border-[#2E2923] mb-1">
                 {['Canal', 'Leads', 'Conv.', 'Tasa', 'Ingresos'].map(h => (
                   <div key={h} className="text-[10px] font-semibold text-[#AAA] dark:text-[#5A5450] uppercase tracking-wider text-right first:text-left">{h}</div>
                 ))}
               </div>
               {sourceConversion.map(row => (
                 <div key={row.source} className="grid grid-cols-[1fr_auto_auto_auto_auto] gap-3 py-2.5 border-b border-[#F8F8F8] last:border-0 items-center">
-                  <div className="text-sm font-medium text-[#1A1814] dark:text-[#EDE7DC]">{row.source}</div>
+                  <div className="text-sm font-medium text-[#1A1814] dark:text-[#C8C0B4]">{row.source}</div>
                   <div className="text-sm text-[#666] dark:text-[#998E88] text-right">{row.total}</div>
                   <div className="text-sm text-[#666] dark:text-[#998E88] text-right">{row.converted}</div>
                   <div className="text-right">
@@ -309,7 +309,7 @@ export default function Estadisticas() {
                       {row.rate}%
                     </span>
                   </div>
-                  <div className="text-sm text-right font-medium text-[#1A1814] dark:text-[#EDE7DC]">
+                  <div className="text-sm text-right font-medium text-[#1A1814] dark:text-[#C8C0B4]">
                     {row.revenue > 0 ? formatUSD(row.revenue) : <span className="text-[#CCC] dark:text-[#4A4440]">—</span>}
                   </div>
                 </div>
