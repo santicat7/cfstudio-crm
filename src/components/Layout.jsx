@@ -22,7 +22,10 @@ export default function Layout() {
           >
             <Menu size={20} />
           </button>
-          <span className="md:hidden text-sm font-semibold text-body">C<span style={{color:'#C9A96E',fontStyle:'italic'}}>&</span>F Studio</span>
+          <div className="md:hidden flex items-center">
+            <img src="/logo-light.png" alt="C&F Studio" className="h-5 w-auto dark:hidden" />
+            <img src="/logo-dark.png" alt="C&F Studio" className="h-5 w-auto hidden dark:block" />
+          </div>
           <div className="hidden md:flex flex-1 justify-end">
             <GlobalSearch />
           </div>

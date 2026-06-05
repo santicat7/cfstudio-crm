@@ -80,10 +80,8 @@ export default function Sidebar({ open, onClose }) {
         {/* Header */}
         <div className="flex items-center justify-between px-5 py-5 border-b border-white/10">
           <div>
-            <div className="text-base font-semibold text-white leading-tight tracking-wide">
-              C<span style={{ color: '#C9A96E', fontStyle: 'italic' }}>&</span>F Studio
-            </div>
-            <div className="text-xs mt-0.5" style={{ color: '#C9A96E', opacity: 0.8 }}>{userName}</div>
+            <img src="/logo-dark.png" alt="C&F Studio" className="h-6 w-auto" />
+            <div className="text-xs mt-1.5" style={{ color: '#C9A96E', opacity: 0.8 }}>{userName}</div>
           </div>
           <button
             onClick={onClose}

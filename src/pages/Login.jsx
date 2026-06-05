@@ -29,9 +29,8 @@ export default function Login() {
     <div className="min-h-screen bg-page flex items-center justify-center px-4">
       <div className="w-full max-w-sm">
         <div className="mb-10">
-          <div className="text-2xl font-semibold tracking-tight text-body mb-1">
-            C&amp;F Studio
-          </div>
+          <img src="/logo-light.png" alt="C&F Studio" className="h-9 w-auto mb-3 dark:hidden" />
+          <img src="/logo-dark.png" alt="C&F Studio" className="h-9 w-auto mb-3 hidden dark:block" />
           <div className="text-sm text-soft">CRM interno — Paysandú, Uruguay</div>
         </div>
 
