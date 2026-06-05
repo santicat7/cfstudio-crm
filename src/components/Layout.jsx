@@ -15,7 +15,13 @@ export default function Layout() {
       {/* Main content */}
       <div className="md:ml-60 min-h-screen flex flex-col">
         {/* Topbar */}
-        <div className="flex items-center gap-3 px-4 md:px-8 py-3 border-b border-line bg-page">
+        <div
+          className="sticky top-0 z-10 flex items-center gap-3 px-4 md:px-8 border-b border-line bg-page"
+          style={{
+            paddingTop: 'calc(env(safe-area-inset-top) + 0.75rem)',
+            paddingBottom: '0.75rem',
+          }}
+        >
           <button
             onClick={() => setSidebarOpen(true)}
             className="md:hidden p-1.5 text-body/50 hover:text-body transition-colors"

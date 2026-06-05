@@ -78,7 +78,10 @@ export default function Sidebar({ open, onClose }) {
         `}
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-5 py-5 border-b border-white/10">
+        <div
+          className="flex items-center justify-between px-5 pb-5 border-b border-white/10"
+          style={{ paddingTop: 'calc(env(safe-area-inset-top) + 1.25rem)' }}
+        >
           <div>
             <img src="/logo-dark.png" alt="C&F Studio" className="h-6 w-auto" />
             <div className="text-xs mt-1.5" style={{ color: '#C9A96E', opacity: 0.8 }}>{userName}</div>
@@ -117,7 +120,10 @@ export default function Sidebar({ open, onClose }) {
         </nav>
 
         {/* Footer */}
-        <div className="px-5 py-4 border-t border-white/10 space-y-2">
+        <div
+          className="px-5 pt-4 border-t border-white/10 space-y-2"
+          style={{ paddingBottom: 'calc(env(safe-area-inset-bottom) + 1rem)' }}
+        >
           {/* Theme toggle */}
           <button
             onClick={toggle}
